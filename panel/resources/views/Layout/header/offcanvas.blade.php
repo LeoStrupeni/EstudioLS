@@ -1,0 +1,73 @@
+<button type="button" class="btn btn-link rounded-circle p-0 me-3" data-bs-toggle="offcanvas" href="#offcanvasMenu" >
+    <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="false" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+    <div class="offcanvas-header">
+        <img src="{{env('APP_URL')}}/assets/media/Logo.png" alt="Logo" height="60">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="background-color: white !important;opacity: 1;"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div>
+       
+      </div>
+      <ul class="list-unstyled ps-0">
+        <li class="mb-2">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed ms-2" data-bs-toggle="collapse" data-bs-target="#coc-administracion" aria-expanded="false">
+            Administracion
+          </button>
+          <div class="collapse" id="coc-administracion">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li>
+                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
+                href="{{ route('client.index') }}">Clientes</a>
+              </li>
+              <li>
+                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
+                href="{{ route('provider.index') }}">Proveedores</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="mb-2">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed ms-2" data-bs-toggle="collapse" data-bs-target="#coc-configuracion" aria-expanded="false">
+            Configuración
+          </button>
+          <div class="collapse" id="coc-configuracion">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li>
+                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
+                  href="{{ route('users.index') }}">Usuarios</a>
+              </li>
+              <li>
+                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
+                  href="{{ route('roles.index') }}">Roles</a>
+              </li>
+              <li>
+                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
+                  href="{{ route('permission.index') }}">Permisos</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        
+        <li class="border-top my-3"></li>
+        <li class="mb-2">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed ms-2" data-bs-toggle="collapse" data-bs-target="#coc-account" aria-expanded="false">
+                Usuario
+            </button>
+            <div class="collapse" id="coc-account">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4">Perfil</a></li>
+                    <li>
+                        <form action="/logout" method="post" style="display: inline;">
+                            @csrf
+                            <a class="dropdown-item py-3" href="#" onclick="this.closest('form').submit()">Logout</a>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </li>
+      </ul>
+    </div>
+</div>
