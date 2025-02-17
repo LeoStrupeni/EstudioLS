@@ -34,7 +34,9 @@
                     </div>
                     <div class="col">
                         <button type="button" class="btn btn-danger float-end mx-1" onclick="callregister('/permission/table',1,$('#table_limit').val(),$('#table_order').val(),'si')"><i class="fa-solid fa-arrows-rotate"></i></button>
-                        <button type="button" class="btn btn-success float-end mx-1 create"><i class="fa-solid fa-plus"></i></button>
+                        @if (in_array('create',Session::get('user')['permissions']['permissions']))
+                            <button type="button" class="btn btn-success float-end mx-1 create"><i class="fa-solid fa-plus"></i></button>
+                        @endif
                     </div>
                 </div>
                 

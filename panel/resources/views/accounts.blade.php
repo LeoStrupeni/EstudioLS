@@ -30,13 +30,14 @@
             <div class="col-12 col-lg-10 bg-white rounded p-2">
                 <div class="row align-items-center  justify-content-between">
                     <div class="col">
-                        <div class="navbar-brand ps-3 fs-5">Listado de Roles</div>
+                        <div class="navbar-brand ps-3 fs-5">Listado de Cuentas Bancarias</div>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-danger float-end mx-1" onclick="callregister('/roles/table',1,$('#table_limit').val(),$('#table_order').val(),'si')"><i class="fa-solid fa-arrows-rotate"></i></button>
-                        @if (in_array('create',Session::get('user')['permissions']['roles']))
+                        <button type="button" class="btn btn-danger float-end mx-1" onclick="callregister('/account/table',1,$('#table_limit').val(),$('#table_order').val(),'si')"><i class="fa-solid fa-arrows-rotate"></i></button>
+                        @if (in_array('create',Session::get('user')['permissions']['bank_Accounts']))
                             <button type="button" class="btn btn-success float-end mx-1 create"><i class="fa-solid fa-plus"></i></button>
                         @endif
+
                         
                     </div>
                 </div>
@@ -68,9 +69,14 @@
                     <table class="table table-sm table-hover text-center sortable" id="table">
                         <thead>
                             <tr>
+                                <th class="column_orden" data-name="account_holder">Titular</th>
                                 <th class="column_orden" data-name="name">Nombre</th>
-                                <th class="column_orden" data-name="description">Descripcion</th>
-                                <th class="column_orden" data-name="estatus">Estado</th>
+                                <th class="column_orden" data-name="bank">Banco</th>
+                                <th class="column_orden" data-name="type">Tipo</th>
+                                <th class="column_orden" data-name="type_money">Moneda</th>
+                                <th class="column_orden" data-name="number">Numero Cta.</th>
+                                <th class="column_orden" data-name="cbu">CBU/CVU</th>
+                                <th class="column_orden" data-name="alias">Alias</th>
                                 <th class="sorttable_nosort" style="width:3%;"></th>
                             </tr>
                         </thead>
@@ -79,7 +85,7 @@
                         </tbody>
                         <tbody id="table_roller">
                             <tr>
-                                <td colspan="4">
+                                <td colspan="9">
                                     <div style="display:block;" class="text-center">
                                         <br>
                                         <br>
@@ -94,7 +100,7 @@
 
                         <tbody id="table_error" class="d-none">
                             <tr>
-                                <td colspan="4">
+                                <td colspan="9">
                                     <div style="display:block;" class="text-center">
                                         <br>
                                         <br>
@@ -110,7 +116,7 @@
 
                         <tbody id="table_sindatos" class="d-none">
                             <tr>
-                                <td colspan="4">
+                                <td colspan="9">
                                     <div style="display:block;" class="text-center">
                                         <br>
                                         <br>
@@ -142,17 +148,14 @@
     </div>
     
     {{-- @include('home.foot') --}}
-    @include('rol.create')
-    @include('rol.edit')
-    @include('rol.show')
-    @include('rol.destroy')
-    @include('rol.users')
-    @include('rol.permisos')
+    @include('account.create')
+    @include('account.edit')
+    @include('account.show')
+    @include('account.destroy')
 @endsection
 
 @section('script_by_page')
-    <script> const routepermisos = "{{ route('updaterolpermission') }}";</script>
-    <script src="{{env('APP_URL')}}/assets/js/local/rol.js"></script>
+    <script src="{{env('APP_URL')}}/assets/js/local/account.js"></script>
 @endsection
 
 

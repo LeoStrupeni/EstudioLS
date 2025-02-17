@@ -15,7 +15,12 @@ class PermissionController extends Controller
     public function index()
     {
         if(Auth::check()){
-            return view("permission");
+            if((Session::get('user')['roles'][0] == 'sistema' || Session::get('user')['roles'][0] == 'admin')){
+                return view("permission");
+            } else {
+                return redirect()->route('home');
+            }
+            
         }
         return redirect()->route('login');
     }
@@ -23,7 +28,7 @@ class PermissionController extends Controller
     public function getDataTable(Request $request)
     {        
         $roluser = Session::get('user')['roles'][0];
-        $permissions = Session::get('user')['permissions']['roles'];
+        $permissions = Session::get('user')['permissions']['permissions'];
 
         $order = $request->order;
         $page = $request->page ?? 1;
