@@ -43,10 +43,12 @@
                 <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
                   href="{{ route('roles.index') }}">Roles</a>
               </li>
-              <li>
-                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
-                  href="{{ route('permission.index') }}">Permisos</a>
-              </li>
+              @if (Session::get('user')['roles'][0] == 'sistema' || Session::get('user')['roles'][0] == 'admin')
+                <li>
+                  <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
+                    href="{{ route('permission.index') }}">Permisos</a>
+                </li>
+              @endif
             </ul>
           </div>
         </li>

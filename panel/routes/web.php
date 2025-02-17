@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MoneyMovementController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProviderController;
@@ -15,7 +17,10 @@ Route::get('test', function () {
 	dd( base_path(). '/../public/storage/',env('APP_URL'),storage_path('app'));
 });
 
-Route::view('/','home')->name('home');
+Route::view('/public','home')->name('home');
+
+Route::get('/', [HomeController::class,'index']);
+
 Route::view('/login','Auth.login')->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class,'login']);
 Route::post('/logout', [LoginController::class,'logout']);
@@ -48,4 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/provider/table', [ProviderController::class,'getDataTable']);
 
     Route::resource('/movement',MoneyMovementController::class);
+
+    Route::resource('/account',BankAccountController::class);
+    Route::post('/account/table', [BankAccountController::class,'getDataTable']);
 });

@@ -19,6 +19,7 @@
                         <ul class="dropdown-menu dropdown-menu-dark rounded-0 p-0">
                             <li><a class="dropdown-item py-3" href="{{ route('client.index') }}">Clientes</a></li>
                             <li><a class="dropdown-item py-3" href="{{ route('provider.index') }}">Proveedores</a></li>
+                            <li><a class="dropdown-item py-3" href="{{ route('account.index') }}">Cuentas</a></li>
                         </ul>
                     </li>
 
@@ -29,7 +30,9 @@
                         <ul class="dropdown-menu dropdown-menu-dark rounded-0 p-0">
                             <li><a class="dropdown-item py-3" href="{{ route('users.index') }}">Usuarios</a></li>
                             <li><a class="dropdown-item py-3" href="{{ route('roles.index') }}">Roles</a></li>
-                            <li><a class="dropdown-item py-3" href="{{ route('permission.index') }}">Permisos</a></li>
+                            @if (Session::get('user')['roles'][0] == 'sistema' || Session::get('user')['roles'][0] == 'admin')
+                                <li><a class="dropdown-item py-3" href="{{ route('permission.index') }}">Permisos</a></li>   
+                            @endif
                         </ul>
                     </li>
  

@@ -23,7 +23,7 @@ class ClientController extends Controller
     public function getDataTable(Request $request)
     {        
         $roluser = Session::get('user')['roles'][0];
-        $permissions = Session::get('user')['permissions']['roles'];
+        $permissions = Session::get('user')['permissions']['clients'];
 
         $order = $request->order;
         $page = $request->page ?? 1;
