@@ -14,8 +14,16 @@ class ClientController extends Controller
     public function index()
     {
         if(Auth::check()){
+            $val = $this->getloginrol();
+            if ($val == false){
+                return redirect()->route('logout');     
+            }
             $countries = DB::table('countries')->select('country')->get();
             return view("clients", compact("countries"));
+        }
+
+        if(Auth::check()){
+            
         }
         return redirect()->route('login');
     }

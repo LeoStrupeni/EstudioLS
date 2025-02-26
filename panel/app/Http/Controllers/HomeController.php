@@ -9,8 +9,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-
         if(Auth::check()){
+            $val = $this->getloginrol();
+            if ($val == false){
+                return redirect()->route('logout');     
+            }
             return view("home");
         }
         return redirect()->route('login');

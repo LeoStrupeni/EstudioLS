@@ -220,7 +220,7 @@ function tableregister(data, page, callpaginas, url_query){
 
     $.each(data.datos, function (key, val) {
         imagen = val.imagen;
-        if(imagen == ''){imagen = app_url+"/assets/media/avatar.jpg"}
+        if(imagen == '' || imagen == null){imagen = app_url+"/assets/media/avatar.jpg"}
         body += `<tr id="${val.id}">
             <td class="align-middle"><img class="profile-pic-table" src="${imagen}"/></td>
             <td class="align-middle">${val.name}</td>

@@ -14,6 +14,10 @@ class BankAccountController extends Controller
     public function index()
     {
         if(Auth::check()){
+            $val = $this->getloginrol();
+            if ($val == false){
+                return redirect()->route('logout');     
+            }
             return view("accounts");
         }
         return redirect()->route('login');

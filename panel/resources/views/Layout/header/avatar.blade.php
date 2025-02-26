@@ -8,7 +8,7 @@
             <a class="dropdown-item py-3" href="#">Perfil</a>
         </li>
         <li>
-            <form action="/logout" method="post" style="display: inline;">
+            <form action="/logout" method="get" style="display: inline;">
                 @csrf
                 <a class="dropdown-item py-3" href="#" onclick="this.closest('form').submit()">Logout</a>
             </form>

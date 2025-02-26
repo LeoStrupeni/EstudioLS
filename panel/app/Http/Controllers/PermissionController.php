@@ -15,12 +15,15 @@ class PermissionController extends Controller
     public function index()
     {
         if(Auth::check()){
+            $val = $this->getloginrol();
+            if ($val == false){
+                return redirect()->route('logout');     
+            }
             if((Session::get('user')['roles'][0] == 'sistema' || Session::get('user')['roles'][0] == 'admin')){
                 return view("permission");
             } else {
                 return redirect()->route('home');
             }
-            
         }
         return redirect()->route('login');
     }
