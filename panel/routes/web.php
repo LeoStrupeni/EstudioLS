@@ -13,9 +13,9 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('test', function () {
-	dd( base_path(). '/../public/storage/',env('APP_URL'),storage_path('app'));
-});
+// Route::get('test', function () {
+// 	dd( base_path(). '/../public/storage/',env('APP_URL'),storage_path('app'));
+// });
 
 Route::view('/public','home')->name('home');
 
@@ -31,11 +31,11 @@ Route::post('/password/email', [ForgotPasswordController::class,'sendResetLinkEm
 Route::get('/password/reset/{token}',[ForgotPasswordController::class,'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [ForgotPasswordController::class,'reset'])->name('password.update');
 
-Route::view('/home','home')->middleware('auth');
-
 Route::resource('/contact',ContactController::class);
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::redirect('/home', '/');
+    
     Route::resource('/users',UserController::class);
     Route::post('/users/table', [UserController::class,'getDataTable']);
     Route::resource('/roles',RolController::class);
@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/provider/table', [ProviderController::class,'getDataTable']);
 
     Route::resource('/movement',MoneyMovementController::class);
+    Route::post('/movement/table', [MoneyMovementController::class,'getDataTable']);
 
     Route::resource('/account',BankAccountController::class);
     Route::post('/account/table', [BankAccountController::class,'getDataTable']);

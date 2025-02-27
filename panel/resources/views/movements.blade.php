@@ -1,23 +1,24 @@
 
 <div class="container-fluid">
-    <div class="row justify-content-center mt-4">
-        <div class="col-4">
-            <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">Well done!</h4>
-                <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-                <hr>
-                <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+    @if (Session::get('user')['roles'][0] == 'admin' || Session::get('user')['roles'][0] == 'sistema' )
+        <div class="row justify-content-center mt-4">
+            <div class="col-4">
+                <div class="alert alert-success" role="alert">
+                    <h5 class="text-center alert-heading">Saldo $</h5>
+                    <hr>
+                    <h3 class="text-center">$ 0.00</h3>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="alert alert-success" role="alert">
+                    <h5 class="text-center alert-heading">Saldo U$S</h5>
+                    <hr>
+                    <h3 class="text-center">U$S 0.00</h3>
+                </div>
             </div>
         </div>
-        <div class="col-4">
-            <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">Well done!</h4>
-                <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-                <hr>
-                <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-            </div>
-        </div>
-    </div>
+    @endif
+    
     <div class="row justify-content-center">
         <div class="col-11 bg-white rounded p-2">
             <div class="row align-items-center  justify-content-between">
@@ -25,20 +26,25 @@
                     <div class="navbar-brand ps-3 fs-5">Cuenta General</div>
                 </div>
                 <div class="col">
-                    <button type="button" class="btn btn-danger float-end mx-1" onclick="callregister('/moves/table',1,$('#table_limit').val(),$('#table_order').val(),'si')"><i class="fa-solid fa-arrows-rotate"></i></button>
+                    <button type="button" class="btn btn-danger float-end mx-1" onclick="callregister('/movement/table',1,$('#table_limit').val(),$('#table_order').val(),'si')"><i class="fa-solid fa-arrows-rotate"></i></button>
                     @if (in_array('create',Session::get('user')['permissions']['moves']))
                         <button type="button" class="btn btn-success float-end mx-1 create"><i class="fa-solid fa-plus"></i></button>
                     @endif
+
+                    <button class="btn btn-primary float-end mx-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltersMovs" aria-controls="offcanvasFiltersMovs">
+                        <i class="fa-solid fa-filter"></i>
+                    </button>                    
                 </div>
             </div>
-
-            
             
             <hr class="m-1" style="color: red;">
 
             @include('Layout.errors')
 
             <div class="row my-3 align-items-center justify-content-between">
+                <div class="col-12" id="filtrosaplicados">
+
+                </div>
                 <div class="col-3 col-xl-1">
                     <select class="form-select" id="table_limit">
                         <option value="10">10</option>

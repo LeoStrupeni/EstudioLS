@@ -26,13 +26,21 @@
 
   @section('Content')
     @include('movements')
+
+    @include('movement.create')
+    @include('movement.edit')
+    @include('movement.show')
+    @include('movement.destroy')
+    @include('movement.offcanvasfilters')
+
   @endsection
 
   @section('script_by_page')
-    
+      <script src="{{env('APP_URL')}}/assets/js/local/movement.js"></script>
   @endsection
+
   
-@else 
+@else
   @include('home.public.style')
   @include('home.public.content')
   @include('home.public.script')

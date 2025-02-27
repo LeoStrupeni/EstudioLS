@@ -1,13 +1,13 @@
 <script src="{{env('APP_URL')}}/assets/js/jquery/dist/jquery.js"></script>
 <script src="{{env('APP_URL')}}/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+<script src="{{env('APP_URL')}}/assets/plugins/moment/min/moment.min.js"></script>
 <script src="{{env('APP_URL')}}/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="{{env('APP_URL')}}/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script src="{{env('APP_URL')}}/assets/plugins/sweetalert2/dist/sweetalert2.min.js"></script>
 <script src="{{env('APP_URL')}}/assets/plugins/toastr/build/toastr.min.js"></script>
 
 <script src="{{env('APP_URL')}}/assets/icons/fontawesome-free-6.7.0-web/js/all.min.js"></script>
-<script src="{{env('APP_URL')}}/assets/plugins/select2/dist/js/select2.full.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script src="{{env('APP_URL')}}/assets/js/tableAjaxLocal.js"></script>
 <script src="{{env('APP_URL')}}/assets/plugins/sorttable/sorttable.js"></script>
@@ -54,6 +54,8 @@
 		}
 	}
     function mostrarOverlay() { $('body').append('<div id="_ovrly" class="loading-spinner">Loading&#8230;</div>'); }
+
+    
 </script>
 
 <script>
