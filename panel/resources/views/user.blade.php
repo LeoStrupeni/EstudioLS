@@ -1,29 +1,8 @@
 @extends('Layout')
 
 @section('link_by_page')
-
-<link href="{{env('APP_URL')}}/assets/css/avatar.css" rel="stylesheet" type="text/css" />
-
 @endsection
 @section('style_by_page')
-<style>
-    .my-dropdown-toggle::after {
-        content: none;
-    }
-
-    .active>.page-link, .page-link.active {
-        background-color: var(--bs-green)!important;
-        border-color: var(--bs-white)!important;
-    }
-
-    .page-link {
-        background-color: var(--bs-teal)!important;
-        border: var(--bs-pagination-border-width) solid var(--bs-white)!important;
-        color: var(--bs-white)!important;
-    }
-
-</style>
-
 @endsection
 
 @section('Content')

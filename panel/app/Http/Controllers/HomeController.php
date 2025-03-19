@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank_Account;
+use App\Models\Money_Movement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +22,10 @@ class HomeController extends Controller
             $fecha2 = date('d/m/Y');
             $fechaRango = $fecha1 . ' - ' . $fecha2;
             
-            return view("home", compact("fechaRango"));
+            // $movs = Money_Movement::all();
+            $bank_accounts = Bank_Account::all();
+
+            return view("home", compact("fechaRango","bank_accounts"));
         }
         return redirect()->route('login');
 

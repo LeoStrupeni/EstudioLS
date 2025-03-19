@@ -1,3 +1,6 @@
+var controladorTiempo = 3000;
+var varsearch = '';
+const formatter = new Intl.NumberFormat('es-AR', {minimumFractionDigits: 2,maximumFractionDigits: 2});
 
 $(document).ready(function() {
     $( '#type_document, #type_payment, #type_money, #type' ).select2( {
@@ -6,9 +9,11 @@ $(document).ready(function() {
         placeholder: $( this ).data( 'placeholder' ),
         closeOnSelect: false,
     } );
-    $( '#type_document, #type_payment, #type_money, #type' ).change(function(){get_filters_applied()});
+    $( '#type_document, #type_payment, #type_money, #type' ).change(function(){
+        get_filters_applied(); 
+        callregister('/movement/table',1,$('#table_limit').val(),$('#table_order').val(),'si');
+    });
     
-
     $('#fecha').daterangepicker({
         buttonClasses: ' btn',
         applyClass: 'btn-primary',
@@ -20,6 +25,8 @@ $(document).ready(function() {
         "Octubre","Noviembre","Diciembre"],"firstDay": 1
         }
     });
+
+    $('#fechaC').datepicker("setDate", new Date());
 
     $('#fecha').on('apply.daterangepicker', function(ev, picker) {
         $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
@@ -96,19 +103,19 @@ $(document).ready(function() {
     $('body').on('click','.create',function(){ 
         $('#name').val('');
         $('#description').val('');
-        $('#createclient').modal('show')}
-    );
+        $('#createmovement').modal('show');
+    });
     $('body').on('click','.update',function(){ 
-        $('#formeditclient').attr('action',app_url+"/movement/"+$(this).data('id'));
+        $('#formeditmovement').attr('action',app_url+"/movement/"+$(this).data('id'));
 
-        form = document.getElementById("formeditclient");
+        form = document.getElementById("formeditmovement");
         $( form.elements ).each(function( index ) {
             if($(this).attr('name') != '_method' && $(this).attr('name') != '_token'){
                 $(this).val('');
             } 
         });
 
-        $('#editclient').modal('show');
+        $('#editmovement').modal('show');
 
         $('#modal-body-edit-movement-roller').removeClass('d-none');
         $('#modal-body-edit-movement-error').addClass('d-none');
@@ -136,11 +143,11 @@ $(document).ready(function() {
         });
     });
     $('body').on('click','.read',function(){ 
-        form = document.getElementById("formshowclient");
+        form = document.getElementById("formshowmovement");
         $( form.elements ).each(function( index ) {
             $(this).val('');
         });
-        $('#showclient').modal('show');
+        $('#showmovement').modal('show');
 
         $('#modal-body-show-movement-roller').removeClass('d-none');
         $('#modal-body-show-movement-error').addClass('d-none');
@@ -193,9 +200,112 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('body').on('change',"#type_origin_c",function () {
+
+        $('#client_c').addClass('d-none');
+        $('#provider_c').addClass('d-none');
+        $('#user_c').addClass('d-none');
+
+        $('#client_id_c').empty();
+        $('#provider_id_c').empty();
+        $('#user_id_c').empty();
+        url_query = '';
+        add_data=""
+
+        if($(this).val() == 'client'){
+            $('#client_c').removeClass('d-none');
+            url_query = `/${$(this).val()}/table`;
+            add_data='#client_id_c';
+        }else if($(this).val() == 'provider'){
+            $('#provider_c').removeClass('d-none');
+            url_query = `/${$(this).val()}/table`;
+            add_data='#provider_id_c';
+        }else if($(this).val() == 'user'){
+            $('#user_c').removeClass('d-none');
+            url_query = `/${$(this).val()}s/table`;
+            add_data='#user_id_c';
+        }
+
+        if(url_query != ''){
+            getdataselect(url_query,add_data, null);
+        }
+
+    });
+    function getdataselect(url_query,add_data, var_search){
+        $('.spinner-data').removeClass('d-none');
+        $.ajax({contenttype : 'application/json; charset=utf-8',
+            data: {
+                page	    : 1,
+                limit 	    : 20,
+                order 	    : null,
+                search      : var_search
+            },
+            url : $('meta[name="app_url"]').attr('content')+url_query,
+            type : 'POST',
+            success : function(data) {
+                selects="";
+                $.each(data.datos, function (key, val) {
+                    if(add_data == '#user_id_c'){
+                        selects+=`<option value="${val.id}">${val.name}</option>`;
+                    }else{
+                        selects+=`<option value="${val.id}">${val.first_name} ${val.last_names}</option>`;
+                    }
+                });
+                $(add_data).append(selects);
+            }
+        }).always(function() {
+            $('.spinner-data').addClass('d-none');
+
+            $( add_data ).select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: 'Seleccione una opcion',
+                dropdownParent: $('#createmovement'),
+                language: 'es'
+            } );
+            $(add_data).select2('open');
+        });
+    }
+    $('body').on('keyup','.select2-search__field',function(){
+        varsearch=this.value;
+        clearInterval(controladorTiempo);
+        controladorTiempo = setInterval(function () {
+            url_query = '';
+            add_data=""
+            if($("#type_origin_c").val() == 'client'){
+                $('#client_id_c').empty();
+    
+                $('#client_c').removeClass('d-none');
+                url_query = `/${$("#type_origin_c").val()}/table`;
+                add_data='#client_id_c';
+            }else if($("#type_origin_c").val() == 'provider'){
+                $('#provider_id_c').empty();
+    
+                $('#provider_c').removeClass('d-none');
+                url_query = `/${$("#type_origin_c").val()}/table`;
+                add_data='#provider_id_c';
+            }else if($("#type_origin_c").val() == 'user'){
+                $('#user_id_c').empty();
+    
+                $('#user_c').removeClass('d-none');
+                url_query = `/${$("#type_origin_c").val()}s/table`;
+                add_data='#user_id_c';
+            }
+            
+            if(url_query != ''){
+                getdataselect(url_query,add_data, varsearch);
+            }
+            
+            clearInterval(controladorTiempo); //Limpio el intervalo
+        
+        }, 400);
+        
+
+    });
     $('body').on('click',"#btn-create-movement",function () {
         var error = 0
-        form = document.getElementById("formnewclient");
+        form = document.getElementById("formnewmovement");
 
         $( form.getElementsByClassName('validate') ).each(function( index ) {
             if($( this ).val() == ''){
@@ -209,14 +319,14 @@ $(document).ready(function() {
         if (error > 0) {
             toastr["error"]("Debe completar los datos correctamente.")
         } else {
-            document.getElementById("formnewclient").submit();
+            document.getElementById("formnewmovement").submit();
         }
     });
     $('body').on('click',"#btn-update-movement",function () {
         var error = 0
 
         var error = 0
-        form = document.getElementById("formeditclient");
+        form = document.getElementById("formeditmovement");
 
         $( form.getElementsByClassName('validate') ).each(function( index ) {
             if($( this ).val() == ''){
@@ -227,9 +337,9 @@ $(document).ready(function() {
             }
         });
         if (error > 0) {
-            toastr["error"]("Debe completar los datos correctamente para editar el Cliente.")
+            toastr["error"]("Debe completar los datos correctamente para editar el Movimiento.")
         } else {
-            document.getElementById("formeditclient").submit();
+            document.getElementById("formeditmovement").submit();
         }
     });
     $('body').on('change',"#table_limit",function () {
@@ -270,16 +380,19 @@ $(document).ready(function() {
 
 function tableregister(data, page, callpaginas, url_query){
     body='';
-    const formatter = new Intl.NumberFormat('en-US', {minimumFractionDigits: 2,maximumFractionDigits: 2,});
-
     $.each(data.datos, function (key, val) {
         body += `<tr id="${val.id}">
-            <td class="align-middle">${val.first_name} ${val.last_names}</td>
-            <td class="align-middle">${val.tipodoc} - ${val.num_doc}</td>
-            <td class="align-middle">${val.email}</td>
-            <td class="align-middle">${val.phone1}</td>
-            <td class="align-middle">${val.state}</td>
-            <td class="align-middle">${val.city}</td>
+            <td class="align-middle">${val.fecha}</td>
+            <td class="align-middle">${val.type}</td>
+            <td class="align-middle">${val.cliente}</td>
+            <td class="align-middle">${val.type_document}</td>
+            <td class="align-middle">${val.type_payment}</td>
+            <td class="align-middle">${val.payment_detail ?? ''}</td>
+            <td class="align-middle">${val.concepto ?? ''}</td>
+            <td class="align-middle">${val.description ?? ''}</td>
+            <td class="align-middle">${val.type_money}</td>
+            <td class="align-middle">${formatter.format(val.deposit)}</td>
+            <td class="align-middle">${formatter.format(val.expense)}</td>
             <td class="align-middle">
                 <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle-menu-body text-success" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -329,5 +442,25 @@ function tableregister(data, page, callpaginas, url_query){
             }
         })
     });
+}
+
+function getlistbankaccounts(value){
+    form = document.getElementById("formnewmovement");
+    typemoney = form.querySelectorAll('[name="type_money"]')[0].value;
+    $('[name="bank_account"]').val('');
+    $( form.querySelectorAll('[name="bank_account"]')[0].children ).each(function( index ) {
+        if (index > 0) {
+            if($(this).data('type') != typemoney) {$(this).addClass('d-none')}
+            else{$(this).removeClass('d-none')}
+        }
+    });
+
+}
+
+function labelbankaccounts(value){
+    text='Cuenta';
+    if (value=="ingreso") { text='Cuenta destino'; }
+    else if (value=="egreso") { text='Cuenta origen';}
+    $($('[name="bank_account"]').parent().children()[0]).text(text);
 }
 

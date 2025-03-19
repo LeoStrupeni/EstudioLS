@@ -27,9 +27,11 @@
     <link href="{{env('APP_URL')}}/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" type="text/css" />
     <link href="{{env('APP_URL')}}/assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
     
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="{{env('APP_URL')}}/assets/plugins/select2-4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
     <link href="{{env('APP_URL')}}/assets/plugins/select2-bootstrap-5-theme-1.3.0/select2-bootstrap-5-theme.min.css" rel="stylesheet"/>
-    <link href="{{env('APP_URL')}}/assets/plugins/select2-bootstrap-5-theme-1.3.0/select2-bootstrap-5-theme.rtl.min.css" rel="stylesheet"/>
+    <link href="{{env('APP_URL')}}/assets/plugins/select2-bootstrap-5-theme-1.3.0/select2-bootstrap-5-theme.rtl.min.css" rel="stylesheet"/>    
+
+    <link href="{{env('APP_URL')}}/assets/css/avatar.css" rel="stylesheet" type="text/css" />
 
     <!--begin::Fonts -->
     <style>
@@ -588,5 +590,22 @@
             border-color: var(--bs-table-border-color);
             background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
         } */
+    </style>
+    <style>
+        .my-dropdown-toggle::after {
+            content: none;
+        }
+    
+        .active>.page-link, .page-link.active {
+            background-color: var(--bs-green)!important;
+            border-color: var(--bs-white)!important;
+        }
+    
+        .page-link {
+            background-color: var(--bs-teal)!important;
+            border: var(--bs-pagination-border-width) solid var(--bs-white)!important;
+            color: var(--bs-white)!important;
+        }
+    
     </style>
 </head>

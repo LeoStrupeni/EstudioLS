@@ -19,4 +19,15 @@ class Controller extends BaseController
             return false;
         }
     }
+
+    public function listsaldos()
+    {
+        $val = $this->getloginrol();
+        if ($val == false){
+            return redirect()->route('logout');     
+        }
+        $fechaRango='';
+        return view("settings.balances", compact("fechaRango"));
+
+    }
 }

@@ -5,11 +5,13 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MoneyMovementController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\TypesDocMovementsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +37,8 @@ Route::resource('/contact',ContactController::class);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/home', '/');
+
+    Route::get('/settings/balances', [Controller::class, 'listsaldos'])->name('settings.balances');
     
     Route::resource('/users',UserController::class);
     Route::post('/users/table', [UserController::class,'getDataTable']);
@@ -57,4 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/account',BankAccountController::class);
     Route::post('/account/table', [BankAccountController::class,'getDataTable']);
+
+    Route::resource('/typesdocmov',TypesDocMovementsController::class);
+    Route::post('/typesdocmov/table', [TypesDocMovementsController::class,'getDataTable']);
+
 });

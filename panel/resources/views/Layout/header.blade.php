@@ -20,7 +20,9 @@
                             <li><a class="dropdown-item py-3" href="{{ url('/') }}">Home</a></li>
                             <li><a class="dropdown-item py-3" href="{{ route('client.index') }}">Clientes</a></li>
                             <li><a class="dropdown-item py-3" href="{{ route('provider.index') }}">Proveedores</a></li>
+                            <li><a class="dropdown-item py-3" href="{{ route('typesdocmov.index') }}">Tipos de Movimientos</a></li>
                             <li><a class="dropdown-item py-3" href="{{ route('account.index') }}">Cuentas</a></li>
+                            
                         </ul>
                     </li>
 
@@ -33,6 +35,7 @@
                             <li><a class="dropdown-item py-3" href="{{ route('roles.index') }}">Roles</a></li>
                             @if (Session::get('user')['roles'][0] == 'sistema' || Session::get('user')['roles'][0] == 'admin')
                                 <li><a class="dropdown-item py-3" href="{{ route('permission.index') }}">Permisos</a></li>   
+                                <li><a class="dropdown-item py-3" href="{{ route('settings.balances') }}">Saldos Iniciales</a></li>   
                             @endif
                         </ul>
                     </li>

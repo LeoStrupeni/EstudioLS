@@ -34,6 +34,10 @@
               </li>
               <li>
                 <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
+                href="{{ route('typesdocmov.index') }}">Tipos de Movimientos</a>
+              </li>
+              <li>
+                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
                 href="{{ route('account.index') }}">Cuentas</a>
               </li>
             </ul>
@@ -57,6 +61,10 @@
                 <li>
                   <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
                     href="{{ route('permission.index') }}">Permisos</a>
+                </li>
+                <li>
+                  <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
+                    href="{{ route('settings.balances') }}">Saldos Iniciales</a>
                 </li>
               @endif
             </ul>

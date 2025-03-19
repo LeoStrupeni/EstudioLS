@@ -7,7 +7,8 @@
 <script src="{{env('APP_URL')}}/assets/plugins/toastr/build/toastr.min.js"></script>
 
 <script src="{{env('APP_URL')}}/assets/icons/fontawesome-free-6.7.0-web/js/all.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{{env('APP_URL')}}/assets/plugins/select2-4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{{env('APP_URL')}}/assets/plugins/select2-4.1.0-rc.0/dist/js/i18n/es.js"></script>
 
 <script src="{{env('APP_URL')}}/assets/js/tableAjaxLocal.js"></script>
 <script src="{{env('APP_URL')}}/assets/plugins/sorttable/sorttable.js"></script>

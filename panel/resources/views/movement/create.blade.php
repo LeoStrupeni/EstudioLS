@@ -1,4 +1,4 @@
-<div class="modal fade" id="createmovement" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true" >
+<div class="modal fade" id="createmovement" aria-hidden="true" >
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,98 +6,144 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST" id="formnewmovement">
+                <form action="/movement" method="POST" id="formnewmovement">
                     @csrf
-                    <div class="mb-2">
-                        <label for="first_name" class="form-label mb-0 ps-3 fw-bold">Nombre</label>
-                        <input type="text" class="form-control validate" name="first_name" id="first_name" placeholder="" required value="{{ old('first_name') }}">
-                    </div>
-                    <div class="mb-2">
-                        <label for="last_names" class="form-label mb-0 ps-3 fw-bold">Apellido</label>
-                        <input type="text" class="form-control validate" name="last_names" id="last_names" placeholder="" required value="{{ old('last_names') }}">
-                    </div>
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
-                                <label for="type_doc" class="form-label mb-0 ps-3 fw-bold">Tipo Doc</label>
-                                <select class="form-control validate" name="type_doc" style="width: 100%" required>
-                                    <option value="1" selected>Dni</option>
-                                    <option value="2">Cuil</option>
-                                    <option value="3">Cuit</option>
+                                <label for="type" class="form-label mb-0 ps-3 fw-bold">Tipo Movimiento</label>
+                                <select class="form-control validate" name="type" style="width: 100%" required onchange="labelbankaccounts(this.value);">
+                                    <option></option>
+                                    <option value="ingreso">Ingreso</option>
+                                    <option value="egreso">Egreso</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
-                                <label for="num_doc" class="form-label mb-0 ps-3 fw-bold">Num Doc</label>
-                                <input type="text" class="form-control validate" name="num_doc" id="num_doc" placeholder="" required value="{{ old('num_doc') }}">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-2">
-                        <label for="email" class="form-label mb-0 ps-3 fw-bold">E-mail</label>
-                        <input type="text" class="form-control" name="email" id="email" placeholder="" value="{{ old('email') }}">
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-lg-6">
-                            <div class="mb-2">
-                                <label for="phone1" class="form-label mb-0 ps-3 fw-bold">Teléfono 1</label>
-                                <input type="text" class="form-control validate" name="phone1" id="phone1" placeholder="" value="{{ old('phone1') }}">
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <div class="mb-2">
-                                <label for="phone2" class="form-label mb-0 ps-3 fw-bold">Teléfono 2</label>
-                                <input type="text" class="form-control" name="phone2" id="phone2" placeholder="" value="{{ old('phone2') }}">
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <div class="mb-2">
-                                <label for="country" class="form-label mb-0 ps-3 fw-bold">País</label>
-                                <select class="form-control" name="country" style="width: 100%">
-                                    @isset($countries)
-                                        @foreach ($countries as $c)
-                                            <option value="{{$c->country}}"@if ($c->country == 'Argentina') selected @endif>{{$c->country}}</option>
-                                        @endforeach   
-                                    @endisset
+                                <label for="type_document" class="form-label mb-0 ps-3 fw-bold">Documento</label>
+                                <select class="form-control validate" name="type_document" style="width: 100%" required>
+                                    <option></option>
+                                    <option value="compra" data-type="egreso">Compra</option>
+                                    <option value="anticipo" data-type="ingreso">Anticipo</option>
+                                    <option value="factura" data-type="ingreso">Factura</option>
+                                    <option value="notaderemision" data-type="ingreso">Nota</option>
+                                    <option value="nomina" data-type="egreso">Sueldo</option>
+                                    <option value="prestamo" data-type="egreso">Prestamo</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
-                                <label for="state" class="form-label mb-0 ps-3 fw-bold">Provincia</label>
-                                <input type="text" class="form-control" name="state" id="state" placeholder="" value="{{ old('state') }}">
+                                <label for="type_payment" class="form-label mb-0 ps-3 fw-bold">Método</label>
+                                <select class="form-control validate" name="type_payment" style="width: 100%" required>
+                                    <option></option>
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="transferencia">Transferencia</option>
+                                    <option value="credito">Crédito</option>
+                                    <option value="mercadopago">Mercado Pago</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
-                                <label for="city" class="form-label mb-0 ps-3 fw-bold">Ciudad</label>
-                                <input type="text" class="form-control" name="city" id="city" placeholder="" value="{{ old('city') }}">
+                                <label for="type_money" class="form-label mb-0 ps-3 fw-bold">Moneda</label>
+                                <select class="form-control validate" name="type_money" style="width: 100%" required onchange="getlistbankaccounts(this.value);">
+                                    <option></option>
+                                    <option value="peso">Pesos ($)</option>
+                                    <option value="dolar">Dolar (U$S)</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
-                                <label for="address_street" class="form-label mb-0 ps-3 fw-bold">Calle</label>
-                                <input type="text" class="form-control" name="address_street" id="address_street" placeholder="" value="{{ old('address_street') }}">
+                                <label for="fecha" class="form-label mb-0 ps-3 fw-bold">Fecha</label>
+                                <input type="text" class="form-control validate" name="fecha" id="fechaC" required>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
-                                <label for="address_nro" class="form-label mb-0 ps-3 fw-bold">Nro</label>
-                                <input type="text" class="form-control" name="address_nro" id="address_nro" placeholder="" value="{{ old('address_nro') }}">
+                                <label for="type_origin" class="form-label mb-0 ps-3 fw-bold">Tipo Cliente</label>
+                                <select class="form-control validate" name="type_origin" id="type_origin_c" style="width: 100%" required>
+                                    <option></option>
+                                    <option value="client">Cliente</option>
+                                    <option value="provider">Proveedor</option>
+                                    <option value="user">Usuario</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6">
+                        <div class="col-12 d-none" id="client_c">
                             <div class="mb-2">
-                                <label for="address_apartament" class="form-label mb-0 ps-3 fw-bold">Piso / Dpto</label>
-                                <input type="text" class="form-control" name="address_apartament" id="address_apartament" placeholder="" value="{{ old('address_apartament') }}">
+                                <label for="client_id" class="form-label mb-0 ps-3 fw-bold">
+                                    Cliente
+                                    <span class="d-none spinner-data">
+                                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                    </span>
+                                </label>
+                                <select class="form-control validate" name="client_id" id="client_id_c" style="width: 100%" required>
+                                </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="mb-2">
-                        <label for="address_detail" class="form-label mb-0 ps-3 fw-bold">Descripcion</label>
-                        <input type="text" class="form-control" name="address_detail" id="address_detail" value="{{ old('address_detail') }}">
+                        <div class="col-12 d-none" id="provider_c">
+                            <div class="mb-2">
+                                <label for="provider_id" class="form-label mb-0 ps-3 fw-bold">
+                                    Proveedor
+                                    <span class="d-none spinner-data">
+                                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                    </span>
+                                </label>
+                                <select class="form-control validate" name="provider_id" id="provider_id_c" style="width: 100%" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 d-none" id="user_c">
+                            <div class="mb-2">
+                                <label for="user_id" class="form-label mb-0 ps-3 fw-bold">
+                                    Usuario
+                                    <span class="d-none spinner-data">
+                                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                    </span>
+                                </label>
+                                <select class="form-control validate" name="user_id" id="user_id_c" style="width: 100%" required>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-2">
+                                <label for="payment_detail" class="form-label mb-0 ps-3 fw-bold">Detalle de pago</label>
+                                <textarea class="form-control" name="payment_detail" rows="1"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-2">
+                                <label for="concepto" class="form-label mb-0 ps-3 fw-bold">Concepto de Pago</label>
+                                <input type="text" class="form-control validate" name="concepto" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-2">
+                                <label for="description" class="form-label mb-0 ps-3 fw-bold">Observaciones</label>
+                                <textarea class="form-control" name="description" rows="1"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2">
+                                <label for="money" class="form-label mb-0 ps-3 fw-bold">Monto</label>
+                                <input type="number" class="form-control validate" name="money" required>  
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2">
+                                <label for="bank_account" class="form-label mb-0 ps-3 fw-bold" id="labelcta">Cuenta</label>
+                                <select class="form-control validate" name="bank_account" id="bank_account" style="width: 100%" required>
+                                    <option></option>
+                                    @foreach ($bank_accounts as $a)
+                                        <option data-type="{{$a->type_money}}" value="{{$a->id}}">{{$a->name.' ('.$a->bank.') '.($a->type_money == 'peso' ? '($)' : '(U$S)')}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

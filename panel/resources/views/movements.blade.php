@@ -67,8 +67,15 @@
                 <table class="table table-sm table-hover text-center sortable" id="table">
                     <thead>
                         <tr>
-                            <th class="column_orden" data-name="general">Nombre</th>
-                            <th class="sorttable_nosort">Permisos</th>
+                            <th class="column_orden" data-name="fecha">Fecha</th>
+                            <th class="column_orden" data-name="type">Tipo</th>
+                            <th class="column_orden" data-name="cliente">Cliente/Proveedor/Usuario</th>
+                            <th class="column_orden" data-name="type_document">Documento</th>
+                            <th class="column_orden" data-name="type_payment">Tipo Pago</th>
+                            <th class="column_orden" data-name="concepto">Concepto</th>
+                            <th class="column_orden" data-name="type_money">Moneda</th>
+                            <th class="column_orden" data-name="deposit">Ingreso</th>
+                            <th class="column_orden" data-name="expense">Egreso</th>
                             <th class="sorttable_nosort" style="width:3%;"></th>
                         </tr>
                     </thead>
@@ -77,7 +84,7 @@
                     </tbody>
                     <tbody id="table_roller">
                         <tr>
-                            <td colspan="3">
+                            <td colspan="10">
                                 <div style="display:block;" class="text-center">
                                     <br>
                                     <br>
@@ -92,7 +99,7 @@
 
                     <tbody id="table_error" class="d-none">
                         <tr>
-                            <td colspan="3">
+                            <td colspan="10">
                                 <div style="display:block;" class="text-center">
                                     <br>
                                     <br>
@@ -108,7 +115,7 @@
 
                     <tbody id="table_sindatos" class="d-none">
                         <tr>
-                            <td colspan="3">
+                            <td colspan="10">
                                 <div style="display:block;" class="text-center">
                                     <br>
                                     <br>
