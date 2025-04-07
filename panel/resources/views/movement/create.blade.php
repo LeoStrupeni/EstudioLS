@@ -24,12 +24,9 @@
                                 <label for="type_document" class="form-label mb-0 ps-3 fw-bold">Documento</label>
                                 <select class="form-control validate" name="type_document" style="width: 100%" required>
                                     <option></option>
-                                    <option value="compra" data-type="egreso">Compra</option>
-                                    <option value="anticipo" data-type="ingreso">Anticipo</option>
-                                    <option value="factura" data-type="ingreso">Factura</option>
-                                    <option value="notaderemision" data-type="ingreso">Nota</option>
-                                    <option value="nomina" data-type="egreso">Sueldo</option>
-                                    <option value="prestamo" data-type="egreso">Prestamo</option>
+                                    @foreach ($types_doc_movement as $mov)
+                                        <option value="{{$mov->id}}" data-type="{{$mov->type}}">{{$mov->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

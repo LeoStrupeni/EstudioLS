@@ -1,26 +1,13 @@
-
-<div class="container-fluid">
-    @if (Session::get('user')['roles'][0] == 'admin' || Session::get('user')['roles'][0] == 'sistema' )
-        <div class="row justify-content-center mt-4">
-            <div class="col-4">
-                <div class="alert alert-success" role="alert">
-                    <h5 class="text-center alert-heading">Saldo $</h5>
-                    <hr>
-                    <h3 class="text-center">$ 0.00</h3>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="alert alert-success" role="alert">
-                    <h5 class="text-center alert-heading">Saldo U$S</h5>
-                    <hr>
-                    <h3 class="text-center">U$S 0.00</h3>
-                </div>
-            </div>
-        </div>
-    @endif
-    
-    <div class="row justify-content-center">
-        <div class="col-11 bg-white rounded p-2">
+@php
+    $varcoltable='col-11';$varcolalerts='d-none';
+    if (Session::get('user')['roles'][0] == 'admin' || Session::get('user')['roles'][0] == 'sistema')
+    {
+        $varcoltable='col-10';$varcolalerts='col-2';
+    }
+@endphp
+<div class="container-fluid">    
+    <div class="row justify-content-center align-items-center mt-3 px-2">
+        <div class="{{$varcoltable}} bg-white rounded p-2">
             <div class="row align-items-center  justify-content-between">
                 <div class="col">
                     <div class="navbar-brand ps-3 fs-5">Cuenta General</div>
@@ -143,5 +130,25 @@
                 </div>
             </div>
         </div>
+
+        <div class="{{$varcolalerts}}">
+            <div class="row">
+                <div class="col-12 pe-0">
+                    <div class="alert alert-success" role="alert">
+                        <h5 class="text-center alert-heading">Saldo $</h5>
+                        <hr>
+                        <h3 class="text-center">$ 0.00</h3>
+                    </div>
+                </div>
+                <div class="col-12 pe-0">
+                    <div class="alert alert-success" role="alert">
+                        <h5 class="text-center alert-heading">Saldo U$S</h5>
+                        <hr>
+                        <h3 class="text-center">U$S 0.00</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

@@ -26,12 +26,9 @@
         <div class="mb-3">
             <label for="type_document" class="form-label">Tipo Doc.</label>
             <select class="form-select" id="type_document" name="type_document" data-placeholder="Todos" multiple>
-                <option value="compra">Compras</option>
-                <option value="anticipo">Anticipos</option>
-                <option value="factura">Facturas</option>
-                <option value="notaderemision">Nota</option>
-                <option value="nomina">Sueldos</option>
-                <option value="prestamo">Prestamo</option>
+                @foreach ($types_doc_movement as $mov)
+                    <option value="{{$mov->id}}" data-type="{{$mov->type}}">{{$mov->name}}</option>
+                @endforeach
             </select>
         </div>
         <div class="mb-3">
