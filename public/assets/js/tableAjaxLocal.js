@@ -7,13 +7,22 @@ function callregister(url_query,page,limit,table_orden,callpaginas){
 
     if(callpaginas=='si'){ $('#table_pagination').empty();}
 
+    filters = {
+        page	    : page,
+        limit 	    : limit,
+        order 	    : table_orden,
+        search      : $('#table_search').val()
+    };
+
+    if(url_query.indexOf("movement") > -1){
+        addfilters = document.getElementById("filtermovements");
+        $( addfilters.querySelectorAll('[name]') ).each(function() { 
+            filters[this.name] = $(this).val();
+        });
+    }
+    
     $.ajax({contenttype : 'application/json; charset=utf-8',
-        data: {
-            page	    : page,
-            limit 	    : limit,
-            order 	    : table_orden,
-            search      : $('#table_search').val()
-        },
+        data: filters,
         url : $('meta[name="app_url"]').attr('content')+url_query,
         type : 'POST',
         done : function(response) { $('#table_error').removeClass('d-none'); },

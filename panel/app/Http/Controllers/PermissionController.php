@@ -9,18 +9,25 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-
 class PermissionController extends Controller
 {
     public function index()
     {
+        // foreach (Permission::all() as $key => $value) {
+        //     $value->traslate = $this->translateText($value->general);
+        //     $value->save();
+        // }
+
         if(Auth::check()){
+            $val = $this->getloginrol();
+            if ($val == false){
+                return redirect()->route('logout');     
+            }
             if((Session::get('user')['roles'][0] == 'sistema' || Session::get('user')['roles'][0] == 'admin')){
                 return view("permission");
             } else {
                 return redirect()->route('home');
             }
-            
         }
         return redirect()->route('login');
     }
@@ -37,16 +44,17 @@ class PermissionController extends Controller
 
         $totales = Permission::count();
 
-        $query = "SELECT P.general, GROUP_CONCAT(SUBSTRING_INDEX(P.name,' ',1)) as listpermisos
+        $query = "SELECT P.general, P.traslate, GROUP_CONCAT(SUBSTRING_INDEX(P.name,' ',1)) as listpermisos
             FROM permissions P
             WHERE ISNULL(P.deleted_at) ";
 
         if ($search != '' && isset($search)) {
             $query .= " AND  (P.general LIKE '%$search%' 
-                OR P.name LIKE '%$search%' ) ";
+                OR P.name LIKE '%$search%'
+                OR P.traslate LIKE '%$search%' ) ";
         }
 
-        $querylist = ' GROUP BY P.general ';
+        $querylist = ' GROUP BY P.general,P.traslate ';
 
         $filtrados = DB::select($query . $querylist);
 
@@ -103,6 +111,7 @@ class PermissionController extends Controller
         foreach ($request->opciones as $val) {
             Permission::create([
                 'name' => $val.' '.strtolower(str_replace(" ", "_", $request->name)),
+                'traslate' => $this->translateText($request->name),
                 'general'=> strtolower(str_replace(" ", "_", $request->name)),
                 'guard_name' => 'web',
             ]);
@@ -178,6 +187,7 @@ class PermissionController extends Controller
         foreach ($permissions as $perm) {    
             Permission::find($perm->id)->update([
                 'name' => strtolower(str_replace($perm->general, $newname, $perm->name)),
+                'traslate' => $this->translateText($request->name),
                 'general'=> $newname,
             ]);
         }

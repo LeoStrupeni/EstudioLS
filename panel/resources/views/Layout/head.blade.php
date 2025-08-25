@@ -1,8 +1,8 @@
 <head>
     <meta charset="UTF-8">
-    <title>Attraversando L'origine</title>
+    <title>Estudio Lignos Seguro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Attraversando L'origine">
+    <meta name="description" content="Estudio Lignos Seguro">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- CSRF Token -->
@@ -18,7 +18,7 @@
 
     <!--begin::Styles -->
     <link href="{{env('APP_URL')}}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{env('APP_URL')}}/assets/media/attraversandolorigine.ico" rel="icon"/>
+    <link href="{{env('APP_URL')}}/assets/media/originales/SinFondo_lignos_seguro.png" rel="icon"/>
 
     <!--begin::Plugings -->
     <link href="{{env('APP_URL')}}/assets/plugins/toastr/build/toastr.css" rel="stylesheet" type="text/css" />
@@ -27,8 +27,12 @@
     <link href="{{env('APP_URL')}}/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" type="text/css" />
     <link href="{{env('APP_URL')}}/assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
     
-    <link href="{{env('APP_URL')}}/assets/plugins/select2/dist/css/select2.css" rel="stylesheet" type="text/css" />
-    
+    <link href="{{env('APP_URL')}}/assets/plugins/select2-4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <link href="{{env('APP_URL')}}/assets/plugins/select2-bootstrap-5-theme-1.3.0/select2-bootstrap-5-theme.min.css" rel="stylesheet"/>
+    <link href="{{env('APP_URL')}}/assets/plugins/select2-bootstrap-5-theme-1.3.0/select2-bootstrap-5-theme.rtl.min.css" rel="stylesheet"/>    
+
+    <link href="{{env('APP_URL')}}/assets/css/avatar.css" rel="stylesheet" type="text/css" />
+
     <!--begin::Fonts -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -586,5 +590,22 @@
             border-color: var(--bs-table-border-color);
             background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
         } */
+    </style>
+    <style>
+        .my-dropdown-toggle::after {
+            content: none;
+        }
+    
+        .active>.page-link, .page-link.active {
+            background-color: var(--bs-green)!important;
+            border-color: var(--bs-white)!important;
+        }
+    
+        .page-link {
+            background-color: var(--bs-teal)!important;
+            border: var(--bs-pagination-border-width) solid var(--bs-white)!important;
+            color: var(--bs-white)!important;
+        }
+    
     </style>
 </head>

@@ -88,8 +88,8 @@ $(document).ready(function() {
     $('body').on('click','.delete',function(){ 
         rolid=$(this).data('id');
         Swal.fire({
-            title: "Borrar Usuario",
-            html: "Esta seguro que desea eliminar al usuario "+$(this).data('name')+"?<br>No podrá revertir el cambio.",
+            title: "Borrar Cuenta",
+            html: "Esta seguro que desea eliminar la cuenta "+$(this).data('name')+"?<br>No podrá revertir el cambio.",
             type: "question",
             showCancelButton: true,
             confirmButtonText: "Borrar",
@@ -101,19 +101,10 @@ $(document).ready(function() {
             }
         });
     });
+
     $('body').on('click',"#btn-create-account",function () {
-        var error = 0
         form = document.getElementById("formnewaccount");
-
-        $( form.getElementsByClassName('validate') ).each(function( index ) {
-            if($( this ).val() == ''){
-                $( this ).css('box-shadow', 'inset 0px 0px 2px 2px red');
-                error++;
-            } else {
-                $( this ).css('box-shadow', '');
-            }
-        });
-
+        error = validateinputsform(form);
         if (error > 0) {
             toastr["error"]("Debe completar los datos correctamente.")
         } else {
@@ -121,19 +112,9 @@ $(document).ready(function() {
         }
     });
     $('body').on('click',"#btn-update-account",function () {
-        var error = 0
-
-        var error = 0
         form = document.getElementById("formeditaccount");
-
-        $( form.getElementsByClassName('validate') ).each(function( index ) {
-            if($( this ).val() == ''){
-                $( this ).css('box-shadow', 'inset 0px 0px 2px 2px red');
-                error++;
-            } else {
-                $( this ).css('box-shadow', '');
-            }
-        });
+        error = validateinputsform(form);
+ 
         if (error > 0) {
             toastr["error"]("Debe completar los datos correctamente para editar la Cuenta.")
         } else {
@@ -176,15 +157,45 @@ $(document).ready(function() {
     });
 });
 
+function validateinputsform(form){
+    var error = 0
+    var typeselect = form.querySelectorAll('[name="type"]')[0].value;
+    $( form.getElementsByClassName('validate') ).each(function( index ) {
+        if ($(this).attr('name') == 'number' || 
+            $(this).attr('name') == 'cbu' || 
+            $(this).attr('name') == 'alias') {
+            if (typeselect != 'EFE') {
+                if($( this ).val() == ''){
+                    $( this ).css('box-shadow', 'inset 0px 0px 2px 2px red');
+                    error++;
+                } else {
+                    $( this ).css('box-shadow', '');
+                }
+            } else {
+                $( this ).css('box-shadow', '');
+            }
+        } else {
+            if($( this ).val() == ''){
+                $( this ).css('box-shadow', 'inset 0px 0px 2px 2px red');
+                error++;
+            } else {
+                $( this ).css('box-shadow', '');
+            }
+        }
+    });
+    return error;
+}
+
 function tableregister(data, page, callpaginas, url_query){
     body='';
-    const formatter = new Intl.NumberFormat('en-US', {minimumFractionDigits: 2,maximumFractionDigits: 2,});
+    const formatter = new Intl.NumberFormat('es-AR', {minimumFractionDigits: 2,maximumFractionDigits: 2,});
 
     $.each(data.datos, function (key, val) {
         typecta = '';
         if(val.type=='CA'){typecta='Caja de ahorro';}
         else if(val.type=='CC'){typecta='Cuenta corriente';}
         else if(val.type=='CR'){typecta='Cuenta remunerada';}
+        else if(val.type=='EFE'){typecta='Efectivo';}
 
         typemoney='';
         if(val.type_money=='peso'){typemoney='$';}
@@ -196,9 +207,9 @@ function tableregister(data, page, callpaginas, url_query){
             <td class="align-middle">${val.bank}</td>
             <td class="align-middle">${typecta}</td>
             <td class="align-middle">${typemoney}</td>
-            <td class="align-middle">${val.number}</td>
-            <td class="align-middle text-nowrap">${val.cbu}</td>
-            <td class="align-middle text-nowrap">${val.alias}</td>
+            <td class="align-middle">${val.number ?? ''}</td>
+            <td class="align-middle text-nowrap">${val.cbu ?? ''}</td>
+            <td class="align-middle text-nowrap">${val.alias ?? ''}</td>
             <td class="align-middle">
                 <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle-menu-body text-success" type="button" data-bs-toggle="dropdown" aria-expanded="false">

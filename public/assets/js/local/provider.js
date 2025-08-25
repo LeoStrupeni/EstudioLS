@@ -87,8 +87,8 @@ $(document).ready(function() {
     $('body').on('click','.delete',function(){ 
         rolid=$(this).data('id');
         Swal.fire({
-            title: "Borrar Usuario",
-            html: "Esta seguro que desea eliminar al usuario "+$(this).data('name')+"?<br>No podrá revertir el cambio.",
+            title: "Borrar Proveedor",
+            html: "Esta seguro que desea eliminar el proveedor "+$(this).data('name')+"?<br>No podrá revertir el cambio.",
             type: "question",
             showCancelButton: true,
             confirmButtonText: "Borrar",

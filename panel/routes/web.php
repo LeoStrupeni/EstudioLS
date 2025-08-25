@@ -3,19 +3,24 @@
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BankAccountController;
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MoneyMovementController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\ServicePackageController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\TypesDocMovementsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('test', function () {
-	dd( base_path(). '/../public/storage/',env('APP_URL'),storage_path('app'));
-});
+// Route::get('test', function () {
+// 	dd( base_path(). '/../public/storage/',env('APP_URL'),storage_path('app'));
+// });
 
 Route::view('/public','home')->name('home');
 
@@ -31,11 +36,13 @@ Route::post('/password/email', [ForgotPasswordController::class,'sendResetLinkEm
 Route::get('/password/reset/{token}',[ForgotPasswordController::class,'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [ForgotPasswordController::class,'reset'])->name('password.update');
 
-Route::view('/home','home')->middleware('auth');
-
 Route::resource('/contact',ContactController::class);
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::redirect('/home', '/');
+
+    Route::get('/settings/balances', [Controller::class, 'listsaldos'])->name('settings.balances');
+    
     Route::resource('/users',UserController::class);
     Route::post('/users/table', [UserController::class,'getDataTable']);
     Route::resource('/roles',RolController::class);
@@ -53,7 +60,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/provider/table', [ProviderController::class,'getDataTable']);
 
     Route::resource('/movement',MoneyMovementController::class);
+    Route::post('/movement/table', [MoneyMovementController::class,'getDataTable']);
 
     Route::resource('/account',BankAccountController::class);
     Route::post('/account/table', [BankAccountController::class,'getDataTable']);
+
+    Route::resource('/typesdocmov',TypesDocMovementsController::class);
+    Route::post('/typesdocmov/table', [TypesDocMovementsController::class,'getDataTable']);
+
+    Route::resource('/budget',BudgetController::class);
+    Route::post('/budget/table', [BudgetController::class,'getDataTable']);
+
+    Route::resource('/service',ServicesController::class);
+    Route::post('/service/table', [ServicesController::class,'getDataTable']);
+    Route::post('/getDetailsServices', [ServicesController::class,'getDetailsServices']);
+
+    Route::resource('/service_package', ServicePackageController::class);
+    Route::post('/service_package/table', [ServicePackageController::class, 'getDataTable']);
+    Route::post('/getDetailsServicePackage/{id}', [ServicePackageController::class,'getDetailsServicePackage']);
 });

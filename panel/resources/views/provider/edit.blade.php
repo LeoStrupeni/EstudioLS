@@ -78,9 +78,11 @@
                             <div class="mb-2">
                                 <label for="country" class="form-label mb-0 ps-3 fw-bold">País</label>
                                 <select class="form-control" name="country" style="width: 100%">
-                                    @foreach ($countries as $c)
-                                        <option value="{{$c->country}}"@if ($c->country == 'Argentina') selected @endif>{{$c->country}}</option>
-                                    @endforeach
+                                    @isset($countries)
+                                        @foreach ($countries as $c)
+                                            <option value="{{$c->country}}"@if ($c->country == 'Argentina') selected @endif>{{$c->country}}</option>
+                                        @endforeach   
+                                    @endisset
                                 </select>
                             </div>
                         </div>

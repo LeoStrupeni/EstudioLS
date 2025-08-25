@@ -160,7 +160,8 @@ function tableregister(data, page, callpaginas, url_query){
         btnpermisos+=`</div>`;
 
         body += `<tr id="${val.general}">
-            <td class="align-middle">${val.general} </td>
+            <td class="align-middle">${val.general}</td>
+            <td class="align-middle">${val.traslate.toUpperCase()}</td>
             <td class="align-middle">${btnpermisos}</td>
             <td class="align-middle">
                 <div class="dropdown">

@@ -20,6 +20,10 @@ class ProviderController extends Controller
     public function index()
     {
         if(Auth::check()){
+            $val = $this->getloginrol();
+            if ($val == false){
+                return redirect()->route('logout');     
+            }
             $countries = DB::table('countries')->select('country')->get();
             return view("providers", compact("countries"));
         }

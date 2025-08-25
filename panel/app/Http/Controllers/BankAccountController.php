@@ -14,6 +14,10 @@ class BankAccountController extends Controller
     public function index()
     {
         if(Auth::check()){
+            $val = $this->getloginrol();
+            if ($val == false){
+                return redirect()->route('logout');     
+            }
             return view("accounts");
         }
         return redirect()->route('login');
@@ -95,16 +99,26 @@ class BankAccountController extends Controller
                 'bank' => ['required'],
                 'type' => ['required'],
                 'type_money' => ['required'],
-                'number' => ['required'],
-                'alias' => ['required'],
-                'cbu' => ['required','unique:bank_accounts,cbu'],
             ],  
             [
                 'required' => 'El campo es requerido.',
                 'unique' => 'El mail ya se encuentra registrado.',
             ]
         );
-    
+
+        if($request->type != 'EFE'){
+            $request->validate([
+                    'number' => ['required'],
+                    'alias' => ['required'],
+                    'cbu' => ['required','unique:bank_accounts,cbu'],
+                ],  
+                [
+                    'required' => 'El campo es requerido.',
+                    'unique' => 'El mail ya se encuentra registrado.',
+                ]
+            );
+        }
+
         Bank_Account::create([
             'account_holder' => $request->account_holder,
             'name' => $request->name,
@@ -165,23 +179,25 @@ class BankAccountController extends Controller
             );
             $datos['type_money'] = $request->type_money;
         }
-        if(isset($request->number) && $request->type != $original->number){
-            $request->validate(['number' => ['required']],
-                [ 'required' => 'El campo es requerido.']
-            );
-            $datos['number'] = $request->number;
-        }
-        if(isset($request->alias) && $request->alias != $original->alias){
-            $request->validate(['alias' => ['required']],
-                [ 'required' => 'El campo es requerido.']
-            );
-            $datos['alias'] = $request->alias;
-        }
-        if(isset($request->cbu) && $request->cbu != $original->cbu){
-            $request->validate(['type' => ['required']],
-                [ 'required' => 'El campo es requerido.']
-            );
-            $datos['cbu'] = $request->cbu;
+        if($request->type != 'EFE'){
+            if(isset($request->number) && $request->type != $original->number){
+                $request->validate(['number' => ['required']],
+                    [ 'required' => 'El campo es requerido.']
+                );
+                $datos['number'] = $request->number;
+            }
+            if(isset($request->alias) && $request->alias != $original->alias){
+                $request->validate(['alias' => ['required']],
+                    [ 'required' => 'El campo es requerido.']
+                );
+                $datos['alias'] = $request->alias;
+            }
+            if(isset($request->cbu) && $request->cbu != $original->cbu){
+                $request->validate(['type' => ['required']],
+                    [ 'required' => 'El campo es requerido.']
+                );
+                $datos['cbu'] = $request->cbu;
+            }
         }
 
         

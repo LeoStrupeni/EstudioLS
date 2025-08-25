@@ -48,6 +48,7 @@
                                     <option value="CA">Caja de ahorro</option>
                                     <option value="CC">Cuenta Corriente</option>
                                     <option value="CR">Cuenta Remunerada</option>
+                                    <option value="EFE">Caja</option>
                                 </select>
                             </div>
                         </div>
