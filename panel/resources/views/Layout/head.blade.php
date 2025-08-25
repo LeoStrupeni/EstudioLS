@@ -1,8 +1,8 @@
 <head>
     <meta charset="UTF-8">
-    <title>Attraversando L'origine</title>
+    <title>Estudio Lignos Seguro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Attraversando L'origine">
+    <meta name="description" content="Estudio Lignos Seguro">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- CSRF Token -->
@@ -18,7 +18,7 @@
 
     <!--begin::Styles -->
     <link href="{{env('APP_URL')}}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{env('APP_URL')}}/assets/media/attraversandolorigine.ico" rel="icon"/>
+    <link href="{{env('APP_URL')}}/assets/media/originales/SinFondo_lignos_seguro.png" rel="icon"/>
 
     <!--begin::Plugings -->
     <link href="{{env('APP_URL')}}/assets/plugins/toastr/build/toastr.css" rel="stylesheet" type="text/css" />

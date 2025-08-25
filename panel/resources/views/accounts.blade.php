@@ -132,7 +132,7 @@
     @include('account.create')
     @include('account.edit')
     @include('account.show')
-    @include('account.destroy')
+    @include('destroyforms')
 @endsection
 
 @section('script_by_page')

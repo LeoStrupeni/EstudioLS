@@ -128,7 +128,7 @@
     @include('provider.create')
     @include('provider.edit')
     @include('provider.show')
-    @include('provider.destroy')
+    @include('destroyforms')
 @endsection
 
 @section('script_by_page')

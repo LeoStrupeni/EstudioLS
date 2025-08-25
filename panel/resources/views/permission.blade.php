@@ -50,6 +50,7 @@
                         <thead>
                             <tr>
                                 <th class="column_orden" data-name="general">Nombre</th>
+                                <th class="column_orden" data-name="traslate">Traducción</th>
                                 <th class="sorttable_nosort">Permisos</th>
                                 <th class="sorttable_nosort" style="width:3%;"></th>
                             </tr>
@@ -59,7 +60,7 @@
                         </tbody>
                         <tbody id="table_roller">
                             <tr>
-                                <td colspan="3">
+                                <td colspan="4">
                                     <div style="display:block;" class="text-center">
                                         <br>
                                         <br>
@@ -74,7 +75,7 @@
 
                         <tbody id="table_error" class="d-none">
                             <tr>
-                                <td colspan="3">
+                                <td colspan="4">
                                     <div style="display:block;" class="text-center">
                                         <br>
                                         <br>
@@ -90,7 +91,7 @@
 
                         <tbody id="table_sindatos" class="d-none">
                             <tr>
-                                <td colspan="3">
+                                <td colspan="4">
                                     <div style="display:block;" class="text-center">
                                         <br>
                                         <br>
@@ -124,7 +125,7 @@
     {{-- @include('home.foot') --}}
     @include('permission.create')
     @include('permission.edit')
-    @include('permission.destroy')
+    @include('destroyforms')
 @endsection
 
 @section('script_by_page')

@@ -128,7 +128,7 @@
     @include('user.create')
     @include('user.edit')
     @include('user.show')
-    @include('user.destroy')
+    @include('destroyforms')
 @endsection
 
 @section('script_by_page')

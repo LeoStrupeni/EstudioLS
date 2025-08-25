@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BankAccountController;
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,8 @@ use App\Http\Controllers\MoneyMovementController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\ServicePackageController;
+use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\TypesDocMovementsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -65,4 +68,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/typesdocmov',TypesDocMovementsController::class);
     Route::post('/typesdocmov/table', [TypesDocMovementsController::class,'getDataTable']);
 
+    Route::resource('/budget',BudgetController::class);
+    Route::post('/budget/table', [BudgetController::class,'getDataTable']);
+
+    Route::resource('/service',ServicesController::class);
+    Route::post('/service/table', [ServicesController::class,'getDataTable']);
+    Route::post('/getDetailsServices', [ServicesController::class,'getDetailsServices']);
+
+    Route::resource('/service_package', ServicePackageController::class);
+    Route::post('/service_package/table', [ServicePackageController::class, 'getDataTable']);
+    Route::post('/getDetailsServicePackage/{id}', [ServicePackageController::class,'getDetailsServicePackage']);
 });

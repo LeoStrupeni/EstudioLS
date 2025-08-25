@@ -22,9 +22,6 @@ class ClientController extends Controller
             return view("clients", compact("countries"));
         }
 
-        if(Auth::check()){
-            
-        }
         return redirect()->route('login');
     }
 
@@ -47,6 +44,7 @@ class ClientController extends Controller
         if ($search != '' && isset($search)) {
             $query .= " AND (C.first_name LIKE '%$search%' 
                 OR C.last_names LIKE '%$search%'
+                OR CONCAT(C.first_name, ' ', C.last_names) LIKE '%$search%'
                 OR C.num_doc LIKE '%$search%'
                 OR C.email LIKE '%$search%'
                 OR C.phone1 LIKE '%$search%'

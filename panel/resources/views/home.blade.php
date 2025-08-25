@@ -12,7 +12,7 @@
     @include('movement.create')
     @include('movement.edit')
     @include('movement.show')
-    @include('movement.destroy')
+    @include('destroyforms')
     @include('movement.offcanvasfilters')
 
   @endsection

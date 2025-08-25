@@ -34,6 +34,14 @@
               </li>
               <li>
                 <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
+                href="{{ route('service.index') }}">Servicios</a>
+              </li>
+              <li>
+                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
+                href="{{ route('service_package.index') }}">Paquetes</a>
+              </li>
+              <li>
+                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
                 href="{{ route('typesdocmov.index') }}">Tipos de Movimientos</a>
               </li>
               <li>

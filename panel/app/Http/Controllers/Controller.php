@@ -7,7 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Session;
-
+use Stichoza\GoogleTranslate\GoogleTranslate;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -29,5 +29,15 @@ class Controller extends BaseController
         $fechaRango='';
         return view("settings.balances", compact("fechaRango"));
 
+    }
+
+    public function translateText($text)
+    {
+        $tr = new GoogleTranslate(); 
+        $tr->setSource('en'); 
+        $tr->setSource();
+        $tr->setTarget('es');
+
+        return $tr->translate(strtolower(str_replace("_", " ", $text)));
     }
 }

@@ -1,8 +1,8 @@
 @auth
-    <nav class="navbar navbar-expand-lg p-0 sticky-top" style="background-color: rgb(204 204 204 / 90%) !important; height: 65px;">
+    <nav class="navbar navbar-expand-lg p-0 sticky-top" style="background-color: rgb(232 228 217 / 90%) !important; height: 65px;">
         <div class="container-fluid">
             <a class="navbar-brand m-0 ps-5" href="{{ url('/') }}">
-                <img src="{{env('APP_URL')}}/assets/media/Logo.png" alt="Logo" height="60">
+                <img src="{{env('APP_URL')}}/assets/media/originales/Sinfondo_logo_lignos_seguro.png" alt="Logo" height="60">
             </a>
 
             <div class="btn-group d-lg-none" role="group">
@@ -18,8 +18,11 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark rounded-0 p-0">
                             <li><a class="dropdown-item py-3" href="{{ url('/') }}">Home</a></li>
+                            <li><a class="dropdown-item py-3" href="{{ route('budget.index') }}">Presupuestos</a></li>
                             <li><a class="dropdown-item py-3" href="{{ route('client.index') }}">Clientes</a></li>
                             <li><a class="dropdown-item py-3" href="{{ route('provider.index') }}">Proveedores</a></li>
+                            <li><a class="dropdown-item py-3" href="{{ route('service.index') }}">Servicios</a></li>
+                            <li><a class="dropdown-item py-3" href="{{ route('service_package.index') }}">Paquetes</a></li>
                             <li><a class="dropdown-item py-3" href="{{ route('typesdocmov.index') }}">Tipos de Movimientos</a></li>
                             <li><a class="dropdown-item py-3" href="{{ route('account.index') }}">Cuentas</a></li>
                             

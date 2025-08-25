@@ -131,7 +131,7 @@
     @include('client.create')
     @include('client.edit')
     @include('client.show')
-    @include('client.destroy')
+    @include('destroyforms')
 @endsection
 
 @section('script_by_page')

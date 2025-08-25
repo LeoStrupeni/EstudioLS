@@ -126,7 +126,7 @@
     @include('rol.create')
     @include('rol.edit')
     @include('rol.show')
-    @include('rol.destroy')
+    @include('destroyforms')
     @include('rol.users')
     @include('rol.permisos')
 @endsection

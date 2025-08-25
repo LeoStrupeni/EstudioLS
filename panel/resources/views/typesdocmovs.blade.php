@@ -124,7 +124,7 @@
     @include('typesdocmovement.create')
     @include('typesdocmovement.edit')
     @include('typesdocmovement.show')
-    @include('typesdocmovement.destroy')
+    @include('destroyforms')
 @endsection
 
 @section('script_by_page')
