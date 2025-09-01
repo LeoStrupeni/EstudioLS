@@ -6,12 +6,12 @@ use App\Models\Budget;
 use App\Models\Budget_item;
 use App\Models\Service;
 use App\Models\ServicePackage;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-
 
 class BudgetController extends Controller
 {
@@ -312,5 +312,19 @@ class BudgetController extends Controller
         ]);
 
         return redirect()->route('budget.index');
+    }
+
+    public function getPdf($id)
+    {
+        $budget = Budget::find($id);
+        // return view('budget.pdf', ['budget' => $budget]);
+        $pdf = Pdf::loadView('budget.pdf', ['budget' => $budget]);
+        return $pdf->setPaper('a4')->stream('presupuesto.pdf');
+    }
+
+        public function getPdf2($id)
+    {
+        $budget = Budget::find($id);
+        return view('budget.pdf', ['budget' => $budget]);
     }
 }

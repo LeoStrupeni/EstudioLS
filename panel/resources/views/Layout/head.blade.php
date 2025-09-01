@@ -18,7 +18,7 @@
 
     <!--begin::Styles -->
     <link href="{{env('APP_URL')}}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{env('APP_URL')}}/assets/media/originales/SinFondo_lignos_seguro.png" rel="icon"/>
+    <link href="{{env('APP_URL')}}/assets/media/originales/logo_lignos_seguro.png" rel="icon"/>
 
     <!--begin::Plugings -->
     <link href="{{env('APP_URL')}}/assets/plugins/toastr/build/toastr.css" rel="stylesheet" type="text/css" />

@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg p-0 sticky-top" style="background-color: rgb(232 228 217 / 90%) !important; height: 65px;">
         <div class="container-fluid">
             <a class="navbar-brand m-0 ps-5" href="{{ url('/') }}">
-                <img src="{{env('APP_URL')}}/assets/media/originales/Sinfondo_logo_lignos_seguro.png" alt="Logo" height="60">
+                <img src="{{env('APP_URL')}}/assets/media/originales/logo_lignos_seguro.png" alt="Logo" height="60">
             </a>
 
             <div class="btn-group d-lg-none" role="group">
