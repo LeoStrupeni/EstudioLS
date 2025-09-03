@@ -6,25 +6,25 @@
     }
 @endphp
 <div class="container-fluid">    
-    <div class="row justify-content-center align-items-center mt-3 px-2">
+    <div class="row justify-content-center mt-3 px-2">
         <div class="{{$varcoltable}} bg-white rounded p-2">
-            <div class="row align-items-center  justify-content-between">
+            <div class="row align-items-center justify-content-between">
                 <div class="col">
                     <div class="navbar-brand ps-3 fs-5">Cuenta General</div>
                 </div>
                 <div class="col">
-                    <button type="button" class="btn btn-danger float-end mx-1" onclick="callregister('/movement/table',1,$('#table_limit').val(),$('#table_order').val(),'si')"><i class="fa-solid fa-arrows-rotate"></i></button>
+                    <button type="button" class="btn btn-type1 float-end mx-1" onclick="callregister('/movement/table',1,$('#table_limit').val(),$('#table_order').val(),'si')"><i class="fa-solid fa-arrows-rotate"></i></button>
                     @if (in_array('create',Session::get('user')['permissions']['moves']))
-                        <button type="button" class="btn btn-success float-end mx-1 create"><i class="fa-solid fa-plus"></i></button>
+                        <button type="button" class="btn btn-type1 float-end mx-1 create"><i class="fa-solid fa-plus"></i></button>
                     @endif
 
-                    <button class="btn btn-primary float-end mx-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltersMovs" aria-controls="offcanvasFiltersMovs">
+                    <button class="btn btn-type1 float-end mx-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltersMovs" aria-controls="offcanvasFiltersMovs">
                         <i class="fa-solid fa-filter"></i>
                     </button>                    
                 </div>
             </div>
             
-            <hr class="m-1" style="color: red;">
+            <hr class="m-1" style="color: black;">
 
             @include('Layout.errors')
 
@@ -32,7 +32,7 @@
                 <div class="col-12" id="filtrosaplicados">
 
                 </div>
-                <div class="col-3 col-xl-1">
+                <div class="col-3 col-lg-2">
                     <select class="form-select" id="table_limit">
                         <option value="10">10</option>
                         <option value="20">20</option>
@@ -40,7 +40,7 @@
                         <option value="100">100</option>
                     </select>
                 </div>
-                <div class="col-7 col-lg-4">
+                <div class="col-7 col-lg-6">
                     <div class="w-100 float-end" style="position: relative;padding: 0;">
                         <input type="text" class="form-control" placeholder="¿Qué buscas?" id="table_search">
                         <span style="position: absolute; height: 100%; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center;-ms-flex-pack: center;justify-content: center;top: 7px;width: 3.2rem;right: 0;">
@@ -90,7 +90,7 @@
                                 <div style="display:block;" class="text-center">
                                     <br>
                                     <br>
-                                    <div class="alert alert-info m-0 justify-content-center" role="alert">
+                                    <div class="alert alert-type2 m-0 justify-content-center" role="alert">
                                         <h5 class="m-0">Error al obtener la informacion. Por favor reintentelo o comuniquese con Soporte</h5>
                                     </div>
                                     <br>
@@ -106,7 +106,7 @@
                                 <div style="display:block;" class="text-center">
                                     <br>
                                     <br>
-                                    <div class="alert alert-warning m-0 justify-content-center" role="alert">
+                                    <div class="alert alert-type2 m-0 justify-content-center" role="alert">
                                         <h5 class="m-0">No se encuentra registros con los filtros aplicados</h5>
                                     </div>
                                     <br>
@@ -134,17 +134,34 @@
         <div class="{{$varcolalerts}}">
             <div class="row">
                 <div class="col-12 pe-0">
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-type1" role="alert">
                         <h5 class="text-center alert-heading">Saldo $</h5>
                         <hr>
-                        <h3 class="text-center">$ 0.00</h3>
+                        <h3 class="text-center">$ {{number_format($balance_s,2,',','.')}}</h3>
                     </div>
                 </div>
                 <div class="col-12 pe-0">
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-type1" role="alert">
                         <h5 class="text-center alert-heading">Saldo U$S</h5>
                         <hr>
-                        <h3 class="text-center">U$S 0.00</h3>
+                        <h3 class="text-center">U$S {{number_format($balance_usd,2,',','.')}}</h3>
+                    </div>
+                </div>
+                <div class="col-12 pe-0">
+                    <div class="alert alert-type1" role="alert">
+                        <h5 class="text-center alert-heading">Cotización U$S</h5>
+                        <hr>
+                        <h3 class="text-center">U$S {{number_format($price_usd,2,',','.')}}</h3>
+                        @if ($origin_usd != '')
+                            <p class="m-0 fw-light text-center">Origen: <a href="{{$origin_usd}}" target="_blank">Dolar Api</a></p>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-12 pe-0">
+                    <div class="alert alert-type1" role="alert">
+                        <h5 class="text-center alert-heading">Valor JUS</h5>
+                        <hr>
+                        <h3 class="text-center">$ {{number_format($price_jus,2,',','.')}}</h3>
                     </div>
                 </div>
             </div>

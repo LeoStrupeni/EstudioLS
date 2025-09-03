@@ -38,7 +38,7 @@
                                 </label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="services-description">
-                                    <button class="btn btn-success p-1" type="button" onclick="addServiceTable()">
+                                    <button class="btn btn-type1 p-1" type="button" onclick="addServiceTable()">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -70,7 +70,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success" id="btn-create-service_package">Guardar</button>
+                <button type="button" class="btn btn-type1" id="btn-create-service_package">Guardar</button>
             </div>
         </div>
     </div>

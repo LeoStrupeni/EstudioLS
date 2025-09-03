@@ -86,7 +86,7 @@ $(document).ready(function() {
         }
 
         if(fecha!='' || type!='' || money!='' || doc!='' || pay!='' ){
-            $('#filtrosaplicados').append(`<div class="alert alert-danger py-2" role="alert">
+            $('#filtrosaplicados').append(`<div class="alert alert-type1 py-2" role="alert">
                 <ul class="mb-0"> 
                     ${f_fecha}
                     ${f_type}
@@ -395,7 +395,7 @@ function tableregister(data, page, callpaginas, url_query){
             <td class="align-middle">${formatter.format(val.expense)}</td>
             <td class="align-middle">
                 <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle-menu-body text-success" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-link dropdown-toggle-menu-body text-type1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-ellipsis"></i>
                     </button>
                     <ul class="dropdown-menu" >`;
@@ -429,19 +429,7 @@ function tableregister(data, page, callpaginas, url_query){
         document.getElementById('table_pagination').innerHTML = createPagination(data.paginastotal, page, callpaginas, url_query);
     }
 
-    var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle-menu-body'))
-        var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-        return new bootstrap.Dropdown(dropdownToggleEl, {
-            boundary: document.querySelector('#inicio'),
-            popperConfig: function (defaultBsPopperConfig) {
-                return {
-                    ...defaultBsPopperConfig,
-                    placement: "bottom-end",
-                    strategy: "fixed"
-                };
-            }
-        })
-    });
+    dropdownElementList();
 }
 
 function getlistbankaccounts(value){

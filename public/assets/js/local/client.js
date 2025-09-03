@@ -190,7 +190,7 @@ function tableregister(data, page, callpaginas, url_query){
             <td class="align-middle">${val.city}</td>
             <td class="align-middle">
                 <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle-menu-body text-success" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-link dropdown-toggle-menu-body text-type1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-ellipsis"></i>
                     </button>
                     <ul class="dropdown-menu" >`;
@@ -224,18 +224,6 @@ function tableregister(data, page, callpaginas, url_query){
         document.getElementById('table_pagination').innerHTML = createPagination(data.paginastotal, page, callpaginas, url_query);
     }
 
-    var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle-menu-body'))
-        var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-        return new bootstrap.Dropdown(dropdownToggleEl, {
-            boundary: document.querySelector('#inicio'),
-            popperConfig: function (defaultBsPopperConfig) {
-                return {
-                    ...defaultBsPopperConfig,
-                    placement: "bottom-end",
-                    strategy: "fixed"
-                };
-            }
-        })
-    });
+    dropdownElementList();
 }
 

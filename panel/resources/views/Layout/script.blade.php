@@ -76,4 +76,20 @@
         $($(this).children()[0]).removeClass('show');
         $($(this).children()[1]).removeClass('show');
     })
+
+    function dropdownElementList(){
+        var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle-menu-body'))
+            var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+            return new bootstrap.Dropdown(dropdownToggleEl, {
+                boundary: document.querySelector('#inicio'),
+                popperConfig: function (defaultBsPopperConfig) {
+                    return {
+                        ...defaultBsPopperConfig,
+                        placement: "bottom-end",
+                        strategy: "fixed"
+                    };
+                }
+            })
+        });
+    }
 </script>

@@ -1,4 +1,4 @@
-@extends('Layout')
+@extends('layout')
 
 @section('link_by_page')
 @endsection
@@ -15,19 +15,19 @@
                         <div class="navbar-brand ps-3 fs-5">Listado de Permisos</div>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-danger float-end mx-1" onclick="callregister('/permission/table',1,$('#table_limit').val(),$('#table_order').val(),'si')"><i class="fa-solid fa-arrows-rotate"></i></button>
+                        <button type="button" class="btn btn-type1 float-end mx-1" onclick="callregister('/permission/table',1,$('#table_limit').val(),$('#table_order').val(),'si')"><i class="fa-solid fa-arrows-rotate"></i></button>
                         @if (in_array('create',Session::get('user')['permissions']['permissions']))
-                            <button type="button" class="btn btn-success float-end mx-1 create"><i class="fa-solid fa-plus"></i></button>
+                            <button type="button" class="btn btn-type1 float-end mx-1 create"><i class="fa-solid fa-plus"></i></button>
                         @endif
                     </div>
                 </div>
                 
-                <hr class="m-1" style="color: red;">
+                <hr class="m-1" style="color: black;">
 
                 @include('Layout.errors')
 
                 <div class="row my-3 align-items-center justify-content-between">
-                    <div class="col-3 col-xl-1">
+                    <div class="col-3 col-lg-2">
                         <select class="form-select" id="table_limit">
                             <option value="10">10</option>
                             <option value="20">20</option>
@@ -79,7 +79,7 @@
                                     <div style="display:block;" class="text-center">
                                         <br>
                                         <br>
-                                        <div class="alert alert-info m-0 justify-content-center" role="alert">
+                                        <div class="alert alert-type2 m-0 justify-content-center" role="alert">
                                             <h5 class="m-0">Error al obtener la informacion. Por favor reintentelo o comuniquese con Soporte</h5>
                                         </div>
                                         <br>
@@ -95,7 +95,7 @@
                                     <div style="display:block;" class="text-center">
                                         <br>
                                         <br>
-                                        <div class="alert alert-warning m-0 justify-content-center" role="alert">
+                                        <div class="alert alert-type2 m-0 justify-content-center" role="alert">
                                             <h5 class="m-0">No se encuentra registros con los filtros aplicados</h5>
                                         </div>
                                         <br>

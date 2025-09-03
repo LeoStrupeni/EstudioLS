@@ -6,7 +6,7 @@
 <body>
     @include('Layout/aside')
 
-    <div class="container-fluid p-0" id="inicio">
+    <div class="container-fluid p-0 h-100" id="inicio">
         @include('Layout/header')
         @yield('Content')    
     </div>

@@ -1,4 +1,4 @@
-@extends('Layout')
+@extends('layout')
 
 @section('link_by_page')
 @endsection
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 
-                <hr class="m-1" style="color: red;">
+                <hr class="m-1" style="color: black;">
 
                 @include('Layout.errors')
 
@@ -103,12 +103,12 @@
                         <div class="col m-3">
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                 <li class="nav-item me-3" role="presentation">
-                                    <button class="btn btn-success" id="pills-paquete-tab" data-bs-toggle="pill" data-bs-target="#pills-paquete" type="button" role="tab" aria-controls="pills-paquete" aria-selected="false">
+                                    <button class="btn btn-type1" id="pills-paquete-tab" data-bs-toggle="pill" data-bs-target="#pills-paquete" type="button" role="tab" aria-controls="pills-paquete" aria-selected="false">
                                         <i class="fas fa-plus"></i> Paquete
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="btn btn-success" id="pills-servicio-tab" data-bs-toggle="pill" data-bs-target="#pills-servicio" type="button" role="tab" aria-controls="pills-servicio" aria-selected="false">
+                                    <button class="btn btn-type1" id="pills-servicio-tab" data-bs-toggle="pill" data-bs-target="#pills-servicio" type="button" role="tab" aria-controls="pills-servicio" aria-selected="false">
                                         <i class="fas fa-plus"></i> Servicio
                                     </button>
                                 </li>
@@ -137,7 +137,7 @@
                                                 </label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" readonly class="form-control" id="paquetes-description">
-                                                    <button class="btn btn-success p-1" type="button" onclick="addPackagesTable()">
+                                                    <button class="btn btn-type1 p-1" type="button" onclick="addPackagesTable()">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
                                                 </div>  
@@ -189,7 +189,7 @@
                                                 </label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control text-end" id="services-price">
-                                                    <button class="btn btn-success p-1" type="button" onclick="addServiceTable()">
+                                                    <button class="btn btn-type1 p-1" type="button" onclick="addServiceTable()">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
                                                 </div>
@@ -290,7 +290,7 @@
                             
                             <div class="row col-12 col-md-4 offset-md-8 mb-2">
                                 <div class="col-8 offset-4">
-                                    <button style="margin-top: 1rem; margin-bottom: 1rem;" class="btn btn-success w-100" id="btn-update-budget" type="button">
+                                    <button style="margin-top: 1rem; margin-bottom: 1rem;" class="btn btn-type1 w-100" id="btn-update-budget" type="button">
                                         Guardar
                                     </button>
                                 </div>

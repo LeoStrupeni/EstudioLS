@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\ClientController;
@@ -21,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('test', function () {
 // 	dd( base_path(). '/../public/storage/',env('APP_URL'),storage_path('app'));
 // });
+Route::get('test', function () {
+    dd(file_exists(base_path('vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64')));
+});
 
 Route::view('/public','home')->name('home');
 
@@ -41,8 +45,6 @@ Route::resource('/contact',ContactController::class);
 Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/home', '/');
 
-    Route::get('/settings/balances', [Controller::class, 'listsaldos'])->name('settings.balances');
-    
     Route::resource('/users',UserController::class);
     Route::post('/users/table', [UserController::class,'getDataTable']);
     Route::resource('/roles',RolController::class);
@@ -70,6 +72,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/budget',BudgetController::class);
     Route::post('/budget/table', [BudgetController::class,'getDataTable']);
+    Route::get('/budget/pdf/{id}', [BudgetController::class,'getPdf'])->name('budget.pdf');
+    Route::get('/budget/pdf2/{id}', [BudgetController::class,'getPdf2'])->name('budget.pdf2');
 
     Route::resource('/service',ServicesController::class);
     Route::post('/service/table', [ServicesController::class,'getDataTable']);
@@ -78,4 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/service_package', ServicePackageController::class);
     Route::post('/service_package/table', [ServicePackageController::class, 'getDataTable']);
     Route::post('/getDetailsServicePackage/{id}', [ServicePackageController::class,'getDetailsServicePackage']);
+
+    Route::resource('/balances', BalanceController::class);
+    Route::post('/balances/table', [BalanceController::class,'getDataTable']);
 });
