@@ -5,7 +5,7 @@
 <div class="offcanvas offcanvas-start" data-bs-scroll="false" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
     <div class="offcanvas-header">
       <a href="{{ url('/') }}">
-        <img src="{{env('APP_URL')}}/assets/media/logo_lignos_seguro.png" alt="Logo" height="60">
+        <img src="{{env('APP_URL')}}/assets/media/originales/logo_lignos_seguro.png" alt="Logo" height="60">
       </a>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="background-color: white !important;opacity: 1;"></button>
     </div>
@@ -70,11 +70,11 @@
                   <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
                     href="{{ route('permission.index') }}">Permisos</a>
                 </li>
-                <li>
-                  <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
-                    href="{{ route('settings.balances') }}">Saldos Iniciales</a>
-                </li>
               @endif
+              <li>
+                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4" 
+                  href="{{ route('balances.index') }}">Saldos Iniciales</a>
+              </li>
             </ul>
           </div>
         </li>

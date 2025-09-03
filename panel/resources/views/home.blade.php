@@ -1,4 +1,4 @@
-@extends('Layout')
+@extends('layout')
 
 @auth
   @section('link_by_page')

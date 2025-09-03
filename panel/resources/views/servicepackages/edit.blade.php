@@ -9,7 +9,7 @@
                 <div style="display:block;" class="text-center">
                     <br>
                     <br>
-                    <div class="alert alert-info m-0 justify-content-center" role="alert">
+                    <div class="alert alert-type2 m-0 justify-content-center" role="alert">
                         <h5 class="m-0">Error al obtener la informacion. Por favor reintentelo o comuniquese con Soporte</h5>
                     </div>
                     <br>
@@ -60,7 +60,7 @@
                                 </label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="services-description_edit">
-                                    <button class="btn btn-success p-1" type="button" onclick="addServiceTable_edit()">
+                                    <button class="btn btn-type1 p-1" type="button" onclick="addServiceTable_edit()">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -92,7 +92,7 @@
             </div>
             <div class="modal-footer d-none" id="modal-footer-edit-service_package">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success" id="btn-update-service_package">Actualizar</button>
+                <button type="button" class="btn btn-type1" id="btn-update-service_package">Actualizar</button>
             </div>
         </div>
     </div>

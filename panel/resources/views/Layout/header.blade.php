@@ -38,8 +38,8 @@
                             <li><a class="dropdown-item py-3" href="{{ route('roles.index') }}">Roles</a></li>
                             @if (Session::get('user')['roles'][0] == 'sistema' || Session::get('user')['roles'][0] == 'admin')
                                 <li><a class="dropdown-item py-3" href="{{ route('permission.index') }}">Permisos</a></li>   
-                                <li><a class="dropdown-item py-3" href="{{ route('settings.balances') }}">Saldos Iniciales</a></li>   
                             @endif
+                            <li><a class="dropdown-item py-3" href="{{ route('balances.index') }}">Saldos Iniciales</a></li>   
                         </ul>
                     </li>
  

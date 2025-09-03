@@ -1,7 +1,7 @@
 @section('Content')
 
   <!-- Boton hacia arriba -->
-  <button type="button" class="btn btn-sm btn-success rounded-circle ir-arriba">
+  <button type="button" class="btn btn-sm btn-type1 rounded-circle ir-arriba">
     <i class="flaticon2-arrow-up"></i>
   </button>
   
@@ -154,16 +154,16 @@
             <div class="row">
               <div class="col-12 col-md-4 text-center">
                 <h2 class="card-title text-center mb-4">Quienes somos</h2>
-                <button type="button" class="btn btn-success rounded-circle">
+                <button type="button" class="btn btn-type1 rounded-circle">
                   <i class="flaticon-facebook-letter-logo"></i>
                 </button>
-                <button type="button" class="btn btn-success rounded-circle">
+                <button type="button" class="btn btn-type1 rounded-circle">
                   <i class="flaticon-instagram-logo"></i>
                 </button>
-                <button type="button" class="btn btn-success rounded-circle">
+                <button type="button" class="btn btn-type1 rounded-circle">
                   <i class="flaticon-twitter-logo"></i>
                 </button>
-                <button type="button" class="btn btn-success rounded-circle">
+                <button type="button" class="btn btn-type1 rounded-circle">
                   <i class="flaticon-youtube"></i>
                 </button>
                 <h4 class="mt-4" style="text-align: justify;">
@@ -304,7 +304,7 @@
           @if (session('status'))
             <div class="row justify-content-center">
               <div class="col-10">
-                <div class="alert alert-success px-1">
+                <div class="alert alert-type1 px-1">
                   {{ session('status') }}
                 </div>
               </div>
@@ -340,7 +340,7 @@
                   <textarea class="form-control validate" name="consulta" rows="5" placeholder="Escribínos tu consulta, mientras más detallada, más concreta será tu respuesta." required>{{ old('consulta') }}</textarea>
                 </div>
                 <div class="d-grid gap-2 mt-1">
-                  <button type="button" class="btn btn-success g-recaptcha" id="guardarconsulta">
+                  <button type="button" class="btn btn-type1 g-recaptcha" id="guardarconsulta">
                     Consultar
                   </button>
                 </div>

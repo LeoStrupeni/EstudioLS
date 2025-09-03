@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\ClientController;
@@ -44,8 +45,6 @@ Route::resource('/contact',ContactController::class);
 Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/home', '/');
 
-    Route::get('/settings/balances', [Controller::class, 'listsaldos'])->name('settings.balances');
-    
     Route::resource('/users',UserController::class);
     Route::post('/users/table', [UserController::class,'getDataTable']);
     Route::resource('/roles',RolController::class);
@@ -83,4 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/service_package', ServicePackageController::class);
     Route::post('/service_package/table', [ServicePackageController::class, 'getDataTable']);
     Route::post('/getDetailsServicePackage/{id}', [ServicePackageController::class,'getDetailsServicePackage']);
+
+    Route::resource('/balances', BalanceController::class);
+    Route::post('/balances/table', [BalanceController::class,'getDataTable']);
 });

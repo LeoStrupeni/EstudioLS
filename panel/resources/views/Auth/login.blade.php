@@ -1,4 +1,4 @@
-@extends('Layout')
+@extends('layout')
 
 @section('link_by_page')
 @endsection
@@ -296,7 +296,7 @@
             @if ($errors->any())
                 <div class="row justify-content-center">
                     <div class="col-10">
-                        <div class="alert alert-danger px-1" role="alert">
+                        <div class="alert alert-type2 px-1" role="alert">
                             <ul class="m-0">
                                 @foreach ($errors->all() as $error)
                                     <li class="text-start">{{$error}}</li>

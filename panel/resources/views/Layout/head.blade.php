@@ -18,6 +18,7 @@
 
     <!--begin::Styles -->
     <link href="{{env('APP_URL')}}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{env('APP_URL')}}/assets/css/styles.css" rel="stylesheet">
     <link href="{{env('APP_URL')}}/assets/media/originales/logo_lignos_seguro.png" rel="icon"/>
 
     <!--begin::Plugings -->
@@ -126,12 +127,13 @@
     <style>
         body {
             height: 100vh;
-            background-image: url("{{env('APP_URL')}}/assets/media/Fondo1.png");
+            background-color: #c5c2bb;
+            /* background-image: url("{{env('APP_URL')}}/assets/media/Fondo1.png");
             background-origin: padding-box;
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
-            background-attachment: fixed;
+            background-attachment: fixed; */
         }
 
         .fondonosotros {
@@ -570,41 +572,19 @@
     </style>
 
     <style>
-        /* .bg-white-opacity {
-            --bs-bg-opacity: 0.8!important;
-            background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
-        }
-
-        .table-transparent {
-            --bs-table-color: #000;
-            --bs-table-bg: #ffffff;
-            --bs-table-border-color: #ffffff;
-            --bs-table-striped-bg: #ffffff;
-            --bs-table-striped-color: #000;
-            --bs-table-active-bg: #badce3;
-            --bs-table-active-color: #000;
-            --bs-table-hover-bg: #bfe2e9;
-            --bs-table-hover-color: #000;
-            --bs-bg-opacity: 0.8!important;
-            color: var(--bs-table-color);
-            border-color: var(--bs-table-border-color);
-            background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
-        } */
-    </style>
-    <style>
         .my-dropdown-toggle::after {
             content: none;
         }
     
         .active>.page-link, .page-link.active {
-            background-color: var(--bs-green)!important;
+            background-color: var(--ls-bg-color)!important;
             border-color: var(--bs-white)!important;
         }
     
         .page-link {
-            background-color: var(--bs-teal)!important;
+            background-color: var(--ls-bg3-color)!important;
             border: var(--bs-pagination-border-width) solid var(--bs-white)!important;
-            color: var(--bs-white)!important;
+            color: var(--bs-dark)!important;
         }
     
     </style>

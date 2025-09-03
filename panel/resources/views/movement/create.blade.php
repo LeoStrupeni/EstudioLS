@@ -146,7 +146,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success" id="btn-create-movement">Guardar</button>
+                <button type="button" class="btn btn-type1" id="btn-create-movement">Guardar</button>
             </div>
         </div>
     </div>
