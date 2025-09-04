@@ -44,7 +44,7 @@
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="type" class="form-label mb-0 ps-3 fw-bold">Tipo cuenta</label>
-                                <select class="form-control" name="type" id="type" style="width: 100%" required>
+                                <select class="form-select" name="type" id="type" style="width: 100%" required>
                                     <option value="CA">Caja de ahorro</option>
                                     <option value="CC">Cuenta Corriente</option>
                                     <option value="CR">Cuenta Remunerada</option>
@@ -55,7 +55,7 @@
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="type_money" class="form-label mb-0 ps-3 fw-bold">Moneda</label>
-                                <select class="form-control" name="type_money" id="type_money" style="width: 100%" required>
+                                <select class="form-select" name="type_money" id="type_money" style="width: 100%" required>
                                     <option value="peso">Peso</option>
                                     <option value="dolar">Dolar</option>
                                 </select>

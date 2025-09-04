@@ -325,8 +325,8 @@
                   <input type="text" class="form-control validate" name="telefono" placeholder="Teléfono" required value="{{ old('telefono') }}">
                 </div>
                 <div class="mb-2">
-                  <select class="form-control select2 validate" name="motivo" title="Motivo" style="width: 100%" required>
-                    <option></option>
+                  <select class="form-select select2 validate" name="motivo" title="Motivo" style="width: 100%" required>
+                    <option value="" selected disabled>Seleccione una opcion ...</option>
                     <option value="CI">Ciudadanía</option>
                     <option value="PA">Pasaporte</option>
                     <option value="BP">Búsqueda de Partidas</option>

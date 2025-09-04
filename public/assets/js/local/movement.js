@@ -202,8 +202,9 @@ $(document).ready(function() {
     });
 
     $('body').on('change',"#type_origin_c",function () {
-
+        
         $('#client_c').addClass('d-none');
+        $('#budget_c').addClass('d-none');
         $('#provider_c').addClass('d-none');
         $('#user_c').addClass('d-none');
 
@@ -230,8 +231,40 @@ $(document).ready(function() {
         if(url_query != ''){
             getdataselect(url_query,add_data, null);
         }
+    });
+    $('body').on('change',"#client_id_c",function () {
+        $('#budget_c').addClass('d-none');
+        $('#budget_c_id').empty();
+        if($(this).val() != ''){
+            $('#budget_c').removeClass('d-none');
+
+            $('.spinner-budget').removeClass('d-none');
+            $.ajax({contenttype : 'application/json; charset=utf-8',
+                url : $('meta[name="app_url"]').attr('content')+`/budget/client/${$(this).val()}`,
+                type : 'GET',
+                success : function(data) {
+                    selects='<option value=""></option>';
+                    $.each(data, function (key, val) {
+                        selects+=`<option value="${val.id}">${val.name}${val.total_dollars > 0 ? ' - USD: '+val.total_dollars : ''}${val.total_pesos > 0 ? ' - $: '+val.total_pesos : ''}${val.total_jus > 0 ? ' - JUS: '+val.total_jus : ''}</option>`;
+                    });
+                    $('#budget_c_id').append(selects);
+                }
+            }).always(function() {
+                $('.spinner-budget').addClass('d-none');
+
+                // $( add_data ).select2( {
+                //     theme: "bootstrap-5",
+                //     width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                //     placeholder: 'Seleccione una opcion',
+                //     dropdownParent: $('#createmovement'),
+                //     language: 'es'
+                // } );
+                // $(add_data).select2('open');
+            });
+        } 
 
     });
+
     function getdataselect(url_query,add_data, var_search){
         $('.spinner-data').removeClass('d-none');
         $.ajax({contenttype : 'application/json; charset=utf-8',
@@ -244,7 +277,7 @@ $(document).ready(function() {
             url : $('meta[name="app_url"]').attr('content')+url_query,
             type : 'POST',
             success : function(data) {
-                selects="";
+                selects='<option value="" selected disabled>Seleccione una opcion ...</option>';
                 $.each(data.datos, function (key, val) {
                     if(add_data == '#user_id_c'){
                         selects+=`<option value="${val.id}">${val.name}</option>`;
@@ -264,7 +297,7 @@ $(document).ready(function() {
                 dropdownParent: $('#createmovement'),
                 language: 'es'
             } );
-            $(add_data).select2('open');
+            // $(add_data).select2('open');
         });
     }
     $('body').on('keyup','.select2-search__field',function(){
@@ -389,7 +422,6 @@ function tableregister(data, page, callpaginas, url_query){
             <td class="align-middle">${val.type_payment}</td>
             <td class="align-middle">${val.payment_detail ?? ''}</td>
             <td class="align-middle">${val.concepto ?? ''}</td>
-            <td class="align-middle">${val.description ?? ''}</td>
             <td class="align-middle">${val.type_money}</td>
             <td class="align-middle">${formatter.format(val.deposit)}</td>
             <td class="align-middle">${formatter.format(val.expense)}</td>

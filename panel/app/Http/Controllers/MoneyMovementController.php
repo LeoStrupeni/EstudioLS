@@ -41,6 +41,7 @@ class MoneyMovementController extends Controller
 
         $totales = Money_Movement::count();
 
+        $dolar = 'U$'.'S';
         $query = "SELECT M.*,
             M.id,
             IF(M.type = 'ingreso', 'I', 'E') as `type`,
@@ -49,18 +50,21 @@ class MoneyMovementController extends Controller
                  WHEN M.provider_id IS NOT NULL THEN TRIM(IF(ISNULL(P.first_name),'',CONCAT(P.first_name,' ',IFNULL(P.last_names,''))))
                  WHEN M.user_id IS NOT NULL     THEN IFNULL(U.name,'') 
             END AS cliente,
-            CASE WHEN M.type_document = 'notaderemision' THEN 'Nota' ELSE CONCAT(UPPER(LEFT(M.type_document, 1)), LOWER(SUBSTRING(M.type_document, 2))) END AS type_document,
+            CONCAT(UPPER(LEFT(T.name, 1)), LOWER(SUBSTRING(T.name, 2))) AS type_document,
             CONCAT(UPPER(LEFT(M.type_payment, 1)), LOWER(SUBSTRING(M.type_payment, 2))) AS type_payment,
             M.payment_detail,
             M.concepto,
             M.description,
             M.deposit,
             M.expense,
-            IF(M.type_money = 'dolar', 'U$"."S', '$') AS type_money
+            IF(M.type_money = 'dolar', '$dolar', '$') AS type_money,
+            CONCAT('Pres. Nro.', B.id) AS budget_id
             FROM money_movement M 
             LEFT JOIN clients C ON M.client_id = C.id
             LEFT JOIN providers P ON M.provider_id = P.id
             LEFT JOIN users U ON M.user_id = U.id
+            LEFT JOIN budgets B ON M.budget_id = B.id
+            LEFT JOIN types_doc_movement T ON M.type_document = T.id
             WHERE ISNULL(M.deleted_at) $addWhere ";
 
         if ($search != '' && isset($search)) {
@@ -76,7 +80,8 @@ class MoneyMovementController extends Controller
                 OR M.description LIKE '%$search%'
                 OR M.deposit LIKE '%$search%'
                 OR M.expense LIKE '%$search%'
-                OR IF(M.type_money = 'dolar', 'U$"."S', '$') LIKE '%$search%'  
+                OR IF(M.type_money = 'dolar', '$dolar', '$') LIKE '%$search%'  
+                OR CONCAT('Pres. Nro.', B.id) LIKE '%$search%'
             ) ";
         }
 
@@ -152,6 +157,7 @@ class MoneyMovementController extends Controller
             'payment_detail' => $request->payment_detail,
             'fecha' => date('Y-m-d', strtotime($request->fecha)),
             'client_id' => $request->client_id,
+            'budget_id' => $request->budget_id,
             'provider_id' => $request->provider_id,
             'user_id' => $request->user_id,
             'concepto' => $request->concepto,

@@ -314,6 +314,18 @@ class BudgetController extends Controller
         return redirect()->route('budget.index');
     }
 
+    public function getDataCliente($id)
+    {
+        $budgets = Budget::where([
+            ['client_id',$id],
+            ['estatus','abierto']
+        ])
+        ->selectRaw("id, CONCAT('Presupuesto Nro. ', id, ' - Fecha: ', DATE_FORMAT(fecha, '%d/%m/%Y')) as name, observations, total_pesos, total_dollars, total_jus")
+        ->get();
+
+        return $budgets;
+    }
+
     public function getPdf($id)
     {
         $budget = Budget::find($id);
@@ -322,7 +334,7 @@ class BudgetController extends Controller
         return $pdf->setPaper('a4')->stream('presupuesto.pdf');
     }
 
-        public function getPdf2($id)
+    public function getPdf2($id)
     {
         $budget = Budget::find($id);
         return view('budget.pdf', ['budget' => $budget]);

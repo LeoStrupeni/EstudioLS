@@ -260,7 +260,7 @@ function getdataselect(url_query,add_data, var_search){
         url : $('meta[name="app_url"]').attr('content')+url_query,
         type : 'POST',
         success : function(data) {
-            selects="";
+            selects='<option value="" selected disabled>Seleccione una opcion ...</option>';
             $.each(data.datos, function (key, val) {
                 selects+=`<option value="${val.id}">${val.first_name} ${val.last_names}</option>`;
             });
@@ -396,7 +396,7 @@ function addItemsTable(){
                 <input class="form-control form-control-sm text-start" type="text" value="${this.descripcion}" onchange="updateServiceDescription(this, ${this.posicion})">
             </td>
             <td>
-                <select class="form-control form-select-sm" onchange="updateServiceCurrency(this, ${this.posicion})"> 
+                <select class="form-select form-select-sm" onchange="updateServiceCurrency(this, ${this.posicion})"> 
                     <option value="peso" ${this.currency == 'peso' ? 'selected' : ''}>Pesos</option>
                     <option value="dolar" ${this.currency == 'dolar' ? 'selected' : ''}>Dólar</option>
                     <option value="jus" ${this.currency == 'jus' ? 'selected' : ''}>JUS</option>

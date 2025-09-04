@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/budget',BudgetController::class);
     Route::post('/budget/table', [BudgetController::class,'getDataTable']);
+    Route::get('/budget/client/{id}', [BudgetController::class,'getDataCliente']);
     Route::get('/budget/pdf/{id}', [BudgetController::class,'getPdf'])->name('budget.pdf');
     Route::get('/budget/pdf2/{id}', [BudgetController::class,'getPdf2'])->name('budget.pdf2');
 

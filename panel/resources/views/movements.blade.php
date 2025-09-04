@@ -59,6 +59,7 @@
                             <th class="column_orden" data-name="cliente">Cliente/Proveedor/Usuario</th>
                             <th class="column_orden" data-name="type_document">Documento</th>
                             <th class="column_orden" data-name="type_payment">Tipo Pago</th>
+                            <th class="column_orden" data-name="payment_detail">Detalle</th>
                             <th class="column_orden" data-name="concepto">Concepto</th>
                             <th class="column_orden" data-name="type_money">Moneda</th>
                             <th class="column_orden" data-name="deposit">Ingreso</th>

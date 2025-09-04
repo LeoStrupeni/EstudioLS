@@ -10,7 +10,7 @@
                     @csrf
                     <div class="mb-2">
                         <label for="type" class="form-label mb-0 ps-3 fw-bold">Tipo</label>
-                        <select class="form-control validate" name="type" id="type" style="width: 100%" required onchange="validateinputsform(document.getElementById('formnewbalances'));">
+                        <select class="form-select validate" name="type" id="type" style="width: 100%" required onchange="validateinputsform(document.getElementById('formnewbalances'));">
                             <option value="saldo" selected>Saldo</option>
                             <option value="cotizacion">Cotizacion</option>
                         </select>
@@ -18,7 +18,7 @@
 
                     <div class="mb-2">
                         <label for="type_money" class="form-label mb-0 ps-3 fw-bold">Moneda</label>
-                        <select class="form-control validate" name="type_money" id="type_money" style="width: 100%" required onchange="validateinputsform(document.getElementById('formnewbalances'));">
+                        <select class="form-select validate" name="type_money" id="type_money" style="width: 100%" required onchange="validateinputsform(document.getElementById('formnewbalances'));">
                             <option value="dolar"selected>Dolar</option>
                             <option value="peso">Peso</option>
                             <option value="jus">JUS</option>

@@ -12,8 +12,8 @@
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="type" class="form-label mb-0 ps-3 fw-bold">Tipo Movimiento</label>
-                                <select class="form-control validate" name="type" style="width: 100%" required onchange="labelbankaccounts(this.value);">
-                                    <option></option>
+                                <select class="form-select validate" name="type" style="width: 100%" required onchange="labelbankaccounts(this.value);">
+                                    <option value="" selected disabled>Seleccione una opcion ...</option>
                                     <option value="ingreso">Ingreso</option>
                                     <option value="egreso">Egreso</option>
                                 </select>
@@ -22,8 +22,8 @@
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="type_document" class="form-label mb-0 ps-3 fw-bold">Documento</label>
-                                <select class="form-control validate" name="type_document" style="width: 100%" required>
-                                    <option></option>
+                                <select class="form-select validate" name="type_document" style="width: 100%" required>
+                                    <option value="" selected disabled>Seleccione una opcion ...</option>
                                     @foreach ($types_doc_movement as $mov)
                                         <option value="{{$mov->id}}" data-type="{{$mov->type}}">{{$mov->name}}</option>
                                     @endforeach
@@ -33,8 +33,8 @@
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="type_payment" class="form-label mb-0 ps-3 fw-bold">Método</label>
-                                <select class="form-control validate" name="type_payment" style="width: 100%" required>
-                                    <option></option>
+                                <select class="form-select validate" name="type_payment" style="width: 100%" required>
+                                    <option value="" selected disabled>Seleccione una opcion ...</option>
                                     <option value="efectivo">Efectivo</option>
                                     <option value="transferencia">Transferencia</option>
                                     <option value="credito">Crédito</option>
@@ -45,8 +45,8 @@
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="type_money" class="form-label mb-0 ps-3 fw-bold">Moneda</label>
-                                <select class="form-control validate" name="type_money" style="width: 100%" required onchange="getlistbankaccounts(this.value);">
-                                    <option></option>
+                                <select class="form-select validate" name="type_money" style="width: 100%" required onchange="getlistbankaccounts(this.value);">
+                                    <option value="" selected disabled>Seleccione una opcion ...</option>
                                     <option value="peso">Pesos ($)</option>
                                     <option value="dolar">Dolar (U$S)</option>
                                 </select>
@@ -61,8 +61,8 @@
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="type_origin" class="form-label mb-0 ps-3 fw-bold">Tipo Cliente</label>
-                                <select class="form-control validate" name="type_origin" id="type_origin_c" style="width: 100%" required>
-                                    <option></option>
+                                <select class="form-select validate" name="type_origin" id="type_origin_c" style="width: 100%" required>
+                                    <option value="" selected disabled>Seleccione una opcion ...</option>
                                     <option value="client">Cliente</option>
                                     <option value="provider">Proveedor</option>
                                     <option value="user">Usuario</option>
@@ -77,7 +77,20 @@
                                         <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
                                     </span>
                                 </label>
-                                <select class="form-control validate" name="client_id" id="client_id_c" style="width: 100%" required>
+                                <select class="form-select validate" name="client_id" id="client_id_c" style="width: 100%" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 d-none" id="budget_c">
+                            <div class="mb-2">
+                                <label for="budget_c_id" class="form-label mb-0 ps-3 fw-bold">
+                                    Presupuesto Relacionado <small class="fw-light fst-italic"> - (Seleccione un prespuesto o dejelo vacío...)</small>
+                                    <span class="d-none spinner-budget">
+                                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                    </span>
+                                </label>
+                                <select class="form-select" name="budget_id" id="budget_c_id" style="width: 100%" required>
+                                    
                                 </select>
                             </div>
                         </div>
@@ -89,7 +102,7 @@
                                         <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
                                     </span>
                                 </label>
-                                <select class="form-control validate" name="provider_id" id="provider_id_c" style="width: 100%" required>
+                                <select class="form-select validate" name="provider_id" id="provider_id_c" style="width: 100%" required>
                                 </select>
                             </div>
                         </div>
@@ -101,11 +114,12 @@
                                         <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
                                     </span>
                                 </label>
-                                <select class="form-control validate" name="user_id" id="user_id_c" style="width: 100%" required>
+                                <select class="form-select validate" name="user_id" id="user_id_c" style="width: 100%" required>
                                     
                                 </select>
                             </div>
                         </div>
+                        
                         <div class="col-12">
                             <div class="mb-2">
                                 <label for="payment_detail" class="form-label mb-0 ps-3 fw-bold">Detalle de pago</label>
@@ -127,14 +141,14 @@
                         <div class="col-6">
                             <div class="mb-2">
                                 <label for="money" class="form-label mb-0 ps-3 fw-bold">Monto</label>
-                                <input type="number" class="form-control validate" name="money" required>  
+                                <input type="number" class="form-control validate" name="money" required placeholder="Ingrese el monto ..." min="0">  
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-2">
                                 <label for="bank_account" class="form-label mb-0 ps-3 fw-bold" id="labelcta">Cuenta</label>
-                                <select class="form-control validate" name="bank_account" id="bank_account" style="width: 100%" required>
-                                    <option></option>
+                                <select class="form-select validate" name="bank_account" id="bank_account" style="width: 100%" required>
+                                    <option value="" selected disabled>Seleccione una opcion ...</option>
                                     @foreach ($bank_accounts as $a)
                                         <option data-type="{{$a->type_money}}" value="{{$a->id}}">{{$a->name.' ('.$a->bank.') '.($a->type_money == 'peso' ? '($)' : '(U$S)')}}</option>
                                     @endforeach

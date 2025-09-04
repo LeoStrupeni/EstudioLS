@@ -44,7 +44,7 @@
                                         <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
                                     </span>
                                 </label>
-                                <select class="form-control validate" name="client_id" id="client_id_c" style="width: 100%" required>
+                                <select class="form-select validate" name="client_id" id="client_id_c" style="width: 100%" required>
                                 </select>
                             </div>
                         </div>
@@ -111,8 +111,8 @@
                                         <div class="col-12 col-md-6">
                                             <div class="">
                                                 <label for="paquetes" class="form-label mb-0 ps-3 fw-bold">Paquete</label>
-                                                <select class="form-control" id="paquetes" onchange="getPaqueteDetails(this)"> 
-                                                    <option></option>
+                                                <select class="form-select" id="paquetes" onchange="getPaqueteDetails(this)"> 
+                                                    <option value="" selected disabled>Seleccione una opcion ...</option>
                                                     @foreach($packages as $package)
                                                         <option value="{{ $package->id }}">{{ $package->name }}</option>
                                                     @endforeach
@@ -142,8 +142,8 @@
                                         <div class="col-12 col-md-3">
                                             <div class="">
                                                 <label for="services" class="form-label mb-0 ps-3 fw-bold">Servicio</label>
-                                                <select class="form-control" id="services" onchange="getServiceDetails(this)"> 
-                                                    <option></option>
+                                                <select class="form-select" id="services" onchange="getServiceDetails(this)"> 
+                                                    <option value="" selected disabled>Seleccione una opcion ...</option>
                                                     @foreach($services as $service)
                                                         <option value="{{ $service->id }}">{{ $service->name }}</option>
                                                     @endforeach
@@ -166,8 +166,8 @@
                                                 <label for="services-currency" class="form-label mb-0 fw-bold">
                                                     Moneda
                                                 </label>
-                                                <select class="form-control" id="services-currency"> 
-                                                    <option></option>
+                                                <select class="form-select" id="services-currency"> 
+                                                    <option value="" selected disabled>Seleccione una opcion ...</option>
                                                     <option value="peso">Pesos</option>
                                                     <option value="dolar">Dólar</option>
                                                     <option value="jus">JUS</option>

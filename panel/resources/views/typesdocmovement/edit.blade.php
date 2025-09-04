@@ -40,8 +40,8 @@
                     </div>
                     <div class="mb-2">
                         <label for="type" class="form-label mb-0 ps-3">Tipo</label>
-                        <select class="form-control validate" name="type" id="e_type" style="width: 100%" required>
-                            <option></option>
+                        <select class="form-select validate" name="type" id="e_type" style="width: 100%" required>
+                            <option value="" selected disabled>Seleccione una opcion ...</option>
                             <option value="I">Ingreso</option>
                             <option value="E">Egreso</option>
                             <option value="IE">Ingreso y Egreso</option>

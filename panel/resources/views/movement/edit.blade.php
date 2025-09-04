@@ -42,7 +42,7 @@
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="type_doc" class="form-label mb-0 ps-3 fw-bold">Tipo Doc</label>
-                                <select class="form-control validate" name="type_doc" style="width: 100%" required>
+                                <select class="form-select validate" name="type_doc" style="width: 100%" required>
                                     <option value="1" selected>Dni</option>
                                     <option value="2">Cuil</option>
                                     <option value="3">Cuit</option>
@@ -77,7 +77,7 @@
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="country" class="form-label mb-0 ps-3 fw-bold">País</label>
-                                <select class="form-control" name="country" style="width: 100%">
+                                <select class="form-select" name="country" style="width: 100%">
                                     @isset($countries)
                                         @foreach ($countries as $c)
                                             <option value="{{$c->country}}"@if ($c->country == 'Argentina') selected @endif>{{$c->country}}</option>
