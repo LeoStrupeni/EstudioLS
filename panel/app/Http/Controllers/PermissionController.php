@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permission;
+use App\Models\Rol;
 use App\Models\Role_Has_Permission;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -108,6 +109,8 @@ class PermissionController extends Controller
             ]
         );
 
+        $roles = Rol::all();
+        
         foreach ($request->opciones as $val) {
             Permission::create([
                 'name' => $val.' '.strtolower(str_replace(" ", "_", $request->name)),
@@ -115,6 +118,18 @@ class PermissionController extends Controller
                 'general'=> strtolower(str_replace(" ", "_", $request->name)),
                 'guard_name' => 'web',
             ]);
+            foreach ($roles as $rol) {
+                if($rol->name == 'admin' || $rol->name == 'sistema'){
+                    $request2 = new Request();
+                    $request2->setMethod('POST');
+                    $request2->query->add(array(
+                        'general' => $request->name,
+                        'tipo' => $val,
+                        'rolid' => $rol->id
+                    ));
+                    $this->updaterolpermission($request2);
+                }
+            }
         }
 
         return redirect()->route('permission.index');

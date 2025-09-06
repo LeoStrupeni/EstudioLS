@@ -120,7 +120,7 @@
                                             <div class="">
                                                 <label for="paquetes" class="form-label mb-0 ps-3 fw-bold">Paquete</label>
                                                 <select class="form-select" id="paquetes" onchange="getPaqueteDetails(this)"> 
-                                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                                     @foreach($packages as $package)
                                                         <option value="{{ $package->id }}">{{ $package->name }}</option>
                                                     @endforeach
@@ -151,7 +151,7 @@
                                             <div class="">
                                                 <label for="services" class="form-label mb-0 ps-3 fw-bold">Servicio</label>
                                                 <select class="form-select" id="services" onchange="getServiceDetails(this)"> 
-                                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                                     @foreach($services as $service)
                                                         <option value="{{ $service->id }}">{{ $service->name }}</option>
                                                     @endforeach
@@ -175,7 +175,7 @@
                                                     Moneda
                                                 </label>
                                                 <select class="form-select" id="services-currency"> 
-                                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                                     <option value="peso">Pesos</option>
                                                     <option value="dolar">Dólar</option>
                                                     <option value="jus">JUS</option>

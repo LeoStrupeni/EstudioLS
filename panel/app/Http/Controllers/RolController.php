@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Rol;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

@@ -12,10 +12,12 @@
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="type" class="form-label mb-0 ps-3 fw-bold">Tipo Movimiento</label>
-                                <select class="form-select validate" name="type" style="width: 100%" required onchange="labelbankaccounts(this.value);">
-                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                <select class="form-select validate" name="type" style="width: 100%" required onchange="labelbankaccounts(this.value,this);">
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     <option value="ingreso">Ingreso</option>
                                     <option value="egreso">Egreso</option>
+                                    <option value="cambio">Cambio USD</option>
+                                    <option value="caja">Caja</option>
                                 </select>
                             </div>
                         </div>
@@ -23,7 +25,7 @@
                             <div class="mb-2">
                                 <label for="type_document" class="form-label mb-0 ps-3 fw-bold">Documento</label>
                                 <select class="form-select validate" name="type_document" style="width: 100%" required>
-                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     @foreach ($types_doc_movement as $mov)
                                         <option value="{{$mov->id}}" data-type="{{$mov->type}}">{{$mov->name}}</option>
                                     @endforeach
@@ -34,7 +36,7 @@
                             <div class="mb-2">
                                 <label for="type_payment" class="form-label mb-0 ps-3 fw-bold">Método</label>
                                 <select class="form-select validate" name="type_payment" style="width: 100%" required>
-                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     <option value="efectivo">Efectivo</option>
                                     <option value="transferencia">Transferencia</option>
                                     <option value="credito">Crédito</option>
@@ -45,8 +47,8 @@
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="type_money" class="form-label mb-0 ps-3 fw-bold">Moneda</label>
-                                <select class="form-select validate" name="type_money" style="width: 100%" required onchange="getlistbankaccounts(this.value);">
-                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                <select class="form-select validate" name="type_money" style="width: 100%" required onchange="getlistbankaccounts(this);">
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     <option value="peso">Pesos ($)</option>
                                     <option value="dolar">Dolar (U$S)</option>
                                 </select>
@@ -60,12 +62,13 @@
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
-                                <label for="type_origin" class="form-label mb-0 ps-3 fw-bold">Tipo Cliente</label>
+                                <label for="type_origin" class="form-label mb-0 ps-3 fw-bold">Tipo</label>
                                 <select class="form-select validate" name="type_origin" id="type_origin_c" style="width: 100%" required>
-                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     <option value="client">Cliente</option>
                                     <option value="provider">Proveedor</option>
                                     <option value="user">Usuario</option>
+                                    <option value="caja">Caja Chica (Egreso)</option>
                                 </select>
                             </div>
                         </div>
@@ -89,7 +92,20 @@
                                         <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
                                     </span>
                                 </label>
-                                <select class="form-select" name="budget_id" id="budget_c_id" style="width: 100%" required>
+                                <select class="form-select" name="budget_id" id="budget_c_id" style="width: 100%">
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 d-none" id="budget_item_c">
+                            <div class="mb-2">
+                                <label for="budget_item_c_id" class="form-label mb-0 ps-3 fw-bold">
+                                    Item de Presupuesto Relacionado <small class="fw-light fst-italic"> - (Seleccione un item o dejelo vacío...)</small>
+                                    <span class="d-none spinner-budget-item">
+                                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                    </span>
+                                </label>
+                                <select class="form-select" name="budget_item_id" id="budget_item_c_id" style="width: 100%">
                                     
                                 </select>
                             </div>
@@ -148,9 +164,29 @@
                             <div class="mb-2">
                                 <label for="bank_account" class="form-label mb-0 ps-3 fw-bold" id="labelcta">Cuenta</label>
                                 <select class="form-select validate" name="bank_account" id="bank_account" style="width: 100%" required>
-                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     @foreach ($bank_accounts as $a)
                                         <option data-type="{{$a->type_money}}" value="{{$a->id}}">{{$a->name.' ('.$a->bank.') '.($a->type_money == 'peso' ? '($)' : '(U$S)')}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6 d-none">
+                            <div class="mb-2">
+                                <label for="priceusd" class="form-label mb-0 ps-3 fw-bold">Cotización USD</label>
+                                <input type="number" class="form-control" name="priceusd" required placeholder="Ingrese la cotizacion ..." min="0" 
+                                    value="{{$price_usd > 0 ? $price_usd : ($price_usd_b > 0 ? $price_usd_b: ($price_usd_o > 0 ? $price_usd_o: 0))}}">  
+                            </div>
+                        </div>
+                        <div class="col-6 d-none">
+                            <div class="mb-2">
+                                <label for="bank_account_dest" class="form-label mb-0 ps-3 fw-bold">Cuenta destino</label>
+                                <select class="form-select" name="bank_account_dest" style="width: 100%" required>
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
+                                    @foreach ($bank_accounts as $a)
+                                        @if ($a->type_money == 'peso')
+                                            <option data-type="{{$a->type_money}}" value="{{$a->id}}">{{$a->name.' ('.$a->bank.') '.($a->type_money == 'peso' ? '($)' : '(U$S)')}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

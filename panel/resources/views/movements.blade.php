@@ -2,7 +2,7 @@
     $varcoltable='col-11';$varcolalerts='d-none';
     if (Session::get('user')['roles'][0] == 'admin' || Session::get('user')['roles'][0] == 'sistema')
     {
-        $varcoltable='col-10';$varcolalerts='col-2';
+        $varcoltable='col-12 col-xl-10 order-1 order-xl-0';$varcolalerts='col-12 col-xl-2 order-0 order-xl-1';
     }
 @endphp
 <div class="container-fluid">    
@@ -51,28 +51,29 @@
             </div>
             
             <div class="table-responsive">
-                <table class="table table-sm table-hover text-center sortable" id="table">
-                    <thead>
+                <table class="table table-sm table-hover table-bordered text-center sortable" id="table">
+                    <thead class="table-type1">
                         <tr>
-                            <th class="column_orden" data-name="fecha">Fecha</th>
-                            <th class="column_orden" data-name="type">Tipo</th>
-                            <th class="column_orden" data-name="cliente">Cliente/Proveedor/Usuario</th>
-                            <th class="column_orden" data-name="type_document">Documento</th>
-                            <th class="column_orden" data-name="type_payment">Tipo Pago</th>
-                            <th class="column_orden" data-name="payment_detail">Detalle</th>
-                            <th class="column_orden" data-name="concepto">Concepto</th>
-                            <th class="column_orden" data-name="type_money">Moneda</th>
-                            <th class="column_orden" data-name="deposit">Ingreso</th>
-                            <th class="column_orden" data-name="expense">Egreso</th>
+                            <th class="column_orden text-nowrap fw-medium p-2" data-name="fecha">Fecha</th>
+                            <th class="column_orden text-nowrap fw-medium p-2" data-name="type">Tipo</th>
+                            <th class="column_orden text-nowrap fw-medium p-2" data-name="cliente">Cliente/Proveedor/Usuario</th>
+                            <th class="column_orden text-nowrap fw-medium p-2" data-name="budget_name"># Pres.</th>
+                            <th class="column_orden text-nowrap fw-medium p-2" data-name="type_document">Documento</th>
+                            <th class="column_orden text-nowrap fw-medium p-2" data-name="type_payment">Tipo Pago</th>
+                            <th class="column_orden text-nowrap fw-medium p-2" data-name="payment_detail">Detalle</th>
+                            <th class="column_orden text-nowrap fw-medium p-2" data-name="concepto">Concepto</th>
+                            <th class="column_orden text-nowrap fw-medium p-2" data-name="type_money">Moneda</th>
+                            <th class="column_orden text-nowrap fw-medium p-2" data-name="deposit">Ingreso</th>
+                            <th class="column_orden text-nowrap fw-medium p-2" data-name="expense">Egreso</th>
                             <th class="sorttable_nosort" style="width:3%;"></th>
                         </tr>
                     </thead>
-                    <tbody id="table_body">
+                    <tbody id="table_body" class="table-group-divider">
 
                     </tbody>
-                    <tbody id="table_roller">
+                    <tbody id="table_roller" class="table-group-divider">
                         <tr>
-                            <td colspan="10">
+                            <td colspan="12">
                                 <div style="display:block;" class="text-center">
                                     <br>
                                     <br>
@@ -85,13 +86,13 @@
                         </tr>
                     </tbody>
 
-                    <tbody id="table_error" class="d-none">
+                    <tbody id="table_error" class="d-none table-group-divider">
                         <tr>
-                            <td colspan="10">
+                            <td colspan="12">
                                 <div style="display:block;" class="text-center">
                                     <br>
                                     <br>
-                                    <div class="alert alert-type2 m-0 justify-content-center" role="alert">
+                                    <div class="alert alert-type1 m-0 justify-content-center" role="alert">
                                         <h5 class="m-0">Error al obtener la informacion. Por favor reintentelo o comuniquese con Soporte</h5>
                                     </div>
                                     <br>
@@ -101,13 +102,13 @@
                         </tr>
                     </tbody>
 
-                    <tbody id="table_sindatos" class="d-none">
+                    <tbody id="table_sindatos" class="d-none table-group-divider">
                         <tr>
-                            <td colspan="10">
+                            <td colspan="12">
                                 <div style="display:block;" class="text-center">
                                     <br>
                                     <br>
-                                    <div class="alert alert-type2 m-0 justify-content-center" role="alert">
+                                    <div class="alert alert-type1 m-0 justify-content-center" role="alert">
                                         <h5 class="m-0">No se encuentra registros con los filtros aplicados</h5>
                                     </div>
                                     <br>
@@ -131,38 +132,71 @@
                 </div>
             </div>
         </div>
-
         <div class="{{$varcolalerts}}">
             <div class="row">
-                <div class="col-12 pe-0">
-                    <div class="alert alert-type1" role="alert">
+                <div class="col-3 col-xl-12 pe-0 ">
+                    <div class="alert alert-type1 px-1" role="alert">
                         <h5 class="text-center alert-heading">Saldo $</h5>
                         <hr>
-                        <h3 class="text-center">$ {{number_format($balance_s,2,',','.')}}</h3>
+                        <table class="table-sm w-100">
+                            <tbody> 
+                                @foreach ($balances as $balance)
+                                    @if ($balance->type_money == 'peso')
+                                        <tr>
+                                            <td class="ps-3 pe-0"><h5>@if ($balance->type == 'client') Clientes @else Caja @endif</h5></td>
+                                            <td><h5 class="pe-3 text-end">{{number_format($balance->balance,2,',','.')}}</h5></td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="col-12 pe-0">
-                    <div class="alert alert-type1" role="alert">
+                <div class="col-3 col-xl-12 pe-0">
+                    <div class="alert alert-type1 px-1" role="alert">
                         <h5 class="text-center alert-heading">Saldo U$S</h5>
                         <hr>
-                        <h3 class="text-center">U$S {{number_format($balance_usd,2,',','.')}}</h3>
+                        <table class="table-sm w-100">
+                            <tbody> 
+                                @foreach ($balances as $balance)
+                                    @if ($balance->type_money == 'dolar')
+                                        <tr>
+                                            <td class="ps-3 pe-0"><h5>@if ($balance->type == 'client') Clientes @else Caja @endif</h5></td>
+                                            <td><h5 class="pe-3 text-end">{{number_format($balance->balance,2,',','.')}}</h5></td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="col-12 pe-0">
-                    <div class="alert alert-type1" role="alert">
+                <div class="col-3 col-xl-12 pe-0">
+                    <div class="alert alert-type1 px-1" role="alert">
                         <h5 class="text-center alert-heading">Cotización U$S</h5>
                         <hr>
-                        <h3 class="text-center">U$S {{number_format($price_usd,2,',','.')}}</h3>
-                        @if ($origin_usd != '')
-                            <p class="m-0 fw-light text-center">Origen: <a href="{{$origin_usd}}" target="_blank">Dolar Api</a></p>
-                        @endif
+                        <table class="table-sm w-100">
+                            <tbody> 
+                                <tr>
+                                    <td class="ps-3"><b>Sistema</b></td>
+                                    <td>{{$price_usd > 0 ? number_format($price_usd,2,',','.') : 'No disp.'}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-3"><b><a href="{{$origin_usd_o}}" target="_blank" class="text-dark">Oficial</a></b></td>
+                                    <td>{{$price_usd_o > 0 ? number_format($price_usd_o,2,',','.') : 'No disp.'}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-3"><b><a href="{{$origin_usd_b}}" target="_blank" class="text-dark">Blue</a></b></td>
+                                    <td>{{$price_usd_b > 0 ? number_format($price_usd_b,2,',','.') : 'No disp.'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="col-12 pe-0">
-                    <div class="alert alert-type1" role="alert">
-                        <h5 class="text-center alert-heading">Valor JUS</h5>
+                <div class="col-3 col-xl-12 pe-0">
+                    <div class="alert alert-type1 px-1" role="alert">
+                        <h5 class="text-center alert-heading">Valor JUS ($)</h5>
                         <hr>
-                        <h3 class="text-center">$ {{number_format($price_jus,2,',','.')}}</h3>
+                        <h3 class="text-center">{{number_format($price_jus,2,',','.')}}</h3>
                     </div>
                 </div>
             </div>

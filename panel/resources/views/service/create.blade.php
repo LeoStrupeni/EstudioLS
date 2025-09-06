@@ -21,7 +21,7 @@
                             <div class="mb-2">
                                 <label for="type_money" class="form-label mb-0 ps-3 fw-bold">Moneda</label>
                                 <select class="form-select validate" name="type_money" style="width: 100%" required>
-                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     <option value="peso">Pesos ($)</option>
                                     <option value="dolar" selected>Dolar (U$S)</option>
                                     <option value="jus">JUS</option>

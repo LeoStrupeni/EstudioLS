@@ -21,7 +21,7 @@
                             <div class="">
                                 <label for="services" class="form-label mb-0 ps-3 fw-bold">Servicio</label>
                                 <select class="form-select" id="services" onchange="getServiceDetails(this)"> 
-                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     @foreach($services as $service)
                                         <option value="{{ $service->id }}">{{ $service->name }}</option>
                                     @endforeach

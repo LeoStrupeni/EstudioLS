@@ -90,7 +90,7 @@
                                     <div style="display:block;" class="text-center">
                                         <br>
                                         <br>
-                                        <div class="alert alert-type2 m-0 justify-content-center" role="alert">
+                                        <div class="alert alert-type1 m-0 justify-content-center" role="alert">
                                             <h5 class="m-0">Error al obtener la informacion. Por favor reintentelo o comuniquese con Soporte</h5>
                                         </div>
                                         <br>
@@ -106,7 +106,7 @@
                                     <div style="display:block;" class="text-center">
                                         <br>
                                         <br>
-                                        <div class="alert alert-type2 m-0 justify-content-center" role="alert">
+                                        <div class="alert alert-type1 m-0 justify-content-center" role="alert">
                                             <h5 class="m-0">No se encuentra registros con los filtros aplicados</h5>
                                         </div>
                                         <br>

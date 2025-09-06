@@ -22,7 +22,7 @@
                             <div class="mb-2">
                                 <label for="rol" class="form-label mb-0 ps-3">Rol</label>
                                 <select class="form-select validate" name="rol" style="width: 100%" required>
-                                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     <option value="1">Admin</option>
                                     <option value="2" selected>Secretaria</option>
                                 </select>

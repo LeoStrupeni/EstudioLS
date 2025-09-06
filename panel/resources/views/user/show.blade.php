@@ -9,7 +9,7 @@
                 <div style="display:block;" class="text-center">
                     <br>
                     <br>
-                    <div class="alert alert-type2 m-0 justify-content-center" role="alert">
+                    <div class="alert alert-type1 m-0 justify-content-center" role="alert">
                         <h5 class="m-0">Error al obtener la informacion. Por favor reintentelo o comuniquese con Soporte</h5>
                     </div>
                     <br>
@@ -40,7 +40,7 @@
                         <div class="mb-2">
                             <label for="rol" class="form-label mb-0 ps-3">Rol</label>
                             <select class="form-select" id="s_rol" style="width: 100%">
-                                <option value="" selected disabled>Seleccione una opcion ...</option>
+                                <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                 <option value="1">Admin</option>
                                 <option value="2" selected>Secretaria</option>
                             </select>

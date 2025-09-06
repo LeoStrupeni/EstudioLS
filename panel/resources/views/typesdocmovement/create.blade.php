@@ -19,7 +19,7 @@
                     <div class="mb-2">
                         <label for="type" class="form-label mb-0 ps-3">Tipo</label>
                         <select class="form-select validate" name="type" id="type" style="width: 100%" required>
-                            <option value="" selected disabled>Seleccione una opcion ...</option>
+                            <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                             <option value="I">Ingreso</option>
                             <option value="E">Egreso</option>
                             <option value="IE">Ingreso y Egreso</option>

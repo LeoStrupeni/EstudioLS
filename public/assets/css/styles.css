@@ -42,8 +42,32 @@
 }
 
 .text-type1 {
-  --bs-text-opacity: 1;
-  color: rgba(var(--ls-bg-color), var(--bs-text-opacity)) !important;
+  color: var(--ls-bg-color) !important;
+}
+
+.bg-type1 {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--ls-bg-color), var(--bs-bg-opacity)) !important;
+}
+
+.bg-type3 {
+  --bs-bg-opacity: 1;
+  background-color: var(--ls-bg3-color) !important;
+}
+
+
+.table-type1 {
+  --bs-table-color: #000;
+  --bs-table-bg: var(--ls-bg-color);
+  --bs-table-border-color: var(--ls-bg2-color);
+  --bs-table-striped-bg: var(--ls-bg2-color);
+  --bs-table-striped-color: #000;
+  --bs-table-active-bg: var(--ls-bg2-color);
+  --bs-table-active-color: #000;
+  --bs-table-hover-bg: var(--ls-bg2-color);
+  --bs-table-hover-color: #000;
+  color: var(--bs-black);
+  border-color: var(--ls-bg2-color);
 }
 
 /* .text-bg-danger {

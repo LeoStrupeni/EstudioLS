@@ -105,7 +105,11 @@ $(document).ready(function() {
         $('#description').val('');
         $('#createmovement').modal('show');
     });
-    $('body').on('click','.update',function(){ 
+    $('body').on('click','.update, .read',function(){ 
+        var read = $(this).hasClass('read') ? true : false;
+        if (read == true) {document.getElementById("modal-title-edit-movement").innerHTML = "Ver Movimiento";}
+        else {document.getElementById("modal-title-edit-movement").innerHTML = "Editar Movimiento";}
+
         $('#formeditmovement').attr('action',app_url+"/movement/"+$(this).data('id'));
 
         form = document.getElementById("formeditmovement");
@@ -119,7 +123,7 @@ $(document).ready(function() {
 
         $('#modal-body-edit-movement-roller').removeClass('d-none');
         $('#modal-body-edit-movement-error').addClass('d-none');
-        $('#modal-body-edit-movement').addClass('d-none');
+        
         $('#modal-footer-edit-movement').addClass('d-none');
 
         $.ajax({contenttype : 'application/json; charset=utf-8',
@@ -132,58 +136,47 @@ $(document).ready(function() {
                     $( form.elements ).each(function( b ) {
                         if($(this).attr('name') == index){
                             $(this).val(value);
+                            if (index != 'type_origin' && index != 'client_id' && index != 'provider_id' && index != 'user_id' && index != 'budget_id'){
+                                $(this).change();
+                            }
+                        }
+                        if($(this).attr('name') == 'money' && (index == 'deposit' || index == 'expense')){
+                            if (value>0) { $(this).val(value);}
+                        }
+                        if($(this).attr('name') == 'bank_account' && index == 'bank_accounts_id'){
+                            $(this).val(value).change();
                         }
                     });
+
+                    if (index == 'client_id' && value != null){
+                        $('#client_id_hide').val(value);
+                        $('#budget_id_hide').val(data.budget_id);
+                        $('#type_origin_e').val('client').change();
+                        $('#client_e').removeClass('d-none');
+                        $('#budget_e').removeClass('d-none');
+                    }
+                    if (index == 'provider_id' && value != null){
+                        $('#provider_id_hide').val(value);
+                        $('#type_origin_e').val('provider').change();
+                        $('#provider_e').removeClass('d-none');
+                    }
+                    if (index == 'user_id' && value != null){
+                        $('#user_id_hide').val(value);
+                        $('#type_origin_e').val('user').change();
+                        $('#user_e').removeClass('d-none');
+                    }
                 });
                 $('#modal-body-edit-movement').removeClass('d-none');
-                $('#modal-footer-edit-movement').removeClass('d-none');
+                if (read == false) {
+                    $('#modal-footer-edit-movement').removeClass('d-none');
+                }
+                
             }
         }).always(function() {
             $('#modal-body-edit-movement-roller').addClass('d-none');
         });
     });
-    $('body').on('click','.read',function(){ 
-        form = document.getElementById("formshowmovement");
-        $( form.elements ).each(function( index ) {
-            $(this).val('');
-        });
-        $('#showmovement').modal('show');
-
-        $('#modal-body-show-movement-roller').removeClass('d-none');
-        $('#modal-body-show-movement-error').addClass('d-none');
-        $('#modal-body-show-movement').addClass('d-none');
-
-        $.ajax({contenttype : 'application/json; charset=utf-8',
-            url : $('meta[name="app_url"]').attr('content')+'/movement/'+$(this).data('id')+'/edit',
-            type : 'GET',
-            done : function(response) { $('#modal-body-edit-movement-error').removeClass('d-none'); },
-            error : function(jqXHR,textStatus,errorThrown) { $('#modal-body-edit-movement-error').removeClass('d-none'); },
-            success : function(data) {
-
-                $.each( data , function( index, value ) {
-                    $( form.elements ).each(function( b ) {
-                        if($(this).attr('name') == index){
-                            if(index == 'type_doc'){
-                                switch(value) {
-                                    case "1": $(this).val('Dni'); break;
-                                    case "2": $(this).val('Cuil'); break;
-                                    case "3": $(this).val('Cuit'); break;
-                                    default: $(this).val('');
-                                }
-                            }else {
-                                $(this).val(value);
-                            }
-                            $(this).css('box-shadow', 'inset 0px 0px 1px 1px green');
-                        }
-                    });
-                });
-
-                $('#modal-body-show-movement').removeClass('d-none');
-            }
-        }).always(function() {
-            $('#modal-body-show-movement-roller').addClass('d-none');
-        });
-    });
+    
     $('body').on('click','.delete',function(){ 
         rolid=$(this).data('id');
         Swal.fire({
@@ -200,44 +193,85 @@ $(document).ready(function() {
             }
         });
     });
-
-    $('body').on('change',"#type_origin_c",function () {
-        
-        $('#client_c').addClass('d-none');
-        $('#budget_c').addClass('d-none');
-        $('#provider_c').addClass('d-none');
-        $('#user_c').addClass('d-none');
-
-        $('#client_id_c').empty();
-        $('#provider_id_c').empty();
-        $('#user_id_c').empty();
+    $("#type_origin_c, #type_origin_e").on('change',function () {
         url_query = '';
         add_data=""
 
         if($(this).val() == 'client'){
-            $('#client_c').removeClass('d-none');
             url_query = `/${$(this).val()}/table`;
-            add_data='#client_id_c';
         }else if($(this).val() == 'provider'){
-            $('#provider_c').removeClass('d-none');
             url_query = `/${$(this).val()}/table`;
-            add_data='#provider_id_c';
         }else if($(this).val() == 'user'){
-            $('#user_c').removeClass('d-none');
             url_query = `/${$(this).val()}s/table`;
-            add_data='#user_id_c';
+        }
+        
+        if($(this).attr('id') == 'type_origin_c'){
+            $('#client_c').addClass('d-none');
+            $('#budget_c').addClass('d-none');
+            $('#provider_c').addClass('d-none');
+            $('#user_c').addClass('d-none');
+
+            $('#client_id_c').empty();
+            $('#provider_id_c').empty();
+            $('#user_id_c').empty();
+
+            if($(this).val() == 'client'){
+                $('#client_c').removeClass('d-none');
+                add_data='#client_id_c';
+            }else if($(this).val() == 'provider'){
+                $('#provider_c').removeClass('d-none');
+                add_data='#provider_id_c';
+            }else if($(this).val() == 'user'){
+                $('#user_c').removeClass('d-none');
+                add_data='#user_id_c';
+            }
+            if(url_query != ''){
+                getdataselect(url_query,add_data, null, '', 'createmovement');
+            }
+        }else if($(this).attr('id') == 'type_origin_e'){
+            $('#client_e').addClass('d-none');
+            $('#budget_e').addClass('d-none');
+            $('#provider_e').addClass('d-none');
+            $('#user_e').addClass('d-none');
+
+            $('#client_id_e').empty();
+            $('#provider_id_e').empty();
+            $('#user_id_e').empty();
+
+            if($(this).val() == 'client'){
+                $('#client_e').removeClass('d-none');
+                add_data='#client_id_e';
+
+                if(url_query != ''){
+                    getdataselect(url_query,add_data, null, $('#client_id_hide').val(), 'editmovement');
+                }
+            }else if($(this).val() == 'provider'){
+                $('#provider_e').removeClass('d-none');
+                add_data='#provider_id_e';
+                if(url_query != ''){
+                    getdataselect(url_query,add_data, null, $('#provider_id_hide').val(), 'editmovement');
+                }
+            }else if($(this).val() == 'user'){
+                $('#user_e').removeClass('d-none');
+                add_data='#user_id_e';
+                if(url_query != ''){
+                    getdataselect(url_query,add_data, null, $('#user_id_hide').val(), 'editmovement');
+                }
+            }
         }
 
-        if(url_query != ''){
-            getdataselect(url_query,add_data, null);
-        }
     });
-    $('body').on('change',"#client_id_c",function () {
-        $('#budget_c').addClass('d-none');
-        $('#budget_c_id').empty();
+    
+    $("#client_id_c, #client_id_e").on('change',function () {
+        if($(this).attr('id') == 'client_id_c'){
+            campoevaluar="budget_c"
+        } else if($(this).attr('id') == 'client_id_e'){
+            campoevaluar="budget_e"
+        }
+        $('#'+campoevaluar).addClass('d-none');
         if($(this).val() != ''){
-            $('#budget_c').removeClass('d-none');
-
+            $('#'+campoevaluar).removeClass('d-none');
+            $('#'+campoevaluar+'_id').empty();
             $('.spinner-budget').removeClass('d-none');
             $.ajax({contenttype : 'application/json; charset=utf-8',
                 url : $('meta[name="app_url"]').attr('content')+`/budget/client/${$(this).val()}`,
@@ -245,27 +279,46 @@ $(document).ready(function() {
                 success : function(data) {
                     selects='<option value=""></option>';
                     $.each(data, function (key, val) {
-                        selects+=`<option value="${val.id}">${val.name}${val.total_dollars > 0 ? ' - USD: '+val.total_dollars : ''}${val.total_pesos > 0 ? ' - $: '+val.total_pesos : ''}${val.total_jus > 0 ? ' - JUS: '+val.total_jus : ''}</option>`;
+                        selected_option = ($('#budget_id_hide').val() == val.id) ? 'selected' : '';
+                        selects+=`<option value="${val.id}" ${selected_option}>${val.name}${val.total_dollars > 0 ? ' - USD: '+val.total_dollars : ''}${val.total_pesos > 0 ? ' - $: '+val.total_pesos : ''}${val.total_jus > 0 ? ' - JUS: '+val.total_jus : ''}</option>`;
                     });
-                    $('#budget_c_id').append(selects);
+                    $('#'+campoevaluar+'_id').append(selects);
                 }
             }).always(function() {
                 $('.spinner-budget').addClass('d-none');
-
-                // $( add_data ).select2( {
-                //     theme: "bootstrap-5",
-                //     width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-                //     placeholder: 'Seleccione una opcion',
-                //     dropdownParent: $('#createmovement'),
-                //     language: 'es'
-                // } );
-                // $(add_data).select2('open');
             });
         } 
-
     });
 
-    function getdataselect(url_query,add_data, var_search){
+    $("#budget_c_id, #budget_e_id").on('change',function () {
+        if($(this).attr('id') == 'budget_c_id'){
+            campoevaluar="budget_item_c"
+        } else if($(this).attr('id') == 'budget_e_id'){
+            campoevaluar="budget_item_e"
+        }
+        $('#'+campoevaluar).addClass('d-none');
+        if($(this).val() != ''){
+            $('#'+campoevaluar).removeClass('d-none');
+            $('#'+campoevaluar+'_id').empty();
+            $('.spinner-budget-item').removeClass('d-none');
+            $.ajax({contenttype : 'application/json; charset=utf-8',
+                url : $('meta[name="app_url"]').attr('content')+`/budget/${$(this).val()}`,
+                type : 'GET',
+                success : function(data) {
+                    selects='<option value=""></option>';
+                    $.each(data.budget_items, function (key, val) {
+                        selected_option = ($('#budget_item_id_hide').val() == val.id) ? 'selected' : '';
+                        selects+=`<option value="${val.id}" ${selected_option}>${val.service_name}${val.type_money == 'dolar' ? ' - USD: ': (val.type_money == 'jus' ? ' - JUS: ': ' - $: ')}${val.price}</option>`;
+                    });
+                    $('#'+campoevaluar+'_id').append(selects);
+                }
+            }).always(function() {
+                $('.spinner-budget-item').addClass('d-none');
+            });
+        } 
+    });
+
+    function getdataselect(url_query,add_data, var_search, selected, parent){
         $('.spinner-data').removeClass('d-none');
         $.ajax({contenttype : 'application/json; charset=utf-8',
             data: {
@@ -277,57 +330,85 @@ $(document).ready(function() {
             url : $('meta[name="app_url"]').attr('content')+url_query,
             type : 'POST',
             success : function(data) {
-                selects='<option value="" selected disabled>Seleccione una opcion ...</option>';
+                selects='<option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>';
                 $.each(data.datos, function (key, val) {
-                    if(add_data == '#user_id_c'){
-                        selects+=`<option value="${val.id}">${val.name}</option>`;
+                    selected_option = (selected == val.id) ? 'selected' : '';
+                    if(add_data == '#user_id_c' || add_data == '#user_id_e'){
+                        selects+=`<option value="${val.id}" ${selected_option}>${val.name}</option>`;
                     }else{
-                        selects+=`<option value="${val.id}">${val.first_name} ${val.last_names}</option>`;
+                        selects+=`<option value="${val.id}" ${selected_option}>${val.first_name} ${val.last_names}</option>`;
                     }
                 });
                 $(add_data).append(selects);
             }
         }).always(function() {
             $('.spinner-data').addClass('d-none');
-
+            if (add_data == '#client_id_e') { $('#client_id_e').change();}
             $( add_data ).select2( {
                 theme: "bootstrap-5",
                 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
                 placeholder: 'Seleccione una opcion',
-                dropdownParent: $('#createmovement'),
+                dropdownParent: $('#'+parent),
                 language: 'es'
             } );
             // $(add_data).select2('open');
         });
     }
+    
     $('body').on('keyup','.select2-search__field',function(){
-        varsearch=this.value;
+        var parent = $('.select2-search__field').parent().parent().parent().parent().attr('id');
+        var varsearch=this.value;
         clearInterval(controladorTiempo);
         controladorTiempo = setInterval(function () {
             url_query = '';
-            add_data=""
-            if($("#type_origin_c").val() == 'client'){
-                $('#client_id_c').empty();
-    
-                $('#client_c').removeClass('d-none');
-                url_query = `/${$("#type_origin_c").val()}/table`;
-                add_data='#client_id_c';
-            }else if($("#type_origin_c").val() == 'provider'){
-                $('#provider_id_c').empty();
-    
-                $('#provider_c').removeClass('d-none');
-                url_query = `/${$("#type_origin_c").val()}/table`;
-                add_data='#provider_id_c';
-            }else if($("#type_origin_c").val() == 'user'){
-                $('#user_id_c').empty();
-    
-                $('#user_c').removeClass('d-none');
-                url_query = `/${$("#type_origin_c").val()}s/table`;
-                add_data='#user_id_c';
+            add_data="";
+                
+            if (parent == 'createmovement') {
+                if($("#type_origin_c").val() == 'client'){
+                    url_query = `/${$("#type_origin_c").val()}/table`;
+                }else if($("#type_origin_c").val() == 'provider'){
+                    url_query = `/${$("#type_origin_c").val()}/table`;
+                }else if($("#type_origin_c").val() == 'user'){
+                    url_query = `/${$("#type_origin_c").val()}s/table`;
+                }
+                if($("#type_origin_c").val() == 'client'){
+                    $('#client_id_c').empty();
+                    $('#client_c').removeClass('d-none');
+                    add_data='#client_id_c';
+                }else if($("#type_origin_c").val() == 'provider'){
+                    $('#provider_id_c').empty();
+                    $('#provider_c').removeClass('d-none');
+                    add_data='#provider_id_c';
+                }else if($("#type_origin_c").val() == 'user'){
+                    $('#user_id_c').empty();
+                    $('#user_c').removeClass('d-none');
+                    add_data='#user_id_c';
+                }
+            } else if (parent == 'editmovement') {
+                if($("#type_origin_e").val() == 'client'){
+                    url_query = `/${$("#type_origin_e").val()}/table`;
+                }else if($("#type_origin_e").val() == 'provider'){
+                    url_query = `/${$("#type_origin_e").val()}/table`;
+                }else if($("#type_origin_e").val() == 'user'){
+                    url_query = `/${$("#type_origin_e").val()}s/table`;
+                }
+                if($("#type_origin_e").val() == 'client'){
+                    $('#client_id_e').empty();
+                    $('#client_e').removeClass('d-none');
+                    add_data='#client_id_e';
+                }else if($("#type_origin_e").val() == 'provider'){
+                    $('#provider_id_e').empty();
+                    $('#provider_e').removeClass('d-none');
+                    add_data='#provider_id_e';
+                }else if($("#type_origin_e").val() == 'user'){
+                    $('#user_id_e').empty();
+                    $('#user_e').removeClass('d-none');
+                    add_data='#user_id_e';
+                }
             }
             
             if(url_query != ''){
-                getdataselect(url_query,add_data, varsearch);
+                getdataselect(url_query,add_data, varsearch, '', parent);
             }
             
             clearInterval(controladorTiempo); //Limpio el intervalo
@@ -389,7 +470,6 @@ $(document).ready(function() {
             callregister('/movement/table',1,$('#table_limit').val(),orden,'si')
         }
     });
-    var controladorTiempo = 3000;
     $('#table_search').on('change, keyup',function() {            
         if($('#table_filtrados').val() != $('#table_totales').val()){   
             clearInterval(controladorTiempo);
@@ -409,6 +489,106 @@ $(document).ready(function() {
             });
         }
     });
+
+    $('body').on('click','.readbudget',function(){ 
+        form = document.getElementById("formshowbudget");
+        $( form.elements ).each(function( index ) {
+            $(this).val('');
+        });
+        $('#showbudget').modal('show');
+
+        $('#modal-body-show-budget-roller').removeClass('d-none');
+        $('#modal-body-show-budget-error').addClass('d-none');
+        $('#modal-body-show-budget').addClass('d-none');
+
+        $.ajax({contenttype : 'application/json; charset=utf-8',
+            url : $('meta[name="app_url"]').attr('content')+'/budget/'+$(this).data('id'),
+            type : 'GET',
+            done : function(response) { $('#modal-body-edit-budget-error').removeClass('d-none'); },
+            error : function(jqXHR,textStatus,errorThrown) { $('#modal-body-edit-budget-error').removeClass('d-none'); },
+            success : function(data) {
+                $('#client_show').val(data.budget.client_name);
+                $('#fecha_show').val(data.budget.fecha_format);
+                $('#valid_show').val(data.budget.valid);
+                $('#estatus_show').val(data.budget.estatus);
+                $('#observations_show').val(data.budget.observations);
+                $('#payment_methods_show').val(data.budget.payment_methods);
+                $('#includes_show').val(data.budget.includes);
+                $('#not_includes_show').val(data.budget.not_includes);
+                $('#clarifications_show').val(data.budget.clarifications);
+                $('#cotizacion_show_u').val(formatter.format(data.cotizacion));
+                $('#cotizacion_show_j').val(formatter.format('103337.61'));
+                $( form.elements ).each(function( index ) {
+                    if(this.nodeName === "TEXTAREA") {
+                        CKEDITOR.replace(this,{
+                            language: 'es',
+                            height: 80,
+                            toolbarStartupExpanded : false
+                        });
+                    }
+                });
+
+                var subtotal_p = 0;
+                var subtotal_j = 0;
+                var subtotal_u = 0
+
+                $('#table_show').empty();
+                $.each(data.budget_items, function(index, item) {
+                    $('#table_show').append(`
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td class="text-start">${item.service_name}</td>
+                            <td>${item.description}</td>
+                            <td>${item.type_money}</td>
+                            <td class="text-end">${formatter.format(item.price)}</td>
+                        </tr>
+                    `);
+                    if(item.type_money=='peso') subtotal_p += parseFloat(item.price);
+                    if(item.type_money=='dolar') subtotal_u += parseFloat(item.price);
+                    if(item.type_money=='jus') subtotal_j += parseFloat(item.price);
+                });
+
+
+                $('#subtotal_show_p').val(formatter.format(subtotal_p));
+                $('#subtotal_show_u').val(formatter.format(subtotal_u));
+                $('#subtotal_show_j').val(formatter.format(subtotal_j));
+                
+                cotizacion_u = data.cotizacion;
+                cotizacion_j = '103337.61';
+            
+
+                total_p = subtotal_p + (subtotal_u * cotizacion_u) + (subtotal_j * cotizacion_j);
+
+                pesos_dolar = (subtotal_p == 0 ? 0 : (cotizacion_u == 0 ? 0 : (subtotal_p / cotizacion_u)));
+                jus_a_dolar = (subtotal_j == 0 ? 0 :  (cotizacion_j == 0 ? 0 : ((subtotal_j * cotizacion_j) / cotizacion_u)))
+
+                total_u = parseFloat(subtotal_u) + parseFloat(pesos_dolar) + parseFloat(jus_a_dolar);
+
+                $('#total_show_p').val(formatter.format(total_p));
+                $('#total_show_u').val(formatter.format(total_u));
+
+                $('#modal-body-show-budget').removeClass('d-none');
+            }
+        }).always(function() {
+            $('#modal-body-show-budget-roller').addClass('d-none');
+        });
+    });
+
+    $.each($('select'), function() {
+        if ($(this).val() == '') {
+            $(this).addClass('select-empty');   
+        } else {
+            $(this).removeClass('select-empty');
+        }
+    });
+
+    $('select').on('change', function(ev) {
+        if ($(this).val() == '') {
+            $(this).addClass('select-empty');
+        } else {
+            $(this).removeClass('select-empty');
+        }
+    });
 });
 
 function tableregister(data, page, callpaginas, url_query){
@@ -418,6 +598,9 @@ function tableregister(data, page, callpaginas, url_query){
             <td class="align-middle">${val.fecha}</td>
             <td class="align-middle">${val.type}</td>
             <td class="align-middle">${val.cliente}</td>
+            <td class="align-middle">
+                <a href="javascript:void(0);" class="readbudget" data-id="${val.budget_id}">${val.budget_name}</a>
+            </td>
             <td class="align-middle">${val.type_document}</td>
             <td class="align-middle">${val.type_payment}</td>
             <td class="align-middle">${val.payment_detail ?? ''}</td>
@@ -444,7 +627,7 @@ function tableregister(data, page, callpaginas, url_query){
                         }
 
                         if ( data.permissions.includes('delete') ){
-                            body += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item delete" data-name="${val.first_name} ${val.last_names}">
+                            body += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item delete" data-name="${val.id} de ${val.cliente} de tipo ${val.type_document} por el monto ${val.type_money} ${formatter.format(val.deposit > 0 ? val.deposit : val.expense)} de tipo ${val.type_payment}">
                                 <i class="flaticon-delete"></i> Eliminar
                             </a></li>`
                         }
@@ -464,23 +647,132 @@ function tableregister(data, page, callpaginas, url_query){
     dropdownElementList();
 }
 
-function getlistbankaccounts(value){
-    form = document.getElementById("formnewmovement");
-    typemoney = form.querySelectorAll('[name="type_money"]')[0].value;
-    $('[name="bank_account"]').val('');
-    $( form.querySelectorAll('[name="bank_account"]')[0].children ).each(function( index ) {
-        if (index > 0) {
-            if($(this).data('type') != typemoney) {$(this).addClass('d-none')}
-            else{$(this).removeClass('d-none')}
-        }
-    });
+function getlistbankaccounts(element){
+    parent = $(element).parent().parent().parent().parent().parent().parent().parent().parent().attr('id');
+    if (parent == 'createmovement') {
+        form = document.getElementById("formnewmovement");
+        typemoney = form.querySelectorAll('[name="type_money"]')[0].value;
+        $('[name="bank_account"]').val('');
+        $( form.querySelectorAll('[name="bank_account"]')[0].children ).each(function( index ) {
+            if (index > 0) {
+                if($(this).data('type') != typemoney) {$(this).addClass('d-none')}
+                else{$(this).removeClass('d-none')}
+            }
+        });
+    } else if (parent == 'editmovement') {
 
+        form = document.getElementById("formeditmovement");
+        typemoney = form.querySelectorAll('[name="type_money"]')[0].value;
+        $( form.querySelectorAll('[name="bank_account"]')[0].children ).each(function( index ) {
+            if (index > 0) {
+                if($(this).data('type') != typemoney) {$(this).addClass('d-none')}
+                else{$(this).removeClass('d-none')}
+            }
+        });
+    }
 }
 
-function labelbankaccounts(value){
-    text='Cuenta';
-    if (value=="ingreso") { text='Cuenta destino'; }
-    else if (value=="egreso") { text='Cuenta origen';}
-    $($('[name="bank_account"]').parent().children()[0]).text(text);
+function labelbankaccounts(value,element){
+    parent = $(element).parent().parent().parent().parent().parent().parent().parent().parent().attr('id');
+
+    if (parent == 'createmovement') {
+        form = document.getElementById("formnewmovement");
+    } else if (parent == 'editmovement') {
+        form = document.getElementById("formeditmovement");
+    }
+
+    form.querySelector('[name="type_document"]').value = '';
+    form.querySelector('[name="type_payment"]').value = '';
+    form.querySelector('[name="type_money"]').value = '';
+    form.querySelector('[name="bank_account"]').value = '';
+    form.querySelector('[name="bank_account_dest"]').value = '';
+    form.querySelector('[name="type_origin"]').value = '';
+    $(form.querySelector('[name="type_origin"]')).change();
+    text='Cuenta origen';
+    if (value=="ingreso") { 
+        text='Cuenta destino'; 
+        $(form.querySelector('[name="type_document"]')).children().each(function() {
+            if($(this).data('type') == 'I' || $(this).data('type') == 'IE' || $(this).data('type') == undefined){
+                $(this).removeClass('d-none');
+            } else {
+                $(this).addClass('d-none');
+            }
+        });
+        $(form.querySelector('[name="type_origin"]')).children().each(function() {
+            if($(this).val() == 'provider' || $(this).val() == 'caja'){$(this).addClass('d-none');}
+            else {$(this).removeClass('d-none');}
+        });
+    } else if (value=="egreso") { 
+        $(form.querySelector('[name="type_document"]')).children().each(function() {
+            if($(this).data('type') == 'E' || $(this).data('type') == 'IE' || $(this).data('type') == undefined){
+                $(this).removeClass('d-none');
+            } else {
+                $(this).addClass('d-none');
+            }
+        });
+        $(form.querySelector('[name="type_origin"]')).children().each(function() {
+            $(this).removeClass('d-none');
+        });
+    } else if (value=="cambio") {
+        $(form.querySelector('[name="type_document"]')).children().each(function() {
+            if($(this).text().toLowerCase().includes('cambio usd')){
+                $(this).removeClass('d-none').prop('selected', true);
+            } else {
+                $(this).addClass('d-none');
+            }
+        });
+        $(form.querySelector('[name="type_origin"]')).children().each(function() {
+            if($(this).val() != 'client'){$(this).addClass('d-none');}
+            else {$(this).removeClass('d-none').prop('selected', true).change();}
+        });
+    } else if (value=="caja") {
+        $(form.querySelector('[name="type_document"]')).children().each(function() {
+            if($(this).text().toLowerCase().includes('caja')){
+                $(this).removeClass('d-none').prop('selected', true);
+            } else {
+                $(this).addClass('d-none');
+            }
+        });
+        $(form.querySelector('[name="type_origin"]')).children().each(function() {
+            if($(this).val() == 'provider'){$(this).addClass('d-none');}
+            else {$(this).removeClass('d-none');}
+        });
+    }
+    
+    if(value == 'cambio'){
+        $(form.querySelector('[name="type_payment"]')).children().each(function() {
+            if($(this).val() == 'efectivo'){
+                $(this).prop('selected', true);
+            } else {
+                $(this).prop('disabled', 'disabled');
+            }
+        });
+        $(form.querySelector('[name="type_money"]')).children().each(function() {
+            if($(this).val() == 'dolar'){
+                $(this).prop('selected', true).change();
+            } else {
+                $(this).prop('disabled', 'disabled');
+            }
+        });
+        $(form.querySelector('[name="bank_account"]')).children().each(function() {
+            if($(this).data('type') == 'dolar'){
+                $(this).prop('selected', true).change();
+            }
+        });
+        $(form.querySelector('[name="bank_account_dest"]')).children().each(function() {
+            $(this).prop('selected', true).change();
+        });
+        $(form.querySelector('[name="priceusd"]')).parent().parent().removeClass('d-none');
+        $(form.querySelector('[name="bank_account_dest"]')).parent().parent().removeClass('d-none');
+    } else {
+        $(form.querySelector('[name="type_payment"]')).children().each(function() {
+            $(this).removeAttr("disabled");
+        });
+        $(form.querySelector('[name="type_money"]')).children().each(function() {
+            $(this).removeAttr("disabled");
+        });
+        $(form.querySelector('[name="priceusd"]')).parent().parent().addClass('d-none');
+        $(form.querySelector('[name="bank_account_dest"]')).parent().parent().addClass('d-none');
+    }
 }
 

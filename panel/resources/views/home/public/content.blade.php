@@ -326,7 +326,7 @@
                 </div>
                 <div class="mb-2">
                   <select class="form-select select2 validate" name="motivo" title="Motivo" style="width: 100%" required>
-                    <option value="" selected disabled>Seleccione una opcion ...</option>
+                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                     <option value="CI">Ciudadanía</option>
                     <option value="PA">Pasaporte</option>
                     <option value="BP">Búsqueda de Partidas</option>
