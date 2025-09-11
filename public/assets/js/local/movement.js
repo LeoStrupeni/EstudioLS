@@ -3,6 +3,12 @@ var varsearch = '';
 const formatter = new Intl.NumberFormat('es-AR', {minimumFractionDigits: 2,maximumFractionDigits: 2});
 
 $(document).ready(function() {
+    $('body').on('click','#btnToggleSaldos2',function(){
+        $(this).children().hasClass('fa-eye') ? 
+            $(this).children().removeClass('fa-eye').addClass('fa-eye-slash') : 
+            $(this).children().removeClass('fa-eye-slash').addClass('fa-eye') ;
+    });
+
     $( '#type_document, #type_payment, #type_money, #type' ).select2( {
         theme: "bootstrap-5",
         width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
@@ -15,6 +21,8 @@ $(document).ready(function() {
     });
     
     $('#fecha').daterangepicker({
+        parentEl: "body",
+        showDropdowns: true,
         buttonClasses: ' btn',
         applyClass: 'btn-primary',
         cancelClass: 'btn-secondary',
@@ -51,49 +59,70 @@ $(document).ready(function() {
         pay=$('#type_payment').val();
 
         var f_fecha = '', f_type='', f_money='' , f_doc='', f_pay='';
-        if(fecha!='') {f_fecha=`<li><b>Periodo: </b>${fecha}</li>`;}
+        if(fecha!='') {f_fecha=`<div class="col-12 col-md-6"><b>Periodo: </b>${fecha}</div>`;
+        }
         if(type!=''){
-            f_type=`<li><b>Tipos de Movimientos: </b>`;
+            f_type=`<div class="col-12 col-md-6"><b>Tipos de Movimientos: </b>`;
             $.each(type, function (key, val) {
-                if( f_type=='<li><b>Tipos de Movimientos: </b>'){ f_type+=` ${val}`;}
+                if( f_type=='<div class="col-12 col-md-6"><b>Tipos de Movimientos: </b>'){ f_type+=` ${val}`;}
                 else { f_type+=`, ${val}`;}
             });
-            f_type+=`</li>`;
+            f_type+=`<a href="javascript:void(0);" class="text-danger float-end" onclick="$('#type').val('').change()">
+                <i class="fa-solid fa-xmark"></i>
+            </a></div>`;
         }
         if(money!=''){
-            f_money=`<li><b>Monedas: </b>`;
-            $.each(money, function (key, val) {
-                if( f_money=='<li><b>Monedas: </b>'){ f_money+=` ${val}`;}
-                else { f_money+=`, ${val}`;}
+            f_money=`<div class="col-12 col-md-6"><b>Monedas: </b>`;
+            
+            var selectedTexts = $('#type_money').find('option:selected').map(function() {
+                return $(this).text();
+            }).toArray();
+
+            $.each(selectedTexts, function () {
+                if( f_money=='<div class="col-12 col-md-6"><b>Monedas: </b>'){ f_money+=` ${this}`;}
+                else { f_money+=`, ${this}`;}
             });
-            f_money+=`</li>`;
+            f_money+=`<a href="javascript:void(0);" class="text-danger float-end" onclick="$('#type_money').val('').change()">
+                <i class="fa-solid fa-xmark"></i>
+            </a></div>`;
         }
         if(doc!=''){
-            f_doc=`<li><b>Tipos de Documentos: </b>`;
-            $.each(doc, function (key, val) {
-                if( f_doc=='<li><b>Tipos de Documentos: </b>'){f_doc+=` ${val}`;}
-                else {f_doc+=`, ${val}`;}
+            f_doc=`<div class="col-12 col-md-6"><b>Tipos de Documentos: </b>`;
+            var selectedTexts = $('#type_document').find('option:selected').map(function() {
+                return $(this).text();
+            }).toArray();
+
+            $.each(selectedTexts, function () {
+                if( f_doc=='<div class="col-12 col-md-6"><b>Tipos de Documentos: </b>'){f_doc+=` ${this}`;}
+                else {f_doc+=`, ${this}`;}
             });
-            f_doc+=`</li>`;
+            f_doc+=`<a href="javascript:void(0);" class="text-danger float-end" onclick="$('#type_document').val('').change()">
+                <i class="fa-solid fa-xmark"></i>
+            </a></div>`;
         }
         if(pay!=''){
-            f_pay=`<li><b>Tipos de Pago: </b>`;
-            $.each(pay, function (key, val) {
-                if( f_pay=='<li><b>Tipos de Pago: </b>'){ f_pay+=` ${val}`;}
-                else { f_pay+=`, ${val}`;}
+            f_pay=`<div class="col-12 col-md-6"><b>Tipos de Pago: </b>`;
+            var selectedTexts = $('#type_payment').find('option:selected').map(function() {
+                return $(this).text();
+            }).toArray();
+            $.each(selectedTexts, function () {
+                if( f_pay=='<div class="col-12 col-md-6"><b>Tipos de Pago: </b>'){ f_pay+=` ${this}`;}
+                else { f_pay+=`, ${this}`;}
             });
-            f_pay+=`</li>`;
+            f_pay+=`<a href="javascript:void(0);" class="text-danger float-end" onclick="$('#type_payment').val('').change()">
+                <i class="fa-solid fa-xmark"></i>
+            </a></div>`;
         }
 
         if(fecha!='' || type!='' || money!='' || doc!='' || pay!='' ){
             $('#filtrosaplicados').append(`<div class="alert alert-type1 py-2" role="alert">
-                <ul class="mb-0"> 
-                    ${f_fecha}
-                    ${f_type}
-                    ${f_money}
-                    ${f_doc}
-                    ${f_pay}
-                </ul>
+                <div class="row">
+                    ${fecha!='' ? f_fecha : ''}
+                    ${type!='' ? f_type : ''}
+                    ${money!='' ? f_money : ''}
+                    ${doc!='' ? f_doc : ''}
+                    ${pay!='' ? f_pay : ''}
+                </div>
             </div>`);
         }
 
@@ -151,9 +180,11 @@ $(document).ready(function() {
                     if (index == 'client_id' && value != null){
                         $('#client_id_hide').val(value);
                         $('#budget_id_hide').val(data.budget_id);
+                        $('#budget_item_id_hide').val(data.budget_item_id);
                         $('#type_origin_e').val('client').change();
                         $('#client_e').removeClass('d-none');
                         $('#budget_e').removeClass('d-none');
+                        $('#budget_item_e').removeClass('d-none');
                     }
                     if (index == 'provider_id' && value != null){
                         $('#provider_id_hide').val(value);
@@ -286,6 +317,9 @@ $(document).ready(function() {
                 }
             }).always(function() {
                 $('.spinner-budget').addClass('d-none');
+                if(campoevaluar == 'budget_e' && $('#budget_id_hide').val() != ''){
+                    $('#budget_e_id').change();
+                };
             });
         } 
     });
@@ -593,7 +627,33 @@ $(document).ready(function() {
 
 function tableregister(data, page, callpaginas, url_query){
     body='';
+    bodysmall='';
     $.each(data.datos, function (key, val) {
+
+        btn = `<div class="dropdown">
+            <button class="btn btn-link dropdown-toggle-menu-body text-type1 py-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+            <ul class="dropdown-menu" >`;
+                if( data.permissions.includes('read') ) {
+                    btn += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item read">
+                        <i class="flaticon-eye"></i> Ver
+                    </a></li>`
+                }
+
+                if( data.permissions.includes('update') ) {
+                    btn += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item update">
+                        <i class="flaticon-upload"></i> Editar
+                    </a></li>`
+                }
+
+                if ( data.permissions.includes('delete') ){
+                    btn += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item delete" data-name="${val.id} de ${val.cliente} de tipo ${val.type_document} por el monto ${val.type_money} ${formatter.format(val.deposit > 0 ? val.deposit : val.expense)} de tipo ${val.type_payment}">
+                        <i class="flaticon-delete"></i> Eliminar
+                    </a></li>`
+                }
+        btn += `</ul></div>`;
+
         body += `<tr id="${val.id}">
             <td class="align-middle">${val.fecha}</td>
             <td class="align-middle">${val.type}</td>
@@ -608,34 +668,63 @@ function tableregister(data, page, callpaginas, url_query){
             <td class="align-middle">${val.type_money}</td>
             <td class="align-middle">${formatter.format(val.deposit)}</td>
             <td class="align-middle">${formatter.format(val.expense)}</td>
-            <td class="align-middle">
-                <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle-menu-body text-type1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </button>
-                    <ul class="dropdown-menu" >`;
-                        if( data.permissions.includes('read') ) {
-                            body += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item read">
-                                <i class="flaticon-eye"></i> Ver
-                            </a></li>`
-                        }
-
-                        if( data.permissions.includes('update') ) {
-                            body += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item update">
-                                <i class="flaticon-upload"></i> Editar
-                            </a></li>`
-                        }
-
-                        if ( data.permissions.includes('delete') ){
-                            body += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item delete" data-name="${val.id} de ${val.cliente} de tipo ${val.type_document} por el monto ${val.type_money} ${formatter.format(val.deposit > 0 ? val.deposit : val.expense)} de tipo ${val.type_payment}">
-                                <i class="flaticon-delete"></i> Eliminar
-                            </a></li>`
-                        }
-                body += `<ul></div>
-            </td>
+            <td class="align-middle">${btn}</td>
         </tr>`;
+
+        bodysmall += `<div class="col-11 mb-3 mx-3">
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Fecha</div>
+                <div class="col-6 border p-1 text-center">${val.fecha}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Tipo</div>
+                <div class="col-6 border p-1 text-center">${val.type}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Cliente</div>
+                <div class="col-6 border p-1 text-center">${val.cliente}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small"># Pres.</div>
+                <div class="col-6 border p-1 text-center">${val.budget_name}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Documento</div>
+                <div class="col-6 border p-1 text-center">${val.type_document}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Tipo Pago</div>
+                <div class="col-6 border p-1 text-center">${val.type_payment}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Detalle</div>
+                <div class="col-6 border p-1 text-center">${val.payment_detail ?? ''}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Concepto</div>
+                <div class="col-6 border p-1 text-center">${val.concepto ?? ''}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Moneda</div>
+                <div class="col-6 border p-1 text-center">${val.type_money}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Ingreso</div>
+                <div class="col-6 border p-1 text-center">${val.deposit}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Egreso</div>
+                <div class="col-6 border p-1 text-center">${val.expense}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small"></div>
+                <div class="col-6 border p-0 text-center">${btn}</div>
+            </div>
+        </div>`;
+        
     });
     $('#table_body').append(body);
+    $('#table_small').append(bodysmall);
     $('#table_info').text(data.infototal);
     $('#table_filtrados').val(data.datos.length);
     $('#table_totales').val(data.totales);
@@ -685,7 +774,9 @@ function labelbankaccounts(value,element){
     form.querySelector('[name="type_payment"]').value = '';
     form.querySelector('[name="type_money"]').value = '';
     form.querySelector('[name="bank_account"]').value = '';
-    form.querySelector('[name="bank_account_dest"]').value = '';
+    if(form.querySelector('[name="bank_account_dest"]') != null){
+        form.querySelector('[name="bank_account_dest"]').value = '';
+    }
     form.querySelector('[name="type_origin"]').value = '';
     $(form.querySelector('[name="type_origin"]')).change();
     text='Cuenta origen';

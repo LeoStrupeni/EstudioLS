@@ -216,48 +216,79 @@ $(document).ready(function() {
 
 function tableregister(data, page, callpaginas, url_query){
     body='';
+    bodysmall='';
     const formatter = new Intl.NumberFormat('en-US', {minimumFractionDigits: 2,maximumFractionDigits: 2,});
 
     $.each(data.datos, function (key, val) {
         imagen = val.imagen;
         if(imagen == '' || imagen == null){imagen = app_url+"/assets/media/avatar.jpg"}
+
+        btn=`<div class="dropdown">
+            <button class="btn btn-link dropdown-toggle-menu-body text-type1 py-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+            <ul class="dropdown-menu" >`;
+                if( data.permissions.includes('read') ) {
+                    btn += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item read">
+                        <i class="flaticon-eye"></i> Ver
+                    </a></li>`
+                }
+
+                if( data.permissions.includes('update') ) {
+                    btn += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item update">
+                        <i class="flaticon-upload"></i> Editar
+                    </a></li>`
+                }
+
+                if ( data.permissions.includes('delete') && val.rolname != 'sistema'){
+                    btn += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item delete" data-name="${val.name}">
+                        <i class="flaticon-delete"></i> Eliminar
+                    </a></li>`
+                }
+        btn += `</ul></div>`;
+
         body += `<tr id="${val.id}">
             <td class="align-middle"><img class="profile-pic-table" src="${imagen}"/></td>
             <td class="align-middle">${val.name}</td>
             <td class="align-middle">${val.email}</td>
             <td class="align-middle">${val.rolname}</td>
             <td class="align-middle">
-                <button class="btn w-100 ${val.rolname != 'sistema' ? (val.estatus == 'Activo' ? 'btn-success' : 'btn-danger') : 'btn-secondary'} btn-sm ${data.permissions.includes('update') && val.rolname != 'sistema' ? 'estatus' : ''}" data-id="${val.id}">${val.estatus}</button>
+                <button class="btn w-100 p-0 ${val.rolname != 'sistema' ? (val.estatus == 'Activo' ? 'btn-success' : 'btn-danger') : 'btn-secondary'} btn-sm ${data.permissions.includes('update') && val.rolname != 'sistema' ? 'estatus' : ''}" data-id="${val.id}">${val.estatus}</button>
             </td>
-            <td class="align-middle">
-
-                <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle-menu-body text-type1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </button>
-                    <ul class="dropdown-menu" >`;
-                        if( data.permissions.includes('read') ) {
-                            body += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item read">
-                                <i class="flaticon-eye"></i> Ver
-                            </a></li>`
-                        }
-
-                        if( data.permissions.includes('update') ) {
-                            body += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item update">
-                                <i class="flaticon-upload"></i> Editar
-                            </a></li>`
-                        }
-
-                        if ( data.permissions.includes('delete') && val.rolname != 'sistema'){
-                            body += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item delete" data-name="${val.name}">
-                                <i class="flaticon-delete"></i> Eliminar
-                            </a></li>`
-                        }
-                body += `<ul></div>
-            </td>
+            <td class="align-middle">${btn}</td>
         </tr>`;
+
+        bodysmall += `<div class="col-11 mb-3 mx-3">
+            <div class="row">
+                <div class="col-4 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Imagen</div>
+                <div class="col-8 border p-1 text-center"><img class="profile-pic-table" src="${imagen}"/></div>
+            </div>
+            <div class="row">
+                <div class="col-4 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Nombre</div>
+                <div class="col-8 border p-1 text-center">${val.name}</div>
+            </div>
+            <div class="row">
+                <div class="col-4 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">E-mail</div>
+                <div class="col-8 border p-1 text-center">${val.email}</div>
+            </div>
+            <div class="row">
+                <div class="col-4 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Rol</div>
+                <div class="col-8 border p-1 text-center">${val.rolname}</div>
+            </div>
+            <div class="row">
+                <div class="col-4 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Estado</div>
+                <div class="col-8 border p-1 text-center">
+                    <button class="btn w-100 p-0 ${val.rolname != 'sistema' ? (val.estatus == 'Activo' ? 'btn-success' : 'btn-danger') : 'btn-secondary'} btn-sm ${data.permissions.includes('update') && val.rolname != 'sistema' ? 'estatus' : ''}" data-id="${val.id}">${val.estatus}</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small"></div>
+                <div class="col-8 border p-0 text-center">${btn}</div>
+            </div>
+        </div>`;
     });
     $('#table_body').append(body);
+    $('#table_small').append(bodysmall);
     $('#table_info').text(data.infototal);
     $('#table_filtrados').val(data.datos.length);
     $('#table_totales').val(data.totales);

@@ -30,11 +30,11 @@
                 <form id="formshowservice_package">
                     <div class="mb-2">
                         <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                        <input type="text" class="form-control" name="name" placeholder="" readonly>
+                        <input type="text" class="form-control form-control-sm" name="name" placeholder="" readonly>
                     </div>
                     <div class="mb-2">
                         <label for="observations" class="form-label mb-0 ps-3 fw-bold">Descripcion</label>
-                        <input type="text" class="form-control" name="observations" readonly>
+                        <input type="text" class="form-control form-control-sm" name="observations" readonly>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-sm table-hover align-middle text-center">

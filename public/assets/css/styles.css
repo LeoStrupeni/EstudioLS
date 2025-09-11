@@ -1,3 +1,47 @@
+#table_small{
+  display: none;
+}
+
+.titles_table_small {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center_element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  * {
+    font-size: 0.8rem;
+  }
+
+  #table > thead {
+    display: none;
+  }
+  #table_body {
+    display: none;
+  }
+  #table_small {
+    display: block;
+  }
+  h5 {
+    font-size: 0.9rem!important;
+  }
+  #table_cotizacion {
+    font-size: 0.8rem;
+  }
+  #filtrosaplicados, #table_info {
+    font-size: 0.8rem;
+  }
+  .modal {
+    font-size: 0.8rem;
+  }
+}
+
 :root {
     --ls-black-color: #000000;
     --ls-gray-dark-color: #323730;
@@ -47,7 +91,7 @@
 
 .bg-type1 {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--ls-bg-color), var(--bs-bg-opacity)) !important;
+  background-color: var(--ls-bg-color) !important;
 }
 
 .bg-type3 {

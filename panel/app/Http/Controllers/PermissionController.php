@@ -140,13 +140,14 @@ class PermissionController extends Controller
         $permisos = Role_Has_Permission::join('permissions','permissions.id','role_has_permissions.permission_id')
             ->where('role_has_permissions.role_id',$rolid)
             ->wherenull('permissions.deleted_at')
-            ->selectRaw("general, 
+            ->selectRaw("general, traslate,
                 IF(GROUP_CONCAT(SUBSTRING_INDEX(name,' ',1)) like '%create%', 1, 0) as p_create,
                 IF(GROUP_CONCAT(SUBSTRING_INDEX(name,' ',1)) like '%read%', 1, 0) as p_read,
-                IF(GROUP_CONCAT(SUBSTRING_INDEX(name,' ',1)) like '%ùpdate%', 1, 0) as p_update,
+                IF(GROUP_CONCAT(SUBSTRING_INDEX(name,' ',1)) like '%update%', 1, 0) as p_update,
                 IF(GROUP_CONCAT(SUBSTRING_INDEX(name,' ',1)) like '%delete%', 1, 0) as p_delete
             ")
             ->groupby('general')
+            ->groupby('traslate')
         ->get()->toArray();
 
         $list = Permission::select('general')->groupby('general')->pluck('general');

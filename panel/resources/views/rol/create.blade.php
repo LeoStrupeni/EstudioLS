@@ -10,11 +10,11 @@
                     @csrf
                     <div class="mb-2">
                         <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                        <input type="text" class="form-control validate" name="name" id="name" placeholder="" required value="{{ old('name') }}">
+                        <input type="text" class="form-control form-control-sm validate" name="name" id="name" placeholder="" required value="{{ old('name') }}">
                     </div>
                     <div class="mb-2">
                         <label for="description" class="form-label mb-0 ps-3">Descripcion</label>
-                        <input type="text" class="form-control" name="description" id="description" required value="{{ old('description') }}">
+                        <input type="text" class="form-control form-control-sm" name="description" id="description" required value="{{ old('description') }}">
                     </div>
                 </form>
             </div>

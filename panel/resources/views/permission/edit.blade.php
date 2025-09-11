@@ -32,7 +32,7 @@
                     @method('PUT')
                     <div class="mb-2">
                         <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                        <input type="text" class="form-control validate" name="name" id="e_name" placeholder="" required value="{{ old('name') }}">
+                        <input type="text" class="form-control form-control-sm validate" name="name" id="e_name" placeholder="" required value="{{ old('name') }}">
                     </div>
 
                 </form>

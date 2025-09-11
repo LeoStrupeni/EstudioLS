@@ -30,23 +30,23 @@
                 <form id="formshowservice">
                     <div class="mb-2">
                         <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                        <input type="text" class="form-control" name="name" placeholder="" readonly>
+                        <input type="text" class="form-control form-control-sm" name="name" placeholder="" readonly>
                     </div>
                     <div class="mb-2">
                         <label for="observations" class="form-label mb-0 ps-3 fw-bold">Descripcion</label>
-                        <input type="text" class="form-control" name="observations" readonly>
+                        <input type="text" class="form-control form-control-sm" name="observations" readonly>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="mb-2">
                                 <label for="type_money" class="form-label mb-0 ps-3 fw-bold">Moneda</label>
-                                <input type="text" class="form-control" name="type_money" placeholder="" readonly>
+                                <input type="text" class="form-control form-control-sm" name="type_money" placeholder="" readonly>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-2">
                                 <label for="price" class="form-label mb-0 ps-3 fw-bold">Precio</label>
-                                <input type="number" class="form-control" name="price" placeholder="" readonly>
+                                <input type="number" class="form-control form-control-sm" name="price" placeholder="" readonly>
                             </div>
                         </div>
                     </div>

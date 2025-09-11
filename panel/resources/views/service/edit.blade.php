@@ -32,17 +32,17 @@
                     @method('PUT')
                     <div class="mb-2">
                         <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                        <input type="text" class="form-control validate" name="name" placeholder="" required value="{{ old('name') }}">
+                        <input type="text" class="form-control form-control-sm validate" name="name" placeholder="" required value="{{ old('name') }}">
                     </div>
                     <div class="mb-2">
                         <label for="observations" class="form-label mb-0 ps-3 fw-bold">Descripcion</label>
-                        <input type="text" class="form-control" name="observations" value="{{ old('observations') }}">
+                        <input type="text" class="form-control form-control-sm" name="observations" value="{{ old('observations') }}">
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="mb-2">
                                 <label for="type_money" class="form-label mb-0 ps-3 fw-bold">Moneda</label>
-                                <select class="form-select validate" name="type_money" style="width: 100%" required>
+                                <select class="form-select form-select-sm validate" name="type_money" style="width: 100%" required>
                                     <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     <option value="peso">Pesos ($)</option>
                                     <option value="dolar" selected>Dolar (U$S)</option>
@@ -53,7 +53,7 @@
                         <div class="col-6">
                             <div class="mb-2">
                                 <label for="price" class="form-label mb-0 ps-3 fw-bold">Precio</label>
-                                <input type="number" class="form-control validate" name="price" placeholder="" value="{{ old('price') }}">
+                                <input type="number" class="form-control form-control-sm validate" name="price" placeholder="" value="{{ old('price') }}">
                             </div>
                         </div>
                     </div>

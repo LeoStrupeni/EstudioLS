@@ -10,11 +10,11 @@
                     @csrf
                     <div class="mb-2">
                         <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                        <input type="text" class="form-control validate" name="name" id="name" placeholder="" required value="{{ old('name') }}">
+                        <input type="text" class="form-control form-control-sm validate" name="name" id="name" placeholder="" required value="{{ old('name') }}">
                     </div>
                     <div class="mb-2">
                         <label for="opciones" class="form-label mb-0 ps-3 w-100">Opciones</label>
-                        <select class="form-select select2" multiple name="opciones[]" style="width: 100%">
+                        <select class="form-select form-select-sm select2" multiple name="opciones[]" style="width: 100%">
                             <option value="create" selected>Crear</option>
                             <option value="read" selected>Leer</option>
                             <option value="update" selected>Actualizar</option>

@@ -34,56 +34,56 @@
                                 <label for="client_id" class="form-label mb-0 ps-3 fw-bold">
                                     Cliente
                                 </label>
-                                <input type="text" class="form-control text-center" id="client_show" readonly>
+                                <input type="text" class="form-control form-control-sm text-center" id="client_show" readonly>
                             </div>
                         </div>
                         <div class="col-4 col-lg-2">
                             <div class="mb-2">
                                 <label for="fecha" class="form-label mb-0 ps-3 fw-bold text-center">Fecha</label>
-                                <input type="text" class="form-control text-center"  id="fecha_show" readonly>
+                                <input type="text" class="form-control form-control-sm text-center"  id="fecha_show" readonly>
                             </div>
                         </div>
                         <div class="col-4 col-lg-2">
                             <div class="mb-2">
                                 <label for="valid" class="form-label mb-0 ps-3 fw-bold text-center">Validez</label>
-                                <input type="number" class="form-control text-center"  id="valid_show" readonly>
+                                <input type="number" class="form-control form-control-sm text-center"  id="valid_show" readonly>
                             </div>
                         </div>
                         <div class="col-4 col-lg-2">
                             <div class="mb-2">
                                 <label for="valid" class="form-label mb-0 ps-3 fw-bold text-center">Estado</label>
-                                <input type="text" class="form-control text-center"  id="estatus_show" readonly>
+                                <input type="text" class="form-control form-control-sm text-center"  id="estatus_show" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="observations" class="form-label mb-0 ps-3 fw-bold">Observaciones</label>
-                                <textarea class="form-control" id="observations_show" rows="2"></textarea>
+                                <textarea class="form-control form-control-sm" id="observations_show" rows="2"></textarea>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="payment_methods" class="form-label mb-0 ps-3 fw-bold">Formas de pago</label>
-                                <textarea class="form-control" id="payment_methods_show" rows="1"></textarea>
+                                <textarea class="form-control form-control-sm" id="payment_methods_show" rows="1"></textarea>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="includes" class="form-label mb-0 ps-3 fw-bold">Incluye</label>
-                                <textarea class="form-control" id="includes_show" rows="2"></textarea>
+                                <textarea class="form-control form-control-sm" id="includes_show" rows="2"></textarea>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="not_includes" class="form-label mb-0 ps-3 fw-bold">No incluye</label>
-                                <textarea class="form-control" id="not_includes_show" rows="3"></textarea>
+                                <textarea class="form-control form-control-sm" id="not_includes_show" rows="3"></textarea>
                             </div>
                         </div>
                         
                         <div class="col-12" >
                             <div class="mb-2">
                                 <label for="clarifications" class="form-label mb-0 ps-3 fw-bold">Aclaraciones</label>
-                                <textarea class="form-control" id="clarifications_show" rows="5"></textarea>
+                                <textarea class="form-control form-control-sm" id="clarifications_show" rows="5"></textarea>
                             </div>
                         </div>
                         
@@ -112,7 +112,7 @@
                                 <div class="col-8">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">$</span>
-                                        <input type="text" id="subtotal_show_p" class="form-control text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                        <input type="text" id="subtotal_show_p" class="form-control form-control-sm text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@
                                 <div class="col-8 col-md-4 order-4 order-md-2 ">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">U$S</span>
-                                        <input type="text" id="cotizacion_show_u" class="form-control text-end"  readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                        <input type="text" id="cotizacion_show_u" class="form-control form-control-sm text-end"  readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                     </div>
                                 </div>
 
@@ -129,7 +129,7 @@
                                 <div class="col-8 col-md-4 order-2 order-md-4">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">U$S</span>
-                                        <input type="text" id="subtotal_show_u" class="form-control text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                        <input type="text" id="subtotal_show_u" class="form-control form-control-sm text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                                 <div class="col-8 col-md-4 order-4 order-md-2 ">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">JUS</span>
-                                        <input type="text" id="cotizacion_show_j" class="form-control text-end"  readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                        <input type="text" id="cotizacion_show_j" class="form-control form-control-sm text-end"  readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                     </div>
                                 </div>
 
@@ -148,7 +148,7 @@
                                     <div class="input-group">
                                         <div class="input-group">
                                             <span class="input-group-text" style="width: 56px!important;justify-content: center">JUS</span>
-                                            <input type="text" id="subtotal_show_j" class="form-control text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                            <input type="text" id="subtotal_show_j" class="form-control form-control-sm text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@
                                 <div class="col-8">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">$</span>
-                                        <input type="text" id="total_show_p" class="form-control text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                        <input type="text" id="total_show_p" class="form-control form-control-sm text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                                 <div class="col-8">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">U$S</span>
-                                        <input type="text" id="total_show_u" class="form-control text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                        <input type="text" id="total_show_u" class="form-control form-control-sm text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                     </div>
                                 </div>
                             </div>

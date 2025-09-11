@@ -139,6 +139,7 @@ $(document).ready(function() {
 
 function tableregister(data, page, callpaginas, url_query){
     body='';
+    bodysmall='';
     const formatter = new Intl.NumberFormat('en-US', {minimumFractionDigits: 2,maximumFractionDigits: 2,});
 
     $.each(data.datos, function (key, val) {
@@ -148,44 +149,64 @@ function tableregister(data, page, callpaginas, url_query){
 
         $.each(permisos, function (key, val) {
             switch (val) {  
-                case 'create':  btnpermisos+=`<div class="btn btn-primary rounded m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Permiso para agregar"><i class="flaticon-plus"></i></div>`; break;
-                case 'read':    btnpermisos+=`<div class="btn btn-primary rounded m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Permiso para ver"><i class="flaticon-eye"></i></div>`; break;
-                case 'update':  btnpermisos+=`<div class="btn btn-primary rounded m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Permiso para actualizar"><i class="flaticon-upload"></i></div>`; break;
-                case 'delete':  btnpermisos+=`<div class="btn btn-primary rounded m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Permiso para Borrar"><i class="flaticon-delete"></i></div>`; break;
-                default:        btnpermisos+=`<div class="btn btn-primary rounded m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="otros"><i class="flaticon-info"></i></div>`; break;
+                case 'create':  btnpermisos+=`<div class="btn btn-primary btn-sm rounded m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Permiso para agregar"><i class="flaticon-plus"></i></div>`; break;
+                case 'read':    btnpermisos+=`<div class="btn btn-primary btn-sm rounded m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Permiso para ver"><i class="flaticon-eye"></i></div>`; break;
+                case 'update':  btnpermisos+=`<div class="btn btn-primary btn-sm rounded m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Permiso para actualizar"><i class="flaticon-upload"></i></div>`; break;
+                case 'delete':  btnpermisos+=`<div class="btn btn-primary btn-sm rounded m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Permiso para Borrar"><i class="flaticon-delete"></i></div>`; break;
+                default:        btnpermisos+=`<div class="btn btn-primary btn-sm rounded m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="otros"><i class="flaticon-info"></i></div>`; break;
             }
             
         });
 
         btnpermisos+=`</div>`;
 
+        btn=`<div class="dropdown">
+            <button class="btn btn-link dropdown-toggle-menu-body text-type1 py-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+            <ul class="dropdown-menu" >`;
+
+                if( data.permissions.includes('update') ) {
+                    btn += `<li><a href="javascript:void(0);" data-id="${val.general}" class="dropdown-item update">
+                        <i class="flaticon-upload"></i> Editar
+                    </a></li>`
+                }
+
+                if ( data.permissions.includes('delete') ){
+                    btn += `<li><a href="javascript:void(0);" data-id="${val.general}" class="dropdown-item delete" data-name="${val.general}">
+                        <i class="flaticon-delete"></i> Eliminar
+                    </a></li>`
+                }
+        btn += `</ul></div>`;
+
         body += `<tr id="${val.general}">
             <td class="align-middle">${val.general}</td>
             <td class="align-middle">${val.traslate.toUpperCase()}</td>
             <td class="align-middle">${btnpermisos}</td>
-            <td class="align-middle">
-                <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle-menu-body text-type1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </button>
-                    <ul class="dropdown-menu" >`;
-
-                        if( data.permissions.includes('update') ) {
-                            body += `<li><a href="javascript:void(0);" data-id="${val.general}" class="dropdown-item update">
-                                <i class="flaticon-upload"></i> Editar
-                            </a></li>`
-                        }
-
-                        if ( data.permissions.includes('delete') ){
-                            body += `<li><a href="javascript:void(0);" data-id="${val.general}" class="dropdown-item delete" data-name="${val.general}">
-                                <i class="flaticon-delete"></i> Eliminar
-                            </a></li>`
-                        }
-                body += `<ul></div>
-            </td>
+            <td class="align-middle">${btn}</td>
         </tr>`;
+
+        bodysmall += `<div class="col-11 mb-3 mx-3">
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Nombre</div>
+                <div class="col-6 border p-1 text-center">${val.general}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Traducción</div>
+                <div class="col-6 border p-1 text-center">${val.traslate.toUpperCase()}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Permisos</div>
+                <div class="col-6 border p-1 text-center">${btnpermisos}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small"></div>
+                <div class="col-6 border p-0 text-center">${btn}</div>
+            </div>
+        </div>`;
     });
     $('#table_body').append(body);
+    $('#table_small').append(bodysmall);
     $('#table_info').text(data.infototal);
     $('#table_filtrados').val(data.datos.length);
     $('#table_totales').val(data.totales);

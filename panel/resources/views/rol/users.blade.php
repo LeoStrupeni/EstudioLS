@@ -40,7 +40,7 @@
             <div class="modal-body d-none" id="modal-body-show-rolusers">
                 <div class="table-responsive">
                     <table class="table table-sm table-hover text-center sortable">
-                        <thead>
+                        <thead class="table-type1">
                             <tr>
                                 <th>Imagen</th>
                                 <th>Nombre</th>

@@ -29,15 +29,15 @@
             <div class="modal-body d-none" id="modal-body-show-typesdocmov">
                 <div class="mb-2">
                     <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                    <input type="text" class="form-control" name="name" id="s_name" placeholder="" required value="{{ old('name') }}">
+                    <input type="text" class="form-control form-control-sm" name="name" id="s_name" placeholder="" required value="{{ old('name') }}">
                 </div>
                 <div class="mb-2">
                     <label for="description" class="form-label mb-0 ps-3">Descripcion</label>
-                    <input type="text" class="form-control" name="description" id="s_description" required value="{{ old('description') }}">
+                    <input type="text" class="form-control form-control-sm" name="description" id="s_description" required value="{{ old('description') }}">
                 </div>
                 <div class="mb-2">
                     <label for="type" class="form-label mb-0 ps-3">Tipo</label>
-                    <input type="text" class="form-control" name="type" id="s_type" required value="{{ old('description') }}">
+                    <input type="text" class="form-control form-control-sm" name="type" id="s_type" required value="{{ old('description') }}">
                 </div>
             </div>
         </div>

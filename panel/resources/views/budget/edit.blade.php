@@ -45,7 +45,7 @@
                                         <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
                                     </span>
                                 </label>
-                                <select class="form-select validate" name="client_id" id="client_id_c" style="width: 100%" required>
+                                <select class="form-select form-select-sm validate" name="client_id" id="client_id_c" style="width: 100%" required>
                                     <option value="{{ $budget->client_id }}" selected>{{ $budget->client_name }}</option>
                                 </select>
                             </div>
@@ -53,50 +53,50 @@
                         <div class="col-4 col-lg-2">
                             <div class="mb-2">
                                 <label for="fecha" class="form-label mb-0 ps-3 fw-bold text-center">Fecha</label>
-                                <input type="text" class="form-control text-center validate" name="fecha" id="fechaC" value="{{ $budget->fecha_format }}" required>
+                                <input type="text" class="form-control form-control-sm text-center validate" name="fecha" id="fechaC" value="{{ $budget->fecha_format }}" required>
                             </div>
                         </div>
                         <div class="col-4 col-lg-2">
                             <div class="mb-2">
                                 <label for="valid" class="form-label mb-0 ps-3 fw-bold text-center">Validez</label>
-                                <input type="number" class="form-control text-center validate" name="valid" value="{{$budget->valid}}" required>
+                                <input type="number" class="form-control form-control-sm text-center validate" name="valid" value="{{$budget->valid}}" required>
                             </div>
                         </div>
                         <div class="col-4 col-lg-2">
                             <div class="mb-2">
                                 <label for="valid" class="form-label mb-0 ps-3 fw-bold text-center">Estado</label>
-                                <input type="text" class="form-control text-center" value="{{$budget->estatus}}" readonly>
+                                <input type="text" class="form-control form-control-sm text-center" value="{{$budget->estatus}}" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="observations" class="form-label mb-0 ps-3 fw-bold">Observaciones</label>
-                                <textarea class="form-control" name="observations" rows="2">{!!$budget->observations!!}</textarea>
+                                <textarea class="form-control form-control-sm" name="observations" rows="2">{!!$budget->observations!!}</textarea>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="payment_methods" class="form-label mb-0 ps-3 fw-bold">Formas de pago</label>
-                                <textarea class="form-control" name="payment_methods" rows="1">{!!$budget->payment_methods!!}</textarea>
+                                <textarea class="form-control form-control-sm" name="payment_methods" rows="1">{!!$budget->payment_methods!!}</textarea>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="includes" class="form-label mb-0 ps-3 fw-bold">Incluye</label>
-                                <textarea class="form-control" name="includes" rows="2">{!!$budget->includes!!}</textarea>
+                                <textarea class="form-control form-control-sm" name="includes" rows="2">{!!$budget->includes!!}</textarea>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="not_includes" class="form-label mb-0 ps-3 fw-bold">No incluye</label>
-                                <textarea class="form-control" name="not_includes" rows="3">{!!$budget->not_includes!!}</textarea>
+                                <textarea class="form-control form-control-sm" name="not_includes" rows="3">{!!$budget->not_includes!!}</textarea>
                             </div>
                         </div>
                         
                         <div class="col-12" >
                             <div class="mb-2">
                                 <label for="clarifications" class="form-label mb-0 ps-3 fw-bold">Aclaraciones</label>
-                                <textarea class="form-control" name="clarifications" rows="5">{!!$budget->clarifications!!}</textarea>
+                                <textarea class="form-control form-control-sm" name="clarifications" rows="5">{!!$budget->clarifications!!}</textarea>
                             </div>
                         </div>
                         
@@ -119,7 +119,7 @@
                                         <div class="col-12 col-md-6">
                                             <div class="">
                                                 <label for="paquetes" class="form-label mb-0 ps-3 fw-bold">Paquete</label>
-                                                <select class="form-select" id="paquetes" onchange="getPaqueteDetails(this)"> 
+                                                <select class="form-select form-select-sm" id="paquetes" onchange="getPaqueteDetails(this)"> 
                                                     <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                                     @foreach($packages as $package)
                                                         <option value="{{ $package->id }}">{{ $package->name }}</option>
@@ -136,7 +136,7 @@
                                                     </span>
                                                 </label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" readonly class="form-control" id="paquetes-description">
+                                                    <input type="text" readonly class="form-control form-control-sm" id="paquetes-description">
                                                     <button class="btn btn-type1 p-1" type="button" onclick="addPackagesTable()">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
@@ -150,7 +150,7 @@
                                         <div class="col-12 col-md-3">
                                             <div class="">
                                                 <label for="services" class="form-label mb-0 ps-3 fw-bold">Servicio</label>
-                                                <select class="form-select" id="services" onchange="getServiceDetails(this)"> 
+                                                <select class="form-select form-select-sm" id="services" onchange="getServiceDetails(this)"> 
                                                     <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                                     @foreach($services as $service)
                                                         <option value="{{ $service->id }}">{{ $service->name }}</option>
@@ -166,7 +166,7 @@
                                                         <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
                                                     </span>
                                                 </label>
-                                                <input type="text" class="form-control" id="services-description">
+                                                <input type="text" class="form-control form-control-sm" id="services-description">
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-2 text-center">
@@ -174,7 +174,7 @@
                                                 <label for="services-currency" class="form-label mb-0 fw-bold">
                                                     Moneda
                                                 </label>
-                                                <select class="form-select" id="services-currency"> 
+                                                <select class="form-select form-select-sm" id="services-currency"> 
                                                     <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                                     <option value="peso">Pesos</option>
                                                     <option value="dolar">Dólar</option>
@@ -188,7 +188,7 @@
                                                     Precio
                                                 </label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control text-end" id="services-price">
+                                                    <input type="text" class="form-control form-control-sm text-end" id="services-price">
                                                     <button class="btn btn-type1 p-1" type="button" onclick="addServiceTable()">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
@@ -226,7 +226,7 @@
                                 <div class="col-8">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">$</span>
-                                        <input type="text" name="subtotal_p" id="subtotal_p" class="form-control text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                        <input type="text" name="subtotal_p" id="subtotal_p" class="form-control form-control-sm text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +235,7 @@
                                 <div class="col-8 col-md-4 order-4 order-md-2 ">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">U$S</span>
-                                        <input type="text" name="cotizacion_u" id="cotizacion_u" class="form-control text-end" value="{{number_format($cotizacion, 2, ',', '.')}}" onchange="subtotales();">
+                                        <input type="text" name="cotizacion_u" id="cotizacion_u" class="form-control form-control-sm text-end" value="{{number_format($cotizacion, 2, ',', '.')}}" onchange="subtotales();">
                                     </div>
                                 </div>
 
@@ -243,7 +243,7 @@
                                 <div class="col-8 col-md-4 order-2 order-md-4">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">U$S</span>
-                                        <input type="text" name="subtotal_u" id="subtotal_u" class="form-control text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                        <input type="text" name="subtotal_u" id="subtotal_u" class="form-control form-control-sm text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                     </div>
                                 </div>
                             </div>
@@ -253,7 +253,7 @@
                                 <div class="col-8 col-md-4 order-4 order-md-2 ">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">JUS</span>
-                                        <input type="text" name="cotizacion_j" id="cotizacion_j" class="form-control text-end" value="{{number_format('103337.61', 2, ',', '.')}}" onchange="subtotales();">
+                                        <input type="text" name="cotizacion_j" id="cotizacion_j" class="form-control form-control-sm text-end" value="{{number_format('103337.61', 2, ',', '.')}}" onchange="subtotales();">
                                     </div>
                                 </div>
 
@@ -262,7 +262,7 @@
                                     <div class="input-group">
                                         <div class="input-group">
                                             <span class="input-group-text" style="width: 56px!important;justify-content: center">JUS</span>
-                                            <input type="text" name="subtotal_j" id="subtotal_j" class="form-control text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                            <input type="text" name="subtotal_j" id="subtotal_j" class="form-control form-control-sm text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                         </div>
                                     </div>
                                 </div>
@@ -273,7 +273,7 @@
                                 <div class="col-8">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">$</span>
-                                        <input type="text" name="total_p" id="total_p" class="form-control text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                        <input type="text" name="total_p" id="total_p" class="form-control form-control-sm text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                     </div>
                                 </div>
                             </div>
@@ -283,7 +283,7 @@
                                 <div class="col-8">
                                     <div class="input-group">
                                         <span class="input-group-text" style="width: 56px!important;justify-content: center">U$S</span>
-                                        <input type="text" name="total_s" id="total_u" class="form-control text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
+                                        <input type="text" name="total_s" id="total_u" class="form-control form-control-sm text-end" readonly style="background-color: #f7f8fa;border-color: rgb(226, 229, 236);">
                                     </div>
                                 </div>
                             </div>

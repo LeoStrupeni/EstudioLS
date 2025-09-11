@@ -196,10 +196,33 @@ $(document).ready(function() {
 
 function tableregister(data, page, callpaginas, url_query){
     body='';
+    bodysmall=''
     const formatter = new Intl.NumberFormat('en-US', {minimumFractionDigits: 2,maximumFractionDigits: 2,});
 
     $.each(data.datos, function (key, val) {
+        btn = `<div class="dropdown">
+            <button class="btn btn-link dropdown-toggle-menu-body text-type1 py-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+            <ul class="dropdown-menu" >`;
+                if( data.permissions.includes('read') ) {
+                    btn += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item read">
+                        <i class="flaticon-eye"></i> Ver
+                    </a></li>`
+                }
 
+                if( data.permissions.includes('update') ) {
+                    btn += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item update">
+                        <i class="flaticon-upload"></i> Editar
+                    </a></li>`
+                }
+
+                if ( data.permissions.includes('delete') ){
+                    btn += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item delete" data-name="${val.client_name}">
+                        <i class="flaticon-delete"></i> Eliminar
+                    </a></li>`
+                }
+        btn += `</ul></div>`
         body += `<tr id="${val.id}">
             <td class="align-middle text-center"># ${val.id}</td>
             <td class="align-middle text-start">${val.client_name}</td>
@@ -209,34 +232,51 @@ function tableregister(data, page, callpaginas, url_query){
             <td class="align-middle">${formatter.format(val.total_pesos)}</td>
             <td class="align-middle">${formatter.format(val.total_dollars)}</td>
             <td class="align-middle">${formatter.format(val.total_jus)}</td>
-            <td class="align-middle">
-                <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle-menu-body text-type1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </button>
-                    <ul class="dropdown-menu" >`;
-                        if( data.permissions.includes('read') ) {
-                            body += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item read">
-                                <i class="flaticon-eye"></i> Ver
-                            </a></li>`
-                        }
-
-                        if( data.permissions.includes('update') ) {
-                            body += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item update">
-                                <i class="flaticon-upload"></i> Editar
-                            </a></li>`
-                        }
-
-                        if ( data.permissions.includes('delete') ){
-                            body += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item delete" data-name="${val.client_name}">
-                                <i class="flaticon-delete"></i> Eliminar
-                            </a></li>`
-                        }
-                body += `<ul></div>
-            </td>
+            <td class="align-middle">${btn}</td>
         </tr>`;
+        
+        bodysmall += `<div class="col-11 mb-3 mx-3">
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small"># Presupuesto</div>
+                <div class="col-6 border p-1 text-center"># ${val.id}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Cliente</div>
+                <div class="col-6 border p-1 text-center">${val.client_name}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Usuario</div>
+                <div class="col-6 border p-1 text-center">${val.user_name}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Fecha</div>
+                <div class="col-6 border p-1 text-center">${val.fecha_format ?? ''}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Estado</div>
+                <div class="col-6 border p-1 text-center">${val.estatus}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Total $</div>
+                <div class="col-6 border p-1 text-center">${val.total_pesos ?? ''}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Total U$S</div>
+                <div class="col-6 border p-1 text-center">${val.total_dollars ?? ''}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small">Total JUS</div>
+                <div class="col-6 border p-1 text-center">${val.total_jus ?? ''}</div>
+            </div>
+            <div class="row">
+                <div class="col-6 bg-type1 border text-center text-nowrap fw-medium p-1 titles_table_small"></div>
+                <div class="col-6 border p-0 text-center">${btn}</div>
+            </div>
+        </div>`;
+
     });
     $('#table_body').append(body);
+    $('#table_small').append(bodysmall);
     $('#table_info').text(data.infototal);
     $('#table_filtrados').val(data.datos.length);
     $('#table_totales').val(data.totales);
@@ -393,7 +433,7 @@ function addItemsTable(){
             <td class="text-center">${index}</td>
             <td class="text-start">${this.name}</td>
             <td class="text-start">
-                <input class="form-control form-control-sm text-start" type="text" value="${this.descripcion}" onchange="updateServiceDescription(this, ${this.posicion})">
+                <input class="form-control form-control-sm form-control form-control-sm-sm text-start" type="text" value="${this.descripcion}" onchange="updateServiceDescription(this, ${this.posicion})">
             </td>
             <td>
                 <select class="form-select form-select-sm" onchange="updateServiceCurrency(this, ${this.posicion})"> 
@@ -403,7 +443,7 @@ function addItemsTable(){
                 </select>
             </td>
             <td class="pe-3 text-center">
-                <input class="form-control form-control-sm text-end" type="number" value="${this.price}" onchange="updateServicePrice(this, ${this.posicion})">
+                <input class="form-control form-control-sm form-control form-control-sm-sm text-end" type="number" value="${this.price}" onchange="updateServicePrice(this, ${this.posicion})">
             </td>
             <td>
                 <a href="javascript:void(0)" class="text-danger" onclick="removeServiceTable(this, ${this.posicion})" title="Eliminar">

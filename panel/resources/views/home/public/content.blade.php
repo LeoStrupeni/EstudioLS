@@ -316,16 +316,16 @@
             <div class="row">
               <div class="col-12 col-md-6">
                 <div class="mb-2">
-                  <input type="text" class="form-control validate" name="nombre" placeholder="Nombre" required value="{{ old('nombre') }}">
+                  <input type="text" class="form-control form-control-sm validate" name="nombre" placeholder="Nombre" required value="{{ old('nombre') }}">
                 </div>
                 <div class="mb-2">
-                  <input type="email" class="form-control validate" name="email" placeholder="Correo Electrónico" required value="{{ old('email') }}">
+                  <input type="email" class="form-control form-control-sm validate" name="email" placeholder="Correo Electrónico" required value="{{ old('email') }}">
                 </div>
                 <div class="mb-2">
-                  <input type="text" class="form-control validate" name="telefono" placeholder="Teléfono" required value="{{ old('telefono') }}">
+                  <input type="text" class="form-control form-control-sm validate" name="telefono" placeholder="Teléfono" required value="{{ old('telefono') }}">
                 </div>
                 <div class="mb-2">
-                  <select class="form-select select2 validate" name="motivo" title="Motivo" style="width: 100%" required>
+                  <select class="form-select form-select-sm select2 validate" name="motivo" title="Motivo" style="width: 100%" required>
                     <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                     <option value="CI">Ciudadanía</option>
                     <option value="PA">Pasaporte</option>
@@ -337,7 +337,7 @@
               </div>
               <div class="col-12 col-md-6">
                 <div class="">
-                  <textarea class="form-control validate" name="consulta" rows="5" placeholder="Escribínos tu consulta, mientras más detallada, más concreta será tu respuesta." required>{{ old('consulta') }}</textarea>
+                  <textarea class="form-control form-control-sm validate" name="consulta" rows="5" placeholder="Escribínos tu consulta, mientras más detallada, más concreta será tu respuesta." required>{{ old('consulta') }}</textarea>
                 </div>
                 <div class="d-grid gap-2 mt-1">
                   <button type="button" class="btn btn-type1 g-recaptcha" id="guardarconsulta">

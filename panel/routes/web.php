@@ -32,7 +32,7 @@ Route::get('/', [HomeController::class,'index']);
 
 Route::view('/login','Auth.login')->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class,'login']);
-Route::post('/logout', [LoginController::class,'logout']);
+Route::post('/logout', [LoginController::class,'logout'])->name('logout');
 Route::get('/logout', [LoginController::class,'logoutGet']);
 
 Route::view('/password/reset','Auth.passwords.email')->name('password.request');

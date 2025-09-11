@@ -32,18 +32,18 @@
                     @method('PUT')
                     <input type="hidden" name="base64" class="base64">
                     <div class="row justify-content-evenly">
-                        <div class="col-9">
+                        <div class="col-12 col-sm-8 order-1 order-sm-0 ">
                             <div class="mb-2">
                                 <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                                <input type="text" class="form-control e_validate" name="name" id="e_name" placeholder="" required value="{{ old('name') }}">
+                                <input type="text" class="form-control form-control-sm e_validate" name="name" id="e_name" placeholder="" required value="{{ old('name') }}">
                             </div>
                             <div class="mb-2">
                                 <label for="email" class="form-label mb-0 ps-3">Email</label>
-                                <input type="email" class="form-control e_validate" name="email" id="e_email" placeholder="name@example.com" required value="{{ old('email') }}">
+                                <input type="email" class="form-control form-control-sm e_validate" name="email" id="e_email" placeholder="name@example.com" required value="{{ old('email') }}">
                             </div>
                             <div class="mb-2">
                                 <label for="rol" class="form-label mb-0 ps-3">Rol</label>
-                                <select class="form-select e_validate" name="rol" id="e_rol" style="width: 100%" required>
+                                <select class="form-select form-select-sm e_validate" name="rol" id="e_rol" style="width: 100%" required>
                                     <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     <option value="1">Admin</option>
                                     <option value="2" selected>Secretaria</option>
@@ -59,7 +59,7 @@
                                 <div class="mb-2">
                                     <label for="password" class="form-label mb-0 ps-3">Nueva Contraseña</label>
                                     <div class="w-100 float-end mb-2" style="position: relative;padding: 0;">
-                                        <input type="password" name="password" id="e_password" class="form-control" >
+                                        <input type="password" name="password" id="e_password" class="form-control form-control-sm" >
                                         <span style="position: absolute; height: 100%; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center;-ms-flex-pack: center;justify-content: center;top: 7px;width: 3.2rem;right: 0;">
                                             <span><i class="fa-solid fa-eye verpass" style="cursor: pointer;"></i></span>
                                         </span>
@@ -67,14 +67,14 @@
                                 </div>
                                 <div class="mb-2">
                                     <label for="password" class="form-label mb-0 ps-3">Confirmar nueva contraseña</label>
-                                    <input type="password" name="password_confirmation" id="e_password_confirmation" class="form-control">
+                                    <input type="password" name="password_confirmation" id="e_password_confirmation" class="form-control form-control-sm">
                                     <small style="font-style: italic;" class="ps-3 password form-text text-danger"></small>
                                 </div>
                             </div>
 
                             
                         </div>
-                        <div class="col-3 align-self-center">
+                        <div class="col-12 col-sm-3 order-0 order-sm-1 center_element">
                             <div class="avatar">
                                 <img class="profile-pic" id="imagen-user-edit" src=""/>
                                 <label class="avatar_upload">

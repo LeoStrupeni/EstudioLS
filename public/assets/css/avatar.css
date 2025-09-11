@@ -1,7 +1,6 @@
 .avatar {
     position: relative;
     display: inline-block; 
-    margin-left: 20%;
 }
 .avatar_upload{
     cursor: pointer;

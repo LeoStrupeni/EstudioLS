@@ -13,15 +13,15 @@
                         <div class="col-9">
                             <div class="mb-2">
                                 <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                                <input type="text" class="form-control validate" name="name" id="name" placeholder="" required value="{{ old('name') }}">
+                                <input type="text" class="form-control form-control-sm validate" name="name" id="name" placeholder="" required value="{{ old('name') }}">
                             </div>
                             <div class="mb-2">
                                 <label for="email" class="form-label mb-0 ps-3">Email</label>
-                                <input type="email" class="form-control validate" name="email" id="email" placeholder="name@example.com" required value="{{ old('email') }}">
+                                <input type="email" class="form-control form-control-sm validate" name="email" id="email" placeholder="name@example.com" required value="{{ old('email') }}">
                             </div>
                             <div class="mb-2">
                                 <label for="rol" class="form-label mb-0 ps-3">Rol</label>
-                                <select class="form-select validate" name="rol" style="width: 100%" required>
+                                <select class="form-select form-select-sm validate" name="rol" style="width: 100%" required>
                                     <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     <option value="1">Admin</option>
                                     <option value="2" selected>Secretaria</option>
@@ -30,7 +30,7 @@
                             <div class="mb-2">
                                 <label for="password" class="form-label mb-0 ps-3">Contraseña</label>
                                 <div class="w-100 float-end mb-2" style="position: relative;padding: 0;">
-                                    <input type="password" name="password" id="password" class="form-control validate" >
+                                    <input type="password" name="password" id="password" class="form-control form-control-sm validate" >
                                     <span style="position: absolute; height: 100%; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center;-ms-flex-pack: center;justify-content: center;top: 7px;width: 3.2rem;right: 0;">
                                         <span><i class="fa-solid fa-eye verpass" style="cursor: pointer;"></i></span>
                                     </span>
@@ -38,7 +38,7 @@
                             </div>
                             <div class="mb-2">
                                 <label for="password" class="form-label mb-0 ps-3">Confirmar contraseña</label>
-                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control validate">
+                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control form-control-sm validate">
                                 <small style="font-style: italic;" class="ps-3 password form-text text-danger"></small>
                             </div>
                         </div>
