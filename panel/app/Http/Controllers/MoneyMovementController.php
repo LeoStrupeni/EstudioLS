@@ -40,6 +40,11 @@ class MoneyMovementController extends Controller
         if(isset($request->type_document)){ $type_document = implode("','",$request->type_document); $addWhere .= " AND M.type_document IN ('$type_document') "; }
         if(isset($request->type_payment)){ $type_payment = implode("','",$request->type_payment); $addWhere .= " AND M.type_payment IN ('$type_payment') "; }
 
+        if(isset($request->client_id)){ $client_id = implode("','",$request->client_id); $addWhere .= " AND M.client_id IN ('$client_id') "; }
+        if(isset($request->budget_id)){ $budget_id = implode("','",$request->budget_id); $addWhere .= " AND M.budget_id IN ('$budget_id') "; }
+        if(isset($request->provider_id)){ $provider_id = implode("','",$request->provider_id); $addWhere .= " AND M.provider_id IN ('$provider_id') "; }
+        if(isset($request->user_id)){ $user_id = implode("','",$request->user_id); $addWhere .= " AND M.user_id IN ('$user_id') "; }
+
         $totales = Money_Movement::count();
 
         $dolar = 'U$'.'S';

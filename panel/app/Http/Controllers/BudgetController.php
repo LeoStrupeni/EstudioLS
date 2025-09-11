@@ -42,7 +42,8 @@ class BudgetController extends Controller
         $query = "SELECT C.*,
             DATE_FORMAT(C.fecha, '%d/%m/%Y') AS fecha_format, 
             CONCAT(CL.first_name, ' ', CL.last_names) AS client_name,
-            U.name AS user_name
+            U.name AS user_name,
+            CONCAT('Presupuesto Nro. ', C.id, ' - Fecha: ', DATE_FORMAT(C.fecha, '%d/%m/%Y')) as budget_name
             FROM budgets C
             JOIN users U ON C.user_id = U.id
             JOIN clients CL ON C.client_id = CL.id
@@ -51,6 +52,8 @@ class BudgetController extends Controller
         if ($search != '' && isset($search)) {
             $query .= " AND (CONCAT(CL.first_name, ' ', CL.last_names) LIKE '%$search%' 
                 OR U.name LIKE '%$search%'
+                OR DATE_FORMAT(C.fecha, '%d/%m/%Y') LIKE '%$search%'
+                OR C.id LIKE '%$search%'
                 OR C.fecha LIKE '%$search%'
                 OR C.estatus LIKE '%$search%'
                 OR C.total_pesos LIKE '%$search%'

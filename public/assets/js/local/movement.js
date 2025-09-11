@@ -2,6 +2,7 @@ var controladorTiempo = 3000;
 var varsearch = '';
 const formatter = new Intl.NumberFormat('es-AR', {minimumFractionDigits: 2,maximumFractionDigits: 2});
 
+padre = '';
 $(document).ready(function() {
     $('body').on('click','#btnToggleSaldos2',function(){
         $(this).children().hasClass('fa-eye') ? 
@@ -9,13 +10,13 @@ $(document).ready(function() {
             $(this).children().removeClass('fa-eye-slash').addClass('fa-eye') ;
     });
 
-    $( '#type_document, #type_payment, #type_money, #type' ).select2( {
+    $( '#type_document, #type_payment, #type_money, #type, #budgets_filter, #providers_filter, #users_filter, #clients_filter' ).select2( {
         theme: "bootstrap-5",
         width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
         placeholder: $( this ).data( 'placeholder' ),
         closeOnSelect: false,
     } );
-    $( '#type_document, #type_payment, #type_money, #type' ).change(function(){
+    $( '#type_document, #type_payment, #type_money, #type, #budgets_filter, #providers_filter, #users_filter, #clients_filter' ).change(function(){
         get_filters_applied(); 
         callregister('/movement/table',1,$('#table_limit').val(),$('#table_order').val(),'si');
     });
@@ -58,7 +59,13 @@ $(document).ready(function() {
         doc=$('#type_document').val();
         pay=$('#type_payment').val();
 
-        var f_fecha = '', f_type='', f_money='' , f_doc='', f_pay='';
+        client=$('#clients_filter').val();
+        provider=$('#providers_filter').val();
+        user=$('#users_filter').val();
+        budget=$('#budgets_filter').val();
+
+        var f_fecha = '', f_type='', f_money='' , f_doc='', f_pay='', f_client = '', f_provider='', f_user='', f_budget='';
+
         if(fecha!='') {f_fecha=`<div class="col-12 col-md-6"><b>Periodo: </b>${fecha}</div>`;
         }
         if(type!=''){
@@ -113,8 +120,60 @@ $(document).ready(function() {
                 <i class="fa-solid fa-xmark"></i>
             </a></div>`;
         }
+        if(client!=''){
+            f_client=`<div class="col-12 col-md-6"><b>Clientes: </b>`;
+            var selectedTexts = $('#clients_filter').find('option:selected').map(function() {
+                return $(this).text();
+            }).toArray();
+            $.each(selectedTexts, function () {
+                if( f_client=='<div class="col-12 col-md-6"><b>Clientes: </b>'){ f_client+=` ${this}`;}
+                else { f_client+=`, ${this}`;}
+            });
+            f_client+=`<a href="javascript:void(0);" class="text-danger float-end" onclick="$('#clients_filter').val('').change()">
+                <i class="fa-solid fa-xmark"></i>
+            </a></div>`;
+        }
+        if(provider!=''){
+            f_provider=`<div class="col-12 col-md-6"><b>Proveedores: </b>`;
+            var selectedTexts = $('#providers_filter').find('option:selected').map(function() {
+                return $(this).text();
+            }).toArray();
+            $.each(selectedTexts, function () {
+                if( f_provider=='<div class="col-12 col-md-6"><b>Proveedores: </b>'){ f_provider+=` ${this}`;}
+                else { f_provider+=`, ${this}`;}
+            });
+            f_provider+=`<a href="javascript:void(0);" class="text-danger float-end" onclick="$('#providers_filter').val('').change()">
+                <i class="fa-solid fa-xmark"></i>
+            </a></div>`;
+        }
+        if(user!=''){
+            f_user=`<div class="col-12 col-md-6"><b>Usuarios: </b>`;
+            var selectedTexts = $('#users_filter').find('option:selected').map(function() {
+                return $(this).text();
+            }).toArray();
+            $.each(selectedTexts, function () {
+                if( f_user=='<div class="col-12 col-md-6"><b>Usuarios: </b>'){ f_user+=` ${this}`;}
+                else { f_user+=`, ${this}`;}
+            });
+            f_user+=`<a href="javascript:void(0);" class="text-danger float-end" onclick="$('#users_filter').val('').change()">
+                <i class="fa-solid fa-xmark"></i>
+            </a></div>`;
+        }
+        if(budget!=''){
+            f_budget=`<div class="col-12 col-md-6"><b>Presupuestos: </b>`;
+            var selectedTexts = $('#budgets_filter').find('option:selected').map(function() {
+                return $(this).text();
+            }).toArray();
+            $.each(selectedTexts, function () {
+                if( f_budget=='<div class="col-12 col-md-6"><b>Presupuestos: </b>'){ f_budget+=` ${this}`;}
+                else { f_budget+=`, ${this}`;}
+            });
+            f_budget+=`<a href="javascript:void(0);" class="text-danger float-end" onclick="$('#budgets_filter').val('').change()">
+                <i class="fa-solid fa-xmark"></i>
+            </a></div>`;
+        }
 
-        if(fecha!='' || type!='' || money!='' || doc!='' || pay!='' ){
+        if(fecha!='' || type!='' || money!='' || doc!='' || pay!='' || client != '' || provider != '' || user != '' || budget != ''){
             $('#filtrosaplicados').append(`<div class="alert alert-type1 py-2" role="alert">
                 <div class="row">
                     ${fecha!='' ? f_fecha : ''}
@@ -122,6 +181,10 @@ $(document).ready(function() {
                     ${money!='' ? f_money : ''}
                     ${doc!='' ? f_doc : ''}
                     ${pay!='' ? f_pay : ''}
+                    ${client!='' ? f_client : ''}
+                    ${provider!='' ? f_provider : ''}
+                    ${user!='' ? f_user : ''}
+                    ${budget!='' ? f_budget : ''}
                 </div>
             </div>`);
         }
@@ -364,12 +427,18 @@ $(document).ready(function() {
             url : $('meta[name="app_url"]').attr('content')+url_query,
             type : 'POST',
             success : function(data) {
-                selects='<option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>';
+                selects='<option value="" class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>';
                 $.each(data.datos, function (key, val) {
-                    selected_option = (selected == val.id) ? 'selected' : '';
-                    if(add_data == '#user_id_c' || add_data == '#user_id_e'){
+                    selected_option = '';
+                    if(selected!=null){
+                        selected_option = (selected == val.id) ? 'selected' : '';
+                    }
+                    
+                    if(add_data == '#user_id_c' || add_data == '#user_id_e' || add_data == '#users_filter'){
                         selects+=`<option value="${val.id}" ${selected_option}>${val.name}</option>`;
-                    }else{
+                    } else if(add_data == '#budgets_filter'){
+                        selects+=`<option value="${val.id}" ${selected_option}>${val.budget_name}</option>`;
+                    } else{
                         selects+=`<option value="${val.id}" ${selected_option}>${val.first_name} ${val.last_names}</option>`;
                     }
                 });
@@ -385,12 +454,16 @@ $(document).ready(function() {
                 dropdownParent: $('#'+parent),
                 language: 'es'
             } );
-            // $(add_data).select2('open');
+
+            if (add_data.includes('_filter')) {
+                $(add_data).select2('open');
+            }
         });
     }
     
     $('body').on('keyup','.select2-search__field',function(){
-        var parent = $('.select2-search__field').parent().parent().parent().parent().attr('id');
+        var parent = $(this).parent().parent().parent().parent().attr('id');
+        padre = $(this).parent().parent().parent().parent().parent();
         var varsearch=this.value;
         clearInterval(controladorTiempo);
         controladorTiempo = setInterval(function () {
@@ -439,6 +512,22 @@ $(document).ready(function() {
                     $('#user_e').removeClass('d-none');
                     add_data='#user_id_e';
                 }
+            } else if( parent == undefined ){
+                idpadrefilter = $($(padre).children()[1]).prop('id');
+                if(idpadrefilter == 'clients_filter'){
+                    url_query = `/client/table`;
+                } else if(idpadrefilter == 'providers_filter'){
+                    url_query = `/provider/table`;
+                } else if(idpadrefilter == 'budgets_filter'){
+                    url_query = `/budget/table`;
+                }
+
+                if(idpadrefilter != undefined && url_query != ''){
+                    add_data=`#${idpadrefilter}`;
+                    $(add_data).empty();
+                    parent = 'offcanvasFiltersMovs';
+                }
+                
             }
             
             if(url_query != ''){
@@ -523,7 +612,6 @@ $(document).ready(function() {
             });
         }
     });
-
     $('body').on('click','.readbudget',function(){ 
         form = document.getElementById("formshowbudget");
         $( form.elements ).each(function( index ) {
@@ -607,7 +695,6 @@ $(document).ready(function() {
             $('#modal-body-show-budget-roller').addClass('d-none');
         });
     });
-
     $.each($('select'), function() {
         if ($(this).val() == '') {
             $(this).addClass('select-empty');   

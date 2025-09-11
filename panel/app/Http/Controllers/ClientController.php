@@ -106,7 +106,7 @@ class ClientController extends Controller
                 'last_names' => ['required','string'],
                 'type_doc' => ['required'],
                 'num_doc' => ['required'],
-                'email' => ['email','string'],
+                // 'email' => ['email','string'],
             ],
             [
                 'required' => 'El campo es requerido.',

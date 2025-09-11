@@ -40,5 +40,41 @@
                 <option value="mercadopago">Mercado Pago</option>
             </select>
         </div>
+
+        <div class="mb-3">
+            <label for="clients_filter" class="form-label">Clientes</label>
+            <select class="form-select form-select-sm" id="clients_filter" name="client_id" data-placeholder="Todos" multiple>
+                @foreach ($clients as $client)
+                    <option value="{{$client->id}}">{{$client->name}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="budgets_filter" class="form-label">Presupuestos</label>
+            <select class="form-select form-select-sm" id="budgets_filter" name="budget_id" data-placeholder="Todos" multiple>
+                @foreach ($budgets as $budget)
+                    <option value="{{$budget->id}}">{{$budget->name}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="providers_filter" class="form-label">Proveedores</label>
+            <select class="form-select form-select-sm" id="providers_filter" name="provider_id" data-placeholder="Todos" multiple>
+                @foreach ($providers as $provider)
+                    <option value="{{$provider->id}}">{{$provider->name}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="users_filter" class="form-label">Usuarios</label>
+            <select class="form-select form-select-sm" id="users_filter" name="user_id" data-placeholder="Todos" multiple>
+                @foreach ($users as $user)
+                    <option value="{{$user->id}}">{{$user->name}}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
 </div>
