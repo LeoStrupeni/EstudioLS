@@ -21,11 +21,11 @@
         <div class="row justify-content-center my-4">
             <div class="col-12 col-lg-11 bg-white rounded p-2">
                 <div class="row align-items-center  justify-content-between">
-                    <div class="col">
+                    <div class="col-6">
                         <div class="navbar-brand ps-3 fs-5">Nuevo Presupuesto</div>
                     </div>
-                    <div class="col">
-                        
+                    <div class="col-5">
+                        <button type="button" class="btn btn-type1 float-end fastcharge">Carga rápida</button>
                     </div>
                 </div>
                 

@@ -2,7 +2,13 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nuevo Movimiento</h5>
+                <div class="col-6">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuevo Movimiento</h5>
+                </div>
+                <div class="col-5">
+                    <button type="button" class="btn btn-type1 float-end fastcharge">Carga rápida</button>
+                </div>
+                
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

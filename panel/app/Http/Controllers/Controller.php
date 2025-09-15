@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Balance;
 use App\Models\BalanceLogs;
+use App\Models\Client;
+use App\Models\Provider;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -76,5 +78,60 @@ class Controller extends BaseController
             'created_by' => Auth::user()->id,
         ]);
         return true;
+    }
+
+    public function fastcharge(Request $request)
+    {
+        if($request->type == 'client'){
+            $request->validate([
+                    'first_name' => ['required','string'],
+                    'last_names' => ['required','string'],
+                    'type_doc' => ['required'],
+                    'num_doc' => ['required'],
+                ],
+                [
+                    'required' => 'El campo es requerido.',
+                    'string' => 'El campo debe ser de tipo alfanumérico.',
+                ]
+            );
+
+            Client::create([
+                'first_name' => $request->first_name,
+                'last_names' => $request->last_names,
+                'type_doc' => $request->type_doc,
+                'num_doc' => $request->num_doc
+            ]);
+        } else if ($request->type == 'provider'){
+            $request->validate([
+                    'first_name' => ['required','string'],
+                    'type_doc' => ['required'],
+                    'num_doc' => ['required']
+                ],
+                [
+                    'required' => 'El campo es requerido.',
+                    'string' => 'El campo debe ser de tipo alfanumérico.',
+                    'email' => 'El campo no es un email.',
+                ]
+            );
+
+            Provider::create([
+                'first_name' => $request->first_name,
+                'last_names' => $request->last_names,
+                'type_doc' => $request->type_doc,
+                'num_doc' => $request->num_doc
+            ]);
+
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tipo no válido.'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Carga rápida realizada con éxito.',
+            'type' => $request->type
+        ]);
     }
 }

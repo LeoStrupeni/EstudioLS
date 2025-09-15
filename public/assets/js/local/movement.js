@@ -561,8 +561,6 @@ $(document).ready(function() {
     });
     $('body').on('click',"#btn-update-movement",function () {
         var error = 0
-
-        var error = 0
         form = document.getElementById("formeditmovement");
 
         $( form.getElementsByClassName('validate') ).each(function( index ) {

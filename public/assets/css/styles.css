@@ -52,6 +52,7 @@
     --ls-bg-color: #c5c2bb; 
     --ls-bg2-color: #a9a69f; 
     --ls-bg3-color: #e8e4d9e6;
+    --ls-bg4-color: #e8e4d9;
 }
 
 .btn-type1 {
@@ -97,6 +98,11 @@
 .bg-type3 {
   --bs-bg-opacity: 1;
   background-color: var(--ls-bg3-color) !important;
+}
+
+.bg-type4 {
+  --bs-bg-opacity: 1;
+  background-color: var(--ls-bg4-color) !important;
 }
 
 

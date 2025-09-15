@@ -22,7 +22,9 @@
 
                     <button class="btn btn-type1 float-end" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltersMovs" aria-controls="offcanvasFiltersMovs">
                         <i class="fa-solid fa-filter"></i>
-                    </button>                    
+                    </button>
+                    
+                    <button type="button" class="btn btn-type1 float-end fastcharge mx-1 d-none d-md-block">Carga rápida</button>
                 </div>
             </div>
             

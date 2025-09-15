@@ -28,8 +28,8 @@
             </div>
         </footer>
     </div>
-    
 
+    @include('Layout/fastCharge')
     @include('Layout/script')
     
     @yield('script_by_page')

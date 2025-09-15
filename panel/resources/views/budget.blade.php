@@ -23,7 +23,7 @@
                         @if (in_array('create',Session::get('user')['permissions']['bank_Accounts']))
                             <button type="button" class="btn btn-type1 float-end create"><i class="fa-solid fa-plus"></i></button>
                         @endif
-
+                        <button type="button" class="btn btn-type1 float-end fastcharge mx-1 d-none d-md-block">Carga rápida</button>
                         
                     </div>
                 </div>

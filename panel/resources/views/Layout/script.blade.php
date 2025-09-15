@@ -93,3 +93,60 @@
         });
     }
 </script>
+<script>
+    $(document).ready(function(){
+        
+        $('body').on('click',".fastcharge", function(){
+            $('#form_fastcharge').trigger("reset");
+            $('#fastcharge').modal('show');
+        });
+
+        $('body').on('click', '#btn_fastcharge', function(){
+
+            var error = 0;
+            form = document.getElementById("form_fastcharge");
+            $( form.getElementsByClassName('validate') ).each(function( index ) {
+                if($( this ).val() == ''){
+                    $( this ).css('box-shadow', 'inset 0px 0px 2px 2px red');
+                    error++;
+                } else {
+                    $( this ).css('box-shadow', '');
+                }
+            });
+            if (error > 0) {
+                toastr["error"]("Debe completar los datos correctamente.")
+            } else {
+                mostrarOverlay();
+                $.ajax({
+                    type: "POST",
+                    url: $('meta[name="app_url"]').attr('content')+"/fastcharge",
+                    data: $(form).serialize(),
+                    success: function(response){
+                        
+                        if(response.success){
+                            $('#fastcharge').modal('hide');
+                            toastr["success"](response.message);
+                            form.reset();
+                            
+                            if(window.location.pathname.includes("budget/create")){
+                                getdataselect(`/client/table`,'#client_id_c', null);
+                            } else {
+                                 $("#type_origin_c").change();
+                            }
+
+                        } else {
+                            toastr["error"](response.message);
+                        }
+                    },
+                    error: function(){
+                        $('#_ovrly').remove();
+                        toastr["error"]("Ha ocurrido un error, intente nuevamente.");
+                    }
+                }).always(function() { 
+                    $('#_ovrly').remove(); 
+                });
+            }
+        });
+    });
+
+</script>

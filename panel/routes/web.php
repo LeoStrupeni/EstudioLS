@@ -86,4 +86,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/balances', BalanceController::class);
     Route::post('/balances/table', [BalanceController::class,'getDataTable']);
+
+    Route::post('/fastcharge', [Controller::class,'fastcharge'])->name('fastcharge');
 });

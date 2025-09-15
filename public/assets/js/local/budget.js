@@ -300,6 +300,7 @@ function getdataselect(url_query,add_data, var_search){
         url : $('meta[name="app_url"]').attr('content')+url_query,
         type : 'POST',
         success : function(data) {
+            $(add_data).empty();
             selects='<option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>';
             $.each(data.datos, function (key, val) {
                 selects+=`<option value="${val.id}">${val.first_name} ${val.last_names}</option>`;
