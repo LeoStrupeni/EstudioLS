@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 // 	dd( base_path(). '/../public/storage/',env('APP_URL'),storage_path('app'));
 // });
 Route::get('test', function () {
-    dd(file_exists(base_path('vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64')));
+    dd(base_path('../public/fonts/'), env('APP_URL'), storage_path('app'));
 });
 
 Route::view('/public','home')->name('home');

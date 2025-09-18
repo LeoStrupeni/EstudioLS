@@ -27,6 +27,8 @@ $(document).ready(function() {
         });
         $('#showbudget').modal('show');
 
+        $('#print_budget_btn').attr('href', `/budget/pdf/${$(this).data('id')}`);
+
         $('#modal-body-show-budget-roller').removeClass('d-none');
         $('#modal-body-show-budget-error').addClass('d-none');
         $('#modal-body-show-budget').addClass('d-none');
@@ -208,7 +210,11 @@ function tableregister(data, page, callpaginas, url_query){
                 if( data.permissions.includes('read') ) {
                     btn += `<li><a href="javascript:void(0);" data-id="${val.id}" class="dropdown-item read">
                         <i class="flaticon-eye"></i> Ver
-                    </a></li>`
+                    </a></li>
+                    <li><a href="/budget/pdf/${val.id}" target="_blank" class="dropdown-item">
+                        <i class="flaticon2-printer"></i> Imprimir
+                    </a></li>
+                    `
                 }
 
                 if( data.permissions.includes('update') ) {

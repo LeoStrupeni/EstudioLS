@@ -2,7 +2,14 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" style="min-width: 95%">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ver Presupuesto</h5>
+                <div class="col-6">
+                    <h5 class="modal-title">Ver Presupuesto</h5>
+                </div>
+                <div class="col-5">
+                    <a href="" target="_blank" class="btn btn-type1 float-end" id="print_budget_btn">
+                        <i class="flaticon2-printer"></i>
+                    </a>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-none" id="modal-body-show-budget-error">

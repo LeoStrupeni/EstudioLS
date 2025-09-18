@@ -25,7 +25,6 @@
                         <div class="navbar-brand ps-3 fs-5">Editar Presupuesto # {{ $budget->id }}</div>
                     </div>
                     <div class="col">
-                        
                     </div>
                 </div>
                 

@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Budget;
 use App\Models\Budget_item;
+use App\Models\Client;
 use App\Models\Service;
 use App\Models\ServicePackage;
-use Barryvdh\DomPDF\Facade\Pdf;
+
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\Snappy\Facades\SnappyPdf AS PDF;
+use Spatie\LaravelPdf\Enums\Format;
 
 class BudgetController extends Controller
 {
@@ -77,7 +80,7 @@ class BudgetController extends Controller
             $querylist .= " OFFSET " . ($limit * $page - $limit);
         }
 
-        $lista = DB::select(DB::raw($query . $querylist));
+        $lista = DB::select($query . $querylist);
 
         $respuesta['totales'] = $totales;
         $respuesta['filtrados'] = count($filtrados);
@@ -331,15 +334,20 @@ class BudgetController extends Controller
 
     public function getPdf($id)
     {
+        $css = env('APP_URL') . '/assets/css/bootstrap.min.css';
         $budget = Budget::find($id);
-        // return view('budget.pdf', ['budget' => $budget]);
-        $pdf = Pdf::loadView('budget.pdf', ['budget' => $budget]);
-        return $pdf->setPaper('a4')->stream('presupuesto.pdf');
+        $client = Client::find($budget->client_id);
+        $budget_items = Budget_item::where('budget_id', $id)->get();
+
+        return PDF::loadView('budget.pdf', ['budget' => $budget, 'client' => $client, 'budget_items' => $budget_items , 'css' => $css])->setPaper('a4')->setOptions(['margin-bottom' => 0,'margin-top' => 0,'margin-left' => 0,'margin-right' => 0])->inline('presupuesto-' . time() . '.pdf');
     }
 
     public function getPdf2($id)
     {
         $budget = Budget::find($id);
-        return view('budget.pdf', ['budget' => $budget]);
+        $client = Client::find($budget->client_id);
+        $budget_items = Budget_item::where('budget_id', $id)->get();
+
+        return view('budget.pdf', ['budget' => $budget, 'client' => $client, 'budget_items' => $budget_items]);
     }
 }

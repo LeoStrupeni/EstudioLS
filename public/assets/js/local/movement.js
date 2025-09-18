@@ -616,6 +616,8 @@ $(document).ready(function() {
             $(this).val('');
         });
         $('#showbudget').modal('show');
+                
+        $('#print_budget_btn').attr('href', `/budget/pdf/${$(this).data('id')}`);
 
         $('#modal-body-show-budget-roller').removeClass('d-none');
         $('#modal-body-show-budget-error').addClass('d-none');
