@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Budget;
 use App\Models\Budget_item;
+use App\Models\Client;
 use App\Models\Service;
 use App\Models\ServicePackage;
-use Barryvdh\DomPDF\Facade\Pdf;
+
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Dompdf\Options;
+use Spatie\LaravelPdf\Enums\Format;
 
 class BudgetController extends Controller
 {
@@ -42,7 +46,8 @@ class BudgetController extends Controller
         $query = "SELECT C.*,
             DATE_FORMAT(C.fecha, '%d/%m/%Y') AS fecha_format, 
             CONCAT(CL.first_name, ' ', CL.last_names) AS client_name,
-            U.name AS user_name
+            U.name AS user_name,
+            CONCAT('Presupuesto Nro. ', C.id, ' - Fecha: ', DATE_FORMAT(C.fecha, '%d/%m/%Y')) as budget_name
             FROM budgets C
             JOIN users U ON C.user_id = U.id
             JOIN clients CL ON C.client_id = CL.id
@@ -51,6 +56,8 @@ class BudgetController extends Controller
         if ($search != '' && isset($search)) {
             $query .= " AND (CONCAT(CL.first_name, ' ', CL.last_names) LIKE '%$search%' 
                 OR U.name LIKE '%$search%'
+                OR DATE_FORMAT(C.fecha, '%d/%m/%Y') LIKE '%$search%'
+                OR C.id LIKE '%$search%'
                 OR C.fecha LIKE '%$search%'
                 OR C.estatus LIKE '%$search%'
                 OR C.total_pesos LIKE '%$search%'
@@ -74,7 +81,7 @@ class BudgetController extends Controller
             $querylist .= " OFFSET " . ($limit * $page - $limit);
         }
 
-        $lista = DB::select(DB::raw($query . $querylist));
+        $lista = DB::select($query . $querylist);
 
         $respuesta['totales'] = $totales;
         $respuesta['filtrados'] = count($filtrados);
@@ -314,17 +321,56 @@ class BudgetController extends Controller
         return redirect()->route('budget.index');
     }
 
-    public function getPdf($id)
+    public function getDataCliente($id)
     {
-        $budget = Budget::find($id);
-        // return view('budget.pdf', ['budget' => $budget]);
-        $pdf = Pdf::loadView('budget.pdf', ['budget' => $budget]);
-        return $pdf->setPaper('a4')->stream('presupuesto.pdf');
+        $budgets = Budget::where([
+            ['client_id',$id],
+            ['estatus','abierto']
+        ])
+        ->selectRaw("id, CONCAT('Presupuesto Nro. ', id, ' - Fecha: ', DATE_FORMAT(fecha, '%d/%m/%Y')) as name, observations, total_pesos, total_dollars, total_jus")
+        ->get();
+
+        return $budgets;
     }
 
-        public function getPdf2($id)
+    public function getPdf($id)
     {
+        $path = base_path('../public/assets/media/originales/Original_lignos_seguro.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $logobase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        $path = base_path('../public/assets/media/originales/Original_lignos_seguro_pie.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $logopie64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
         $budget = Budget::find($id);
-        return view('budget.pdf', ['budget' => $budget]);
+        $client = Client::find($budget->client_id);
+        $budget_items = Budget_item::where('budget_id', $id)->get();
+
+        // $options = new Options();
+        // $options->setIsRemoteEnabled(true);
+
+        return PDF::loadView('budget.pdf', ['budget' => $budget, 'client' => $client, 'budget_items' => $budget_items , 'logo' => $logobase64, 'logopie' => $logopie64])->setPaper('a4')->setOptions(['margin-bottom' => 0,'margin-top' => 0,'margin-left' => 0,'margin-right' => 0])->stream();
+    }
+
+    public function getPdf2($id)
+    {
+        $path = base_path('../public/assets/media/originales/Original_lignos_seguro.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $logobase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        $path = base_path('../public/assets/media/originales/Original_lignos_seguro_pie.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $logopie64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        $budget = Budget::find($id);
+        $client = Client::find($budget->client_id);
+        $budget_items = Budget_item::where('budget_id', $id)->get();
+
+        return view('budget.pdf', ['budget' => $budget, 'client' => $client, 'budget_items' => $budget_items, 'logo' => $logobase64, 'logopie' => $logopie64]);
     }
 }

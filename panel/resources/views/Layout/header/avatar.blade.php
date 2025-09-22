@@ -1,7 +1,8 @@
 <div class="dropdown">
     <button type="button" class="btn border-0 rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="true">
-        <img src="{{env('APP_URL')}}/assets/media/avatar.jpg" class="rounded-circle" height="48">
-        <i class="fa-solid fa-caret-down text-black" style="position: relative;left: -15px;bottom: -20px;"></i>
+        @php $imgerror = env('APP_URL').'/assets/media/avatar.jpg'; @endphp
+        <img src="{{Auth::user()->imagen}}" onerror='this.src="{{$imgerror}}"' class="rounded-circle" height="50" width="50" alt="Avatar">
+        <i class="fa-solid fa-caret-down text-type1" style="position: relative;left: -15px;bottom: -20px;"></i>
     </button>
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark rounded-0 p-0">
         <li>
@@ -15,3 +16,4 @@
         </li>
     </ul>
 </div>
+

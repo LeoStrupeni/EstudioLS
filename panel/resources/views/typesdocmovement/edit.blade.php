@@ -9,7 +9,7 @@
                 <div style="display:block;" class="text-center">
                     <br>
                     <br>
-                    <div class="alert alert-type2 m-0 justify-content-center" role="alert">
+                    <div class="alert alert-type1 m-0 justify-content-center" role="alert">
                         <h5 class="m-0">Error al obtener la informacion. Por favor reintentelo o comuniquese con Soporte</h5>
                     </div>
                     <br>
@@ -32,16 +32,16 @@
                     @method('PUT')
                     <div class="mb-2">
                         <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                        <input type="text" class="form-control validate" name="name" id="e_name" placeholder="" required value="{{ old('name') }}">
+                        <input type="text" class="form-control form-control-sm validate" name="name" id="e_name" placeholder="" required value="{{ old('name') }}">
                     </div>
                     <div class="mb-2">
                         <label for="description" class="form-label mb-0 ps-3">Descripcion</label>
-                        <input type="text" class="form-control" name="description" id="e_description" required value="{{ old('description') }}">
+                        <input type="text" class="form-control form-control-sm" name="description" id="e_description" required value="{{ old('description') }}">
                     </div>
                     <div class="mb-2">
                         <label for="type" class="form-label mb-0 ps-3">Tipo</label>
-                        <select class="form-control validate" name="type" id="e_type" style="width: 100%" required>
-                            <option></option>
+                        <select class="form-select form-select-sm validate" name="type" id="e_type" style="width: 100%" required>
+                            <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                             <option value="I">Ingreso</option>
                             <option value="E">Egreso</option>
                             <option value="IE">Ingreso y Egreso</option>

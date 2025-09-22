@@ -4,6 +4,7 @@ function callregister(url_query,page,limit,table_orden,callpaginas){
     $('#table_roller').removeClass('d-none');
     $('#table_info').empty();
     $('#table_body').empty();
+    $('#table_small').empty();
 
     if(callpaginas=='si'){ $('#table_pagination').empty();}
 
@@ -38,7 +39,7 @@ function callregister(url_query,page,limit,table_orden,callpaginas){
 
 
 function createPagination(pages, page, callpaginas, url_query) {
-    let str = '<ul class="pagination justify-content-end my-1">';
+    let str = '<ul class="pagination justify-content-center justify-content-md-end my-1">';
     let active;
     let pageactive = 1;
     let pageCutLow = page - 1;

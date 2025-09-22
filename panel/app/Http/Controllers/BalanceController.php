@@ -64,7 +64,7 @@ class BalanceController extends Controller
             $querylist .= " OFFSET " . ($limit * $page - $limit);
         }
 
-        $lista = DB::select(DB::raw($query . $querylist));
+        $lista = DB::select($query . $querylist);
 
         $respuesta['totales'] = $totales;
         $respuesta['filtrados'] = count($filtrados);
@@ -102,7 +102,7 @@ class BalanceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $request->validate([
                 'type' => ['required'],
                 'type_money' => ['required'],
@@ -129,6 +129,17 @@ class BalanceController extends Controller
             'created_at' => Carbon::now(),
             'updated_at' => null
         ]);
+        if($request->type == 'saldo'){
+            $request2 = new Request();
+            $request2->setMethod('POST');
+            $request2->query->add(array(
+                'type' => 'caja',
+                'type_money' => $request->type_money,
+                'detail' => 'inicial',
+                'balance' => $request->price
+            ));
+            $this->registerMovBalance($request2);
+        }
 
         return redirect()->route('balances.index');
 
@@ -180,7 +191,18 @@ class BalanceController extends Controller
         if(count($datos) > 0){
             Balance_Opening::where('id',$id)->update($datos);
         }
-        
+        if($request->type == 'saldo'){
+            $request2 = new Request();
+            $request2->setMethod('POST');
+            $request2->query->add(array(
+                'type' => 'caja',
+                'type_money' => $request->type_money,
+                'detail' => 'inicial',
+                'balance' => $request->price
+            ));
+            $this->registerMovBalance($request2);
+        }
+
         return redirect()->route('balances.index');
     }
 

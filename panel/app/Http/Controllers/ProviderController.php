@@ -78,7 +78,7 @@ class ProviderController extends Controller
             $querylist .= " OFFSET " . ($limit * $page - $limit);
         }
 
-        $lista = DB::select(DB::raw($query . $querylist));
+        $lista = DB::select($query . $querylist);
 
         $respuesta['totales'] = $totales;
         $respuesta['filtrados'] = count($filtrados);

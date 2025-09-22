@@ -9,7 +9,7 @@
                 <div style="display:block;" class="text-center">
                     <br>
                     <br>
-                    <div class="alert alert-type2 m-0 justify-content-center" role="alert">
+                    <div class="alert alert-type1 m-0 justify-content-center" role="alert">
                         <h5 class="m-0">Error al obtener la informacion. Por favor reintentelo o comuniquese con Soporte</h5>
                     </div>
                     <br>
@@ -32,7 +32,7 @@
                     @method('PUT')
                     <div class="mb-2">
                         <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                        <input type="text" class="form-control validate" name="name" id="e_name" placeholder="" required value="{{ old('name') }}">
+                        <input type="text" class="form-control form-control-sm validate" name="name" id="e_name" placeholder="" required value="{{ old('name') }}">
                     </div>
 
                 </form>

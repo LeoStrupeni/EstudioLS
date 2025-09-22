@@ -9,7 +9,7 @@
                 <div style="display:block;" class="text-center">
                     <br>
                     <br>
-                    <div class="alert alert-type2 m-0 justify-content-center" role="alert">
+                    <div class="alert alert-type1 m-0 justify-content-center" role="alert">
                         <h5 class="m-0">Error al obtener la informacion. Por favor reintentelo o comuniquese con Soporte</h5>
                     </div>
                     <br>
@@ -30,84 +30,84 @@
                 <form id="formshowprovider">
                     <div class="mb-2">
                         <label for="first_name" class="form-label mb-0 ps-3 fw-bold">Nombre</label>
-                        <input type="text" class="form-control" name="first_name" readonly>
+                        <input type="text" class="form-control form-control-sm" name="first_name" readonly>
                     </div>
                     <div class="mb-2">
                         <label for="last_names" class="form-label mb-0 ps-3 fw-bold">Apellido</label>
-                        <input type="text" class="form-control" name="last_names" readonly>
+                        <input type="text" class="form-control form-control-sm" name="last_names" readonly>
                     </div>
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="type_doc" class="form-label mb-0 ps-3 fw-bold">Tipo Doc</label>
-                                <input type="text" class="form-control" name="type_doc" readonly>
+                                <input type="text" class="form-control form-control-sm" name="type_doc" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="num_doc" class="form-label mb-0 ps-3 fw-bold">Num Doc</label>
-                                <input type="text" class="form-control" name="num_doc" readonly>
+                                <input type="text" class="form-control form-control-sm" name="num_doc" readonly>
                             </div>
                         </div>
                     </div>
                     
                     <div class="mb-2">
                         <label for="email" class="form-label mb-0 ps-3 fw-bold">E-mail</label>
-                        <input type="text" class="form-control" name="email" readonly>
+                        <input type="text" class="form-control form-control-sm" name="email" readonly>
                     </div>
                     <div class="row">
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="phone1" class="form-label mb-0 ps-3 fw-bold">Teléfono 1</label>
-                                <input type="text" class="form-control" name="phone1" readonly>
+                                <input type="text" class="form-control form-control-sm" name="phone1" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="phone2" class="form-label mb-0 ps-3 fw-bold">Teléfono 2</label>
-                                <input type="text" class="form-control" name="phone2" readonly>
+                                <input type="text" class="form-control form-control-sm" name="phone2" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="country" class="form-label mb-0 ps-3 fw-bold">País</label>
-                                <input type="text" class="form-control" name="country" readonly>
+                                <input type="text" class="form-control form-control-sm" name="country" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="state" class="form-label mb-0 ps-3 fw-bold">Provincia</label>
-                                <input type="text" class="form-control" name="state" readonly>
+                                <input type="text" class="form-control form-control-sm" name="state" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="city" class="form-label mb-0 ps-3 fw-bold">Ciudad</label>
-                                <input type="text" class="form-control" name="city" readonly>
+                                <input type="text" class="form-control form-control-sm" name="city" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="address_street" class="form-label mb-0 ps-3 fw-bold">Calle</label>
-                                <input type="text" class="form-control" name="address_street" readonly>
+                                <input type="text" class="form-control form-control-sm" name="address_street" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="address_nro" class="form-label mb-0 ps-3 fw-bold">Nro</label>
-                                <input type="text" class="form-control" name="address_nro" readonly>
+                                <input type="text" class="form-control form-control-sm" name="address_nro" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="mb-2">
                                 <label for="address_apartament" class="form-label mb-0 ps-3 fw-bold">Piso / Dpto</label>
-                                <input type="text" class="form-control" name="address_apartament" readonly>
+                                <input type="text" class="form-control form-control-sm" name="address_apartament" readonly>
                             </div>
                         </div>
                     </div>
                     <div class="mb-2">
                         <label for="address_detail" class="form-label mb-0 ps-3 fw-bold">Descripcion</label>
-                        <input type="text" class="form-control" name="address_detail" readonly>
+                        <input type="text" class="form-control form-control-sm" name="address_detail" readonly>
                     </div>
                 </form>
             </div>

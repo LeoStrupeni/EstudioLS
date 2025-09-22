@@ -9,7 +9,7 @@
                 <div style="display:block;" class="text-center">
                     <br>
                     <br>
-                    <div class="alert alert-type2 m-0 justify-content-center" role="alert">
+                    <div class="alert alert-type1 m-0 justify-content-center" role="alert">
                         <h5 class="m-0">Error al obtener la informacion. Por favor reintentelo o comuniquese con Soporte</h5>
                     </div>
                     <br>
@@ -33,22 +33,22 @@
 
                     <div class="mb-2">
                         <label for="type" class="form-label mb-0 ps-3 fw-bold">Tipo</label>
-                        <input type="text" class="form-control" name="type" readonly>
+                        <input type="text" class="form-control form-control-sm" name="type" readonly>
                     </div>
 
                     <div class="mb-2">
                         <label for="type_money" class="form-label mb-0 ps-3 fw-bold">Moneda</label>
-                        <input type="text" class="form-control" name="type_money" readonly>
+                        <input type="text" class="form-control form-control-sm" name="type_money" readonly>
                     </div>
 
                     <div class="mb-2">
                         <label for="fecha" class="form-label mb-0 ps-3 fw-bold">Fecha</label>
-                        <input type="text" class="form-control validate" name="fecha" readonly>
+                        <input type="text" class="form-control form-control-sm validate" name="fecha" readonly>
                     </div>
 
                     <div class="mb-2">
                         <label for="price" class="form-label mb-0 ps-3 fw-bold">Monto</label>
-                        <input type="number" class="form-control validate" name="price" required value="{{ old('price') }}" onchange="validateinputsform(document.getElementById('formeditbalances'));">  
+                        <input type="number" class="form-control form-control-sm validate" name="price" required value="{{ old('price') }}" onchange="validateinputsform(document.getElementById('formeditbalances'));">  
                     </div>
 
                 </form>

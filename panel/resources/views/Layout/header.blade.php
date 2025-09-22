@@ -1,7 +1,7 @@
 @auth
     <nav class="navbar navbar-expand-lg p-0 sticky-top" style="background-color: rgb(232 228 217 / 90%) !important; height: 65px;">
         <div class="container-fluid">
-            <a class="navbar-brand m-0 ps-5" href="{{ url('/') }}">
+            <a class="navbar-brand m-0 ps-1 ps-md-5" href="{{ url('/') }}">
                 <img src="{{env('APP_URL')}}/assets/media/originales/logo_lignos_seguro.png" alt="Logo" height="60">
             </a>
 

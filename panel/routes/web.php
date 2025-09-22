@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 // 	dd( base_path(). '/../public/storage/',env('APP_URL'),storage_path('app'));
 // });
 Route::get('test', function () {
-    dd(file_exists(base_path('vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64')));
+    dd(base_path('../public/fonts/'), env('APP_URL'), storage_path('app'));
 });
 
 Route::view('/public','home')->name('home');
@@ -32,7 +32,7 @@ Route::get('/', [HomeController::class,'index']);
 
 Route::view('/login','Auth.login')->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class,'login']);
-Route::post('/logout', [LoginController::class,'logout']);
+Route::post('/logout', [LoginController::class,'logout'])->name('logout');
 Route::get('/logout', [LoginController::class,'logoutGet']);
 
 Route::view('/password/reset','Auth.passwords.email')->name('password.request');
@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/budget',BudgetController::class);
     Route::post('/budget/table', [BudgetController::class,'getDataTable']);
+    Route::get('/budget/client/{id}', [BudgetController::class,'getDataCliente']);
     Route::get('/budget/pdf/{id}', [BudgetController::class,'getPdf'])->name('budget.pdf');
     Route::get('/budget/pdf2/{id}', [BudgetController::class,'getPdf2'])->name('budget.pdf2');
 
@@ -85,4 +86,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/balances', BalanceController::class);
     Route::post('/balances/table', [BalanceController::class,'getDataTable']);
+
+    Route::post('/fastcharge', [Controller::class,'fastcharge'])->name('fastcharge');
 });

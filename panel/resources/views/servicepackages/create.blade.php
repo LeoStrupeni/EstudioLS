@@ -10,18 +10,18 @@
                     @csrf
                     <div class="mb-2">
                         <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                        <input type="text" class="form-control validate" name="name" id="name" placeholder="" required value="{{ old('name') }}">
+                        <input type="text" class="form-control form-control-sm validate" name="name" id="name" placeholder="" required value="{{ old('name') }}">
                     </div>
                     <div class="mb-2">
                         <label for="observations" class="form-label mb-0 ps-3 fw-bold">Descripcion</label>
-                        <input type="text" class="form-control" name="observations" id="observations" value="{{ old('observations') }}">
+                        <input type="text" class="form-control form-control-sm" name="observations" id="observations" value="{{ old('observations') }}">
                     </div>
                     <div class="row p-2 mb-3">
                         <div class="col-12 col-md-6">
                             <div class="">
                                 <label for="services" class="form-label mb-0 ps-3 fw-bold">Servicio</label>
-                                <select class="form-control" id="services" onchange="getServiceDetails(this)"> 
-                                    <option></option>
+                                <select class="form-select form-select-sm" id="services" onchange="getServiceDetails(this)"> 
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     @foreach($services as $service)
                                         <option value="{{ $service->id }}">{{ $service->name }}</option>
                                     @endforeach
@@ -37,7 +37,7 @@
                                     </span>
                                 </label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="services-description">
+                                    <input type="text" class="form-control form-control-sm" id="services-description">
                                     <button class="btn btn-type1 p-1" type="button" onclick="addServiceTable()">
                                         <i class="fas fa-plus"></i>
                                     </button>

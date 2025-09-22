@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permission;
+use App\Models\Rol;
 use App\Models\Role_Has_Permission;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -71,7 +72,7 @@ class PermissionController extends Controller
             $querylist .= " OFFSET " . ($limit * $page - $limit);
         }
 
-        $lista = DB::select(DB::raw($query . $querylist));
+        $lista = DB::select($query . $querylist);
 
         $respuesta['totales'] = $totales;
         $respuesta['filtrados'] = count($filtrados);
@@ -108,6 +109,8 @@ class PermissionController extends Controller
             ]
         );
 
+        $roles = Rol::all();
+        
         foreach ($request->opciones as $val) {
             Permission::create([
                 'name' => $val.' '.strtolower(str_replace(" ", "_", $request->name)),
@@ -115,6 +118,18 @@ class PermissionController extends Controller
                 'general'=> strtolower(str_replace(" ", "_", $request->name)),
                 'guard_name' => 'web',
             ]);
+            foreach ($roles as $rol) {
+                if($rol->name == 'admin' || $rol->name == 'sistema'){
+                    $request2 = new Request();
+                    $request2->setMethod('POST');
+                    $request2->query->add(array(
+                        'general' => $request->name,
+                        'tipo' => $val,
+                        'rolid' => $rol->id
+                    ));
+                    $this->updaterolpermission($request2);
+                }
+            }
         }
 
         return redirect()->route('permission.index');
@@ -125,13 +140,14 @@ class PermissionController extends Controller
         $permisos = Role_Has_Permission::join('permissions','permissions.id','role_has_permissions.permission_id')
             ->where('role_has_permissions.role_id',$rolid)
             ->wherenull('permissions.deleted_at')
-            ->selectRaw("general, 
+            ->selectRaw("general, traslate,
                 IF(GROUP_CONCAT(SUBSTRING_INDEX(name,' ',1)) like '%create%', 1, 0) as p_create,
                 IF(GROUP_CONCAT(SUBSTRING_INDEX(name,' ',1)) like '%read%', 1, 0) as p_read,
-                IF(GROUP_CONCAT(SUBSTRING_INDEX(name,' ',1)) like '%ùpdate%', 1, 0) as p_update,
+                IF(GROUP_CONCAT(SUBSTRING_INDEX(name,' ',1)) like '%update%', 1, 0) as p_update,
                 IF(GROUP_CONCAT(SUBSTRING_INDEX(name,' ',1)) like '%delete%', 1, 0) as p_delete
             ")
             ->groupby('general')
+            ->groupby('traslate')
         ->get()->toArray();
 
         $list = Permission::select('general')->groupby('general')->pluck('general');

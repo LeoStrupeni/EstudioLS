@@ -15,7 +15,7 @@ class CreateMoneyMovementTable extends Migration
     {
         Schema::create('money_movement', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['ingreso', 'egreso']);
+            $table->enum('type', ['ingreso', 'egreso', 'cambio', 'caja']);
             $table->enum('type_money', ['dolar', 'peso']);
             $table->enum('type_document', ['compra', 'anticipo', 'factura', 'notaderemision', 'nomina', 'prestamo']);
             $table->enum('type_payment', ['efectivo', 'transferencia', 'credito', 'mercadopago']);
@@ -28,6 +28,7 @@ class CreateMoneyMovementTable extends Migration
             $table->text('description')->nullable();
             $table->double('deposit', 20, 4)->default(0);
             $table->double('expense', 20, 4)->default(0);
+            $table->double('price_usd', 20, 4)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

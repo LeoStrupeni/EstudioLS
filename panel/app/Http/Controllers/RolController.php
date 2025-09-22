@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Rol;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -66,7 +67,7 @@ class RolController extends Controller
             $querylist .= " OFFSET " . ($limit * $page - $limit);
         }
 
-        $lista = DB::select(DB::raw($query . $querylist));
+        $lista = DB::select($query . $querylist);
 
         $respuesta['totales'] = $totales;
         $respuesta['filtrados'] = count($filtrados);

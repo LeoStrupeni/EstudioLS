@@ -74,7 +74,7 @@ class ClientController extends Controller
             $querylist .= " OFFSET " . ($limit * $page - $limit);
         }
 
-        $lista = DB::select(DB::raw($query . $querylist));
+        $lista = DB::select($query . $querylist);
 
         $respuesta['totales'] = $totales;
         $respuesta['filtrados'] = count($filtrados);
@@ -106,7 +106,7 @@ class ClientController extends Controller
                 'last_names' => ['required','string'],
                 'type_doc' => ['required'],
                 'num_doc' => ['required'],
-                'email' => ['email','string'],
+                // 'email' => ['email','string'],
             ],
             [
                 'required' => 'El campo es requerido.',

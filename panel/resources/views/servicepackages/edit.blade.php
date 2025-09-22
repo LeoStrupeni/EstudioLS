@@ -9,7 +9,7 @@
                 <div style="display:block;" class="text-center">
                     <br>
                     <br>
-                    <div class="alert alert-type2 m-0 justify-content-center" role="alert">
+                    <div class="alert alert-type1 m-0 justify-content-center" role="alert">
                         <h5 class="m-0">Error al obtener la informacion. Por favor reintentelo o comuniquese con Soporte</h5>
                     </div>
                     <br>
@@ -32,18 +32,18 @@
                     @method('PUT')
                     <div class="mb-2">
                         <label for="name" class="form-label mb-0 ps-3">Nombre</label>
-                        <input type="text" class="form-control validate" name="name" placeholder="" required value="{{ old('name') }}">
+                        <input type="text" class="form-control form-control-sm validate" name="name" placeholder="" required value="{{ old('name') }}">
                     </div>
                     <div class="mb-2">
                         <label for="observations" class="form-label mb-0 ps-3 fw-bold">Descripcion</label>
-                        <input type="text" class="form-control" name="observations" value="{{ old('observations') }}">
+                        <input type="text" class="form-control form-control-sm" name="observations" value="{{ old('observations') }}">
                     </div>
                     <div class="row p-2 mb-3">
                         <div class="col-12 col-md-6">
                             <div class="">
                                 <label for="services_edit" class="form-label mb-0 ps-3 fw-bold">Servicio</label>
-                                <select class="form-control" id="services_edit" onchange="getServiceDetails_edit(this)"> 
-                                    <option></option>
+                                <select class="form-select form-select-sm" id="services_edit" onchange="getServiceDetails_edit(this)"> 
+                                    <option value="" selected class="select-empty" style="color: #aaa;">Seleccione una opcion ...</option>
                                     @foreach($services as $service)
                                         <option value="{{ $service->id }}">{{ $service->name }}</option>
                                     @endforeach
@@ -59,7 +59,7 @@
                                     </span>
                                 </label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="services-description_edit">
+                                    <input type="text" class="form-control form-control-sm" id="services-description_edit">
                                     <button class="btn btn-type1 p-1" type="button" onclick="addServiceTable_edit()">
                                         <i class="fas fa-plus"></i>
                                     </button>

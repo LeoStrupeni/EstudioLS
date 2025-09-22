@@ -587,5 +587,14 @@
             color: var(--bs-dark)!important;
         }
     
+        select option[value] {
+            color: black;
+        }
+        .select-empty {
+            color: #aaa;
+        }
+        input::placeholder {
+            color: #aaa!important;
+        }
     </style>
 </head>
