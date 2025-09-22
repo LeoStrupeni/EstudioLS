@@ -13,7 +13,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Barryvdh\Snappy\Facades\SnappyPdf AS PDF;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Dompdf\Options;
 use Spatie\LaravelPdf\Enums\Format;
 
 class BudgetController extends Controller
@@ -334,20 +335,42 @@ class BudgetController extends Controller
 
     public function getPdf($id)
     {
-        $css = env('APP_URL') . '/assets/css/bootstrap.min.css';
+        $path = base_path('../public/assets/media/originales/Original_lignos_seguro.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $logobase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        $path = base_path('../public/assets/media/originales/Original_lignos_seguro_pie.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $logopie64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
         $budget = Budget::find($id);
         $client = Client::find($budget->client_id);
         $budget_items = Budget_item::where('budget_id', $id)->get();
 
-        return PDF::loadView('budget.pdf', ['budget' => $budget, 'client' => $client, 'budget_items' => $budget_items , 'css' => $css])->setPaper('a4')->setOptions(['margin-bottom' => 0,'margin-top' => 0,'margin-left' => 0,'margin-right' => 0])->inline('presupuesto-' . time() . '.pdf');
+        // $options = new Options();
+        // $options->setIsRemoteEnabled(true);
+
+        return PDF::loadView('budget.pdf', ['budget' => $budget, 'client' => $client, 'budget_items' => $budget_items , 'logo' => $logobase64, 'logopie' => $logopie64])->setPaper('a4')->setOptions(['margin-bottom' => 0,'margin-top' => 0,'margin-left' => 0,'margin-right' => 0])->stream();
     }
 
     public function getPdf2($id)
     {
+        $path = base_path('../public/assets/media/originales/Original_lignos_seguro.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $logobase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        $path = base_path('../public/assets/media/originales/Original_lignos_seguro_pie.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $logopie64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
         $budget = Budget::find($id);
         $client = Client::find($budget->client_id);
         $budget_items = Budget_item::where('budget_id', $id)->get();
 
-        return view('budget.pdf', ['budget' => $budget, 'client' => $client, 'budget_items' => $budget_items]);
+        return view('budget.pdf', ['budget' => $budget, 'client' => $client, 'budget_items' => $budget_items, 'logo' => $logobase64, 'logopie' => $logopie64]);
     }
 }

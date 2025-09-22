@@ -1,15 +1,25 @@
-<div class="col-12 headpdf">
-    <div class="row">
-        <div class="col-8 ml-4 mt-4">
-            @if ($page == 1)
-                <p class="merriweather-sans-family mb-1" style="font-size: 2.3rem!important;">PRESUPUESTO</p>
-                <p class="questrial-regular ms-2" style="font-size: 1.2rem!important;"> {{date('d/m/Y',strtotime($budget->fecha))}} - Válido por {{ $budget->valid }} días</p>
-            @endif
+<div class="headpdf">
+    @if ($page == 1)
+        <div class="row">
+            <div class="span8" style="padding-top: 4rem;padding-left: 2.5rem;">
+                <p class="mb-4" style="font-size: 2.3rem!important;">PRESUPUESTO</p>
+                <p class="questrial-regular" style="font-size: 1.2rem!important;"> {{date('d/m/Y',strtotime($budget->fecha))}} - Válido por {{ $budget->valid }} días</p>
+            </div>
+            <div class="span3" style="padding-top: 0.3rem; padding-left: 1.5rem;">
+                <p style="text-align:right;"><small>Página {{$page}}</small></p>
+                <img style="position: relative; top: -1rem;" width="180" src="{{$logo}}" alt="">
+            </div>
         </div>
-        <div class="col-3 mt-3">
-            <span class="float-right"><small>Página {{$page}}</small></span>
-            <img class="img-fluid" style="position: relative; top: -15px;" src="{{env('APP_URL')}}/assets/media/originales/Original_lignos_seguro.png" alt="">
+            
+    @else
+        <div class="row">
+            <div class="span8" style="padding-top: 3rem;padding-left: 2.5rem;">
+            </div>
+            <div class="span3" style="padding-top: 0.3rem; padding-left: 1.5rem;">
+                <p class="questrial-regular" style="text-align:right;"><small>Página {{$page}}</small></p>
+                <img style="position: relative; top: -1rem;" width="180" src="{{$logo}}" alt="">
+            </div>
         </div>
-    </div>
+    @endif
 </div>
 
